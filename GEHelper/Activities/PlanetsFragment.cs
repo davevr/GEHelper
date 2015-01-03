@@ -52,6 +52,7 @@ namespace GEHelper.Activities
     {
         private ListView planetList;
         TextView summaryView;
+        public SummaryScreen SummaryPage { get; set; }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

@@ -15,6 +15,8 @@ namespace GEHelper.Activities
     [Activity(Label = "SearchAndScanActivity")]
     public class SearchAndScanActivity : Fragment
     {
+        public SummaryScreen SummaryPage { get; set; }
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);

@@ -14,13 +14,9 @@ using Android.Widget;
 namespace GEHelper.Activities
 {
    
-
-   
-
-
-
     public class FleetFragment : Fragment
     {
+        public SummaryScreen SummaryPage { get; set; }
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);

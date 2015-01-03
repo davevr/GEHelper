@@ -23,7 +23,7 @@ namespace GEHelper.Activities
         private ActionBar.Tab fleetTab;
         private PlanetsFragment planetFragment = null;
         private SearchAndScanActivity searchFragment = null;
-        FleetFragment fleetFragment = null;
+        private FleetFragment fleetFragment = null;
 
 
         protected override void OnCreate(Bundle bundle)
@@ -42,12 +42,12 @@ namespace GEHelper.Activities
                 if (planetFragment == null)
                 {
                     planetFragment = new Activities.PlanetsFragment();
+                    planetFragment.SummaryPage = this;
                     e.FragmentTransaction.Add(Resource.Id.fragmentContainer, planetFragment);
                 }
                 else
                 {
                     e.FragmentTransaction.Show(planetFragment);
-                    StartRefresh();
                 }
                      
             };
@@ -55,6 +55,11 @@ namespace GEHelper.Activities
             planetTab.TabUnselected += delegate(object sender, ActionBar.TabEventArgs e)
             {
                 e.FragmentTransaction.Hide(planetFragment);
+            };
+
+            planetTab.TabReselected += delegate(object sender, ActionBar.TabEventArgs e)
+            {
+                StartRefresh();
             };
 
             searchTab = this.ActionBar.NewTab();
@@ -65,12 +70,12 @@ namespace GEHelper.Activities
                 if (searchFragment == null)
                 {
                     searchFragment = new Activities.SearchAndScanActivity();
+                    searchFragment.SummaryPage = this;
                     e.FragmentTransaction.Add(Resource.Id.fragmentContainer, searchFragment);
                 }
                 else
                 {
                     e.FragmentTransaction.Show(searchFragment);
-                    StartRefresh();
                 }
 
             };
@@ -78,6 +83,11 @@ namespace GEHelper.Activities
             searchTab.TabUnselected += delegate(object sender, ActionBar.TabEventArgs e)
             {
                 e.FragmentTransaction.Hide(searchFragment);
+            };
+
+            searchTab.TabReselected += delegate(object sender, ActionBar.TabEventArgs e)
+            {
+                StartRefresh();
             };
 
             fleetTab = this.ActionBar.NewTab();
@@ -88,13 +98,13 @@ namespace GEHelper.Activities
                 if (fleetFragment == null)
                 {
                     fleetFragment = new Activities.FleetFragment();
+                    fleetFragment.SummaryPage = this;
                     e.FragmentTransaction.Add(Resource.Id.fragmentContainer, fleetFragment);
                     
                 }
                 else
                 {
                     e.FragmentTransaction.Show(fleetFragment);
-                    StartRefresh();
                 }
 
             };
@@ -102,6 +112,11 @@ namespace GEHelper.Activities
             fleetTab.TabUnselected += delegate(object sender, ActionBar.TabEventArgs e)
             {
                 e.FragmentTransaction.Hide(fleetFragment);
+            };
+
+            fleetTab.TabReselected += delegate(object sender, ActionBar.TabEventArgs e)
+            {
+                StartRefresh();
             };
 
             this.ActionBar.AddTab(planetTab);
