@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="Hello">Sign In</string>
+	<string name="ApplicationName">GEHelper</string>
+	<string name="signIn">Sign In</string>
+	<string name="password">password</string>
+	<string name="username">username</string>
+	<string name="err_login">Login failed! Check email or password</string>
+	<string name="chooseYourUniverse">Choose your Universe!</string>
+	<string name="summaryScreenTitle">Planets Screen Title</string>
+	<string name="summaryScreenFooter">Footer Area</string>
+	<string name="scanTitleText">Scan Title Text</string>
+  <string name="fleetTitleText">Fleet Status</string>
+</resources>
