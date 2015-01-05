@@ -6,11 +6,15 @@
     android:minWidth="25px"
     android:weightSum="1"
     android:minHeight="25px">
-    <ListView
+    <pulltorefresharp.android.views.ViewWrapper
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="1"
-        android:id="@+id/PlanetList" />
+        android:layout_weight="1">
+        <pulltorefresharp.android.widget.ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/PlanetList" />
+    </pulltorefresharp.android.views.ViewWrapper>
     <TextView
         android:text="@string/summaryScreenFooter"
         android:textAppearance="?android:attr/textAppearanceSmall"

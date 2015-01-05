@@ -42,7 +42,7 @@ namespace GEHelper.Activities
             Core.GEPlanet curPlanet = Core.GEServer.Instance.ServerState.planetList[position];
 
             view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = curPlanet.name;
-            string descString = String.Format("M:{0:0,0}, C:{1:0,0}, D:{2:0,0}", curPlanet.metal, curPlanet.crystal, curPlanet.deuterium);
+            string descString = String.Format("M:{0:0,0}  C:{1:0,0}  D:{2:0,0}", curPlanet.metal, curPlanet.crystal, curPlanet.deuterium);
             view.FindViewById<TextView>(Android.Resource.Id.Text2).Text = descString;
             return view;
         }
@@ -50,7 +50,7 @@ namespace GEHelper.Activities
 
     public class PlanetsFragment : Fragment
     {
-        private ListView planetList;
+        private PullToRefresharp.Android.Widget.ListView planetList;
         TextView summaryView;
         public SummaryScreen SummaryPage { get; set; }
 
@@ -60,10 +60,16 @@ namespace GEHelper.Activities
 
             var view = inflater.Inflate(Resource.Layout.PlanetsFragment, container, false);
 
-            planetList = view.FindViewById<ListView>(Resource.Id.PlanetList);
+            planetList = view.FindViewById<PullToRefresharp.Android.Widget.ListView>(Resource.Id.PlanetList);
             planetList.Adapter = new PlanetListAdapter(this.Activity, null);
 
             summaryView = view.FindViewById<TextView>(Resource.Id.summaryFooterText);
+
+            planetList.RefreshActivated += (o, e) =>
+                {
+                    SummaryPage.StartRefresh(() => { planetList.OnRefreshCompleted(); });
+
+                };
 
             Refresh();
 
@@ -75,13 +81,19 @@ namespace GEHelper.Activities
             try
             {
                 planetList.InvalidateViews();
+                planetList.SmoothScrollToPosition(0);
                 summaryView.Text = Core.GEServer.Instance.ServerState.SummaryText;
+                
             }
             catch (Exception exp)
             {
-                System.Console.WriteLine("Refresh failed!");
+                System.Console.WriteLine("Refresh failed:  " + exp.Message);
                 // do nothing
             }
         }
+
+       
+
+
     }
 }

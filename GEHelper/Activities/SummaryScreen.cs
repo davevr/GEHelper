@@ -9,122 +9,197 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-
+using Android.Graphics;
+using Android.Graphics.Drawables;
+using Android.Animation;
+using Android.Views.Animations;
+using Android.Util;
+using Android.Support.V7.Widget;
+using Android.Support.V7.View;
+using Android.Support.V7.AppCompat;
+using Android.Support.V7.App;
+using Android.Support.V4.Widget;
 
 namespace GEHelper.Activities
 {
-    [Activity(Label = "Galactic Empires Helper") ]
-    public class SummaryScreen : Activity
+    [Activity(Label = "Galactic Empires Helper", Icon = "@drawable/icon", Theme = "@style/Theme.AppCompat.Light", MainLauncher = true)]
+    public class SummaryScreen : Android.Support.V7.App.ActionBarActivity
     {
         private bool refreshInProgress = false;
-        private ActionBar.Tab currentTab = null;
-        private ActionBar.Tab planetTab;
-        private ActionBar.Tab searchTab;
-        private ActionBar.Tab fleetTab;
+
         private PlanetsFragment planetFragment = null;
         private SearchAndScanActivity searchFragment = null;
         private FleetFragment fleetFragment = null;
 
+        public event Action PulledToRefresh;
 
+        private String[] mPlanetTitles = new string[] { "Planets", "Universe", "Fleet", "Strategy" };
+        private DrawerLayout mDrawerLayout;
+        private ListView mDrawerList;
+        private string mDrawerTitle;
+        private MyDrawerToggle mDrawerToggle;
+
+        class MyDrawerToggle : Android.Support.V7.App.ActionBarDrawerToggle
+        {
+            private  string openString, closeString;
+            private SummaryScreen baseActivity;
+
+            public MyDrawerToggle(Activity activity, DrawerLayout drawerLayout, int openDrawerContentDescRes, int closeDrawerContentDescRes) :
+                base ( activity,  drawerLayout,  openDrawerContentDescRes,  closeDrawerContentDescRes)
+            {
+                baseActivity = (SummaryScreen)activity;
+                openString = baseActivity.Resources.GetString(openDrawerContentDescRes);
+                closeString = baseActivity.Resources.GetString(closeDrawerContentDescRes);
+            }
+            public override void OnDrawerOpened(View drawerView)
+            {
+ 	             base.OnDrawerOpened(drawerView);
+                //baseActivity.Title = openString;
+
+                
+            }
+
+            public override void OnDrawerClosed(View drawerView)
+            {
+ 	             base.OnDrawerClosed(drawerView);
+                //baseActivity.Title = closeString;
+            }
+        }
+     
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.SummaryScreen);
-            ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
 
-            planetTab = this.ActionBar.NewTab();
+            // set up drawer
+            mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            mDrawerList = FindViewById<ListView>(Resource.Id.left_drawer);
+            // Set the adapter for the list view
+            mDrawerList.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, mPlanetTitles);
+            // Set the list's click listener
+            mDrawerList.ItemClick += mDrawerList_ItemClick;
 
-            planetTab.SetText("Planets");
-            planetTab.TabSelected += delegate(object sender, ActionBar.TabEventArgs e)
-            {
-                currentTab = planetTab;
-                if (planetFragment == null)
-                {
-                    planetFragment = new Activities.PlanetsFragment();
-                    planetFragment.SummaryPage = this;
-                    e.FragmentTransaction.Add(Resource.Id.fragmentContainer, planetFragment);
-                }
-                else
-                {
-                    e.FragmentTransaction.Show(planetFragment);
-                }
-                     
-            };
+            mDrawerToggle = new MyDrawerToggle(this, mDrawerLayout, Resource.String.drawer_open, Resource.String.drawer_close);
 
-            planetTab.TabUnselected += delegate(object sender, ActionBar.TabEventArgs e)
-            {
-                e.FragmentTransaction.Hide(planetFragment);
-            };
+            
+            mDrawerLayout.SetDrawerListener(mDrawerToggle);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetHomeButtonEnabled(true);
 
-            planetTab.TabReselected += delegate(object sender, ActionBar.TabEventArgs e)
-            {
-                StartRefresh();
-            };
+         
 
-            searchTab = this.ActionBar.NewTab();
-            searchTab.SetText("Scan");
-            searchTab.TabSelected += delegate(object sender, ActionBar.TabEventArgs e)
-            {
-                currentTab = searchTab;
-                if (searchFragment == null)
-                {
-                    searchFragment = new Activities.SearchAndScanActivity();
-                    searchFragment.SummaryPage = this;
-                    e.FragmentTransaction.Add(Resource.Id.fragmentContainer, searchFragment);
-                }
-                else
-                {
-                    e.FragmentTransaction.Show(searchFragment);
-                }
+            selectItem(0);
 
-            };
-
-            searchTab.TabUnselected += delegate(object sender, ActionBar.TabEventArgs e)
-            {
-                e.FragmentTransaction.Hide(searchFragment);
-            };
-
-            searchTab.TabReselected += delegate(object sender, ActionBar.TabEventArgs e)
-            {
-                StartRefresh();
-            };
-
-            fleetTab = this.ActionBar.NewTab();
-            fleetTab.SetText("Fleet");
-            fleetTab.TabSelected += delegate(object sender, ActionBar.TabEventArgs e)
-            {
-                currentTab = fleetTab;
-                if (fleetFragment == null)
-                {
-                    fleetFragment = new Activities.FleetFragment();
-                    fleetFragment.SummaryPage = this;
-                    e.FragmentTransaction.Add(Resource.Id.fragmentContainer, fleetFragment);
-                    
-                }
-                else
-                {
-                    e.FragmentTransaction.Show(fleetFragment);
-                }
-
-            };
-
-            fleetTab.TabUnselected += delegate(object sender, ActionBar.TabEventArgs e)
-            {
-                e.FragmentTransaction.Hide(fleetFragment);
-            };
-
-            fleetTab.TabReselected += delegate(object sender, ActionBar.TabEventArgs e)
-            {
-                StartRefresh();
-            };
-
-            this.ActionBar.AddTab(planetTab);
-            this.ActionBar.AddTab(searchTab);
-            this.ActionBar.AddTab(fleetTab);
         }
 
-        private void StartRefresh()
+        protected override void OnPostCreate(Bundle savedInstanceState)
+        {
+ 	         base.OnPostCreate(savedInstanceState);
+            mDrawerToggle.SyncState();
+        }
+
+        public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
+        {
+ 	         base.OnConfigurationChanged(newConfig);
+            mDrawerToggle.OnConfigurationChanged(newConfig);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+ 	         if (mDrawerToggle.OnOptionsItemSelected(item)) 
+             {
+                  return true;
+             }
+
+            // Handle your other action bar items...
+
+            return base.OnOptionsItemSelected(item);
+        }
+
+        void mDrawerList_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            selectItem(e.Position);
+        }
+
+        private Android.App.Fragment oldPage = null;
+
+        private void selectItem(int position)
+        {
+            Android.App.Fragment newPage = null;
+            var fragmentManager = this.FragmentManager;
+            var ft = fragmentManager.BeginTransaction();
+            bool firstTime = false;
+
+            switch (position)
+            {
+                case 0:
+                    if (planetFragment == null)
+                    {
+                        planetFragment = new PlanetsFragment();
+                        planetFragment.SummaryPage = this;
+                        firstTime = true;
+                    }
+                    newPage = planetFragment;
+                    break;
+                case 1:
+                    if (searchFragment == null)
+                    {
+                        searchFragment = new SearchAndScanActivity();
+                        searchFragment.SummaryPage = this;
+                        firstTime = true;
+                    }
+                    newPage = searchFragment;
+                    break;
+                case 2:
+                    if (fleetFragment == null)
+                    {
+                        fleetFragment = new FleetFragment();
+                        fleetFragment.SummaryPage = this;
+                        firstTime = true;
+                    }
+                    newPage = fleetFragment;
+                    break;
+                case 3:
+                    break;
+            }
+
+            if (oldPage != newPage)
+            {
+                if (oldPage != null)
+                {
+                    // to do - deactivate it
+                    ft.Hide(oldPage);
+
+                }
+
+                oldPage = newPage;
+
+                if (newPage != null)
+                {
+                    if (firstTime)
+                        ft.Add(Resource.Id.fragmentContainer, newPage);
+                    else
+                        ft.Show(newPage);
+                }
+                
+                ft.Commit();
+
+                // update selected item title, then close the drawer
+                Title = mPlanetTitles[position];
+                mDrawerList.SetItemChecked(position, true);
+                mDrawerLayout.CloseDrawer(mDrawerList);
+            }
+        }
+
+        protected override void OnTitleChanged(Java.Lang.ICharSequence title, Android.Graphics.Color color)
+        {
+            //base.OnTitleChanged (title, color);
+            this.SupportActionBar.Title = title.ToString();
+        }
+
+
+        public void StartRefresh(Action callback = null)
         {
             if (!refreshInProgress)
             {
@@ -142,14 +217,21 @@ namespace GEHelper.Activities
                                     searchFragment.Refresh();
                                 if (fleetFragment != null)
                                     fleetFragment.Refresh();
-                            });
 
-                            
+                                if (callback != null)
+                                    callback();
+                            });    
+                        }
+                        else
+                        {
+
                         }
                         refreshInProgress = false;
                        
                     });
             }
         }
+
+
     }
 }

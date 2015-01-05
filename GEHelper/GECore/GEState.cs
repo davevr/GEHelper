@@ -30,14 +30,14 @@ namespace GEHelper.Core
         {
             get
             {
-                string summary = "Your planets have a total of ";
-                summary += TotalCurrentMetal.ToString("#,#") + " metal, ";
-                summary += TotalCurrentCrystal.ToString("#,#") + " crystal, and ";
-                summary += TotalCurrentDeuterium.ToString("#,#") + " deuterium.  \n";
-                summary += "They are generating ";
-                summary += HourlyMetal.ToString("#,#") + " metal, ";
-                summary += HourlyCrystal.ToString("#,#") + " crystal, and ";
-                summary += HourlyDeuterium.ToString("#,#") + " deuterium per hour.";
+                string summary = "";
+                summary += "per hour:  ";
+                summary +=  String.Format("M:{0:0,0}  C:{1:0,0}  D:{2:0,0}", HourlyMetal, HourlyCrystal, HourlyDeuterium);
+                summary += "\n";
+                summary += "total:  ";
+                summary +=  String.Format("M:{0:0,0}  C:{1:0,0}  D:{2:0,0}", TotalCurrentMetal, TotalCurrentCrystal, TotalCurrentDeuterium);
+                summary += "\n";
+ 
                 return summary;
             }
         }
