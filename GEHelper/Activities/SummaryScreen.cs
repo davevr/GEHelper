@@ -22,7 +22,7 @@ using Android.Support.V4.Widget;
 
 namespace GEHelper.Activities
 {
-    [Activity(Label = "Galactic Empires Helper", Icon = "@drawable/icon", Theme = "@style/Theme.AppCompat.Light", MainLauncher = true)]
+    [Activity(Label = "Galactic Empires Helper", Icon = "@drawable/icon", Theme = "@style/Theme.AppCompat.Light")]
     public class SummaryScreen : Android.Support.V7.App.ActionBarActivity
     {
         private bool refreshInProgress = false;

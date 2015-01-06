@@ -92,9 +92,10 @@
     <Compile Include="GECore\GEStatusObject.cs" />
     <Compile Include="GECore\GEUser.cs" />
     <Compile Include="GECore\IsolatedStorageSettings.cs" />
-    <Compile Include="HelperClasses\OverscrollListView.cs" />
+    <Compile Include="Adapters\PlanetListAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Activities\SummaryScreen.cs" />
+    <Compile Include="Views\PlanetItemView.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -118,6 +119,12 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\FleetFragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PlanetItemWrapper.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PlanetItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -154,6 +161,9 @@
       <Visible>False</Visible>
       <Version>21.0.3.0</Version>
     </XamarinComponentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="HelperClasses\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

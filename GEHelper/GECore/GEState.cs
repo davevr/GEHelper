@@ -51,6 +51,8 @@ namespace GEHelper.Core
                 foreach(GEPlanet curPlanet in planetList)
                 {
                     total += curPlanet.CurrentMetal;
+                    if (curPlanet.moon != null)
+                        total += curPlanet.moon.CurrentMetal;
                 }
 
                 return (int)total;
@@ -66,6 +68,8 @@ namespace GEHelper.Core
                 foreach(GEPlanet curPlanet in planetList)
                 {
                     total += curPlanet.CurrentCrystal;
+                    if (curPlanet.moon != null)
+                        total += curPlanet.moon.CurrentCrystal;
                 }
 
                 return (int)total;
@@ -81,6 +85,8 @@ namespace GEHelper.Core
                 foreach(GEPlanet curPlanet in planetList)
                 {
                     total += curPlanet.CurrentDeuterium;
+                    if (curPlanet.moon != null)
+                        total += curPlanet.moon.CurrentDeuterium;
                 }
 
                 return (int)total;
