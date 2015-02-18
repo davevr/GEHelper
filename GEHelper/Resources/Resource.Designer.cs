@@ -1239,11 +1239,14 @@ namespace GEHelper
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070042
-			public const int MyButton = 2131165250;
+			// aapt resource value: 0x7f070040
+			public const int FleetList = 2131165248;
 			
-			// aapt resource value: 0x7f07004b
-			public const int PlanetList = 2131165259;
+			// aapt resource value: 0x7f070047
+			public const int MyButton = 2131165255;
+			
+			// aapt resource value: 0x7f07004c
+			public const int PlanetList = 2131165260;
 			
 			// aapt resource value: 0x7f07003f
 			public const int UniverseList = 2131165247;
@@ -1314,8 +1317,8 @@ namespace GEHelper
 			// aapt resource value: 0x7f070009
 			public const int disableHome = 2131165193;
 			
-			// aapt resource value: 0x7f070055
-			public const int drawer_layout = 2131165269;
+			// aapt resource value: 0x7f070056
+			public const int drawer_layout = 2131165270;
 			
 			// aapt resource value: 0x7f070013
 			public const int dropdown = 2131165203;
@@ -1332,8 +1335,8 @@ namespace GEHelper
 			// aapt resource value: 0x7f070028
 			public const int expanded_menu = 2131165224;
 			
-			// aapt resource value: 0x7f070056
-			public const int fragmentContainer = 2131165270;
+			// aapt resource value: 0x7f070057
+			public const int fragmentContainer = 2131165271;
 			
 			// aapt resource value: 0x7f07004e
 			public const int header = 2131165262;
@@ -1356,32 +1359,32 @@ namespace GEHelper
 			// aapt resource value: 0x7f070023
 			public const int image = 2131165219;
 			
-			// aapt resource value: 0x7f070046
-			public const int item_descriptionTextView = 2131165254;
+			// aapt resource value: 0x7f070045
+			public const int item_descriptionTextView = 2131165253;
 			
-			// aapt resource value: 0x7f070043
-			public const int item_imageView = 2131165251;
-			
-			// aapt resource value: 0x7f070047
-			public const int item_moonView = 2131165255;
-			
-			// aapt resource value: 0x7f07004a
-			public const int item_moondescriptionTextView = 2131165258;
+			// aapt resource value: 0x7f070042
+			public const int item_imageView = 2131165250;
 			
 			// aapt resource value: 0x7f070048
-			public const int item_moonimageView = 2131165256;
+			public const int item_moonView = 2131165256;
+			
+			// aapt resource value: 0x7f07004b
+			public const int item_moondescriptionTextView = 2131165259;
 			
 			// aapt resource value: 0x7f070049
-			public const int item_moontitleTextView = 2131165257;
+			public const int item_moonimageView = 2131165257;
 			
-			// aapt resource value: 0x7f070045
-			public const int item_titleTextView = 2131165253;
-			
-			// aapt resource value: 0x7f070057
-			public const int left_drawer = 2131165271;
+			// aapt resource value: 0x7f07004a
+			public const int item_moontitleTextView = 2131165258;
 			
 			// aapt resource value: 0x7f070044
-			public const int linearLayout1 = 2131165252;
+			public const int item_titleTextView = 2131165252;
+			
+			// aapt resource value: 0x7f070058
+			public const int left_drawer = 2131165272;
+			
+			// aapt resource value: 0x7f070043
+			public const int linearLayout1 = 2131165251;
 			
 			// aapt resource value: 0x7f070001
 			public const int listMode = 2131165185;
@@ -1455,17 +1458,17 @@ namespace GEHelper
 			// aapt resource value: 0x7f070007
 			public const int showTitle = 2131165191;
 			
+			// aapt resource value: 0x7f070055
+			public const int signInButton = 2131165269;
+			
+			// aapt resource value: 0x7f070052
+			public const int signInEmailAddress = 2131165266;
+			
 			// aapt resource value: 0x7f070054
-			public const int signInButton = 2131165268;
+			public const int signInPassword = 2131165268;
 			
-			// aapt resource value: 0x7f070051
-			public const int signInEmailAddress = 2131165265;
-			
-			// aapt resource value: 0x7f070053
-			public const int signInPassword = 2131165267;
-			
-			// aapt resource value: 0x7f070041
-			public const int splashimage = 2131165249;
+			// aapt resource value: 0x7f070046
+			public const int splashimage = 2131165254;
 			
 			// aapt resource value: 0x7f07001c
 			public const int split_action_bar = 2131165212;
@@ -1473,8 +1476,8 @@ namespace GEHelper
 			// aapt resource value: 0x7f07003c
 			public const int submit_area = 2131165244;
 			
-			// aapt resource value: 0x7f07004c
-			public const int summaryFooterText = 2131165260;
+			// aapt resource value: 0x7f070041
+			public const int summaryFooterText = 2131165249;
 			
 			// aapt resource value: 0x7f070002
 			public const int tabMode = 2131165186;
@@ -1482,11 +1485,11 @@ namespace GEHelper
 			// aapt resource value: 0x7f070050
 			public const int text = 2131165264;
 			
-			// aapt resource value: 0x7f070040
-			public const int textView1 = 2131165248;
+			// aapt resource value: 0x7f070051
+			public const int textView1 = 2131165265;
 			
-			// aapt resource value: 0x7f070052
-			public const int textView2 = 2131165266;
+			// aapt resource value: 0x7f070053
+			public const int textView2 = 2131165267;
 			
 			// aapt resource value: 0x7f070027
 			public const int title = 2131165223;
@@ -1608,31 +1611,37 @@ namespace GEHelper
 			public const int FleetFragment = 2130903064;
 			
 			// aapt resource value: 0x7f030019
-			public const int Main = 2130903065;
+			public const int FleetItem = 2130903065;
 			
 			// aapt resource value: 0x7f03001a
-			public const int PlanetItem = 2130903066;
+			public const int FleetItemWrapper = 2130903066;
 			
 			// aapt resource value: 0x7f03001b
-			public const int PlanetItemWrapper = 2130903067;
+			public const int Main = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int PlanetsFragment = 2130903068;
+			public const int PlanetItem = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int ptrsharp_header = 2130903069;
+			public const int PlanetItemWrapper = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int SearchAndScan = 2130903070;
+			public const int PlanetsFragment = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int SignIn = 2130903071;
+			public const int ptrsharp_header = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int SummaryScreen = 2130903072;
+			public const int SearchAndScan = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int support_simple_spinner_dropdown_item = 2130903073;
+			public const int SignIn = 2130903073;
+			
+			// aapt resource value: 0x7f030022
+			public const int SummaryScreen = 2130903074;
+			
+			// aapt resource value: 0x7f030023
+			public const int support_simple_spinner_dropdown_item = 2130903075;
 			
 			static Layout()
 			{

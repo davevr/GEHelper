@@ -42,6 +42,35 @@ namespace GEHelper.Core
             }
         }
 
+        public string FleetSummary
+        {
+            get
+            {
+                string summary = "";
+
+                if ((fleetList == null) || (fleetList.Count == 0))
+                    summary = "no fleet flying";
+                else
+                {
+                    int friendly = 0;
+                    int neutral = 0;
+                    int enemy = 0;
+
+                    foreach (GEFleet fleet in fleetList)
+                    {
+                        if (fleet.fleet_owner == this.user.id)
+                            friendly++;
+                        else
+                            enemy++;
+                    }
+                    summary += String.Format("{0} yours, {1} enemy", friendly, enemy);
+                }
+
+
+                return summary;
+            }
+        }
+
         public int TotalCurrentMetal
         {
             get

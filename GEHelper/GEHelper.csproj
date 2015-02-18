@@ -83,6 +83,7 @@
     <Compile Include="Activities\SearchAndScanActivity.cs" />
     <Compile Include="Activities\SignInActivity.cs" />
     <Compile Include="Activities\PlanetsFragment.cs" />
+    <Compile Include="Adapters\FleetListAdapter.cs" />
     <Compile Include="GECore\AppSettings.cs" />
     <Compile Include="GECore\GEFleet.cs" />
     <Compile Include="GECore\GEGalaxy.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Adapters\PlanetListAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Activities\SummaryScreen.cs" />
+    <Compile Include="Views\FleetItemView.cs" />
     <Compile Include="Views\PlanetItemView.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,6 +127,12 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\PlanetItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FleetItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FleetItemWrapper.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
