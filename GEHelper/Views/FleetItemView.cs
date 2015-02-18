@@ -49,7 +49,7 @@ namespace GEHelper
         public void SetItem(Core.GEFleet curFleet)
         {
             mTitleTextView.Text = curFleet.fleet_start_planet_name + " to " + curFleet.fleet_end_planet_name;
-            mDescriptionTextView.Text = String.Format("M:{0:0,0}  C:{1:0,0}  D:{2:0,0}", curFleet.fleet_resource_metal, curFleet.fleet_resource_crystal, curFleet.fleet_resource_deuterium);
+			mDescriptionTextView.Text = String.Format("M:{0:0,0}  C:{1:0,0}  D:{2:0,0}", int.Parse(curFleet.fleet_resource_metal), int.Parse(curFleet.fleet_resource_crystal), int.Parse(curFleet.fleet_resource_deuterium));
           
            
         }

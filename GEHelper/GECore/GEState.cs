@@ -55,15 +55,24 @@ namespace GEHelper.Core
                     int friendly = 0;
                     int neutral = 0;
                     int enemy = 0;
+					int totalMetal = 0;
+					int totalCrystal = 0;
+					int totalDeuterium = 0;
 
                     foreach (GEFleet fleet in fleetList)
                     {
-                        if (fleet.fleet_owner == this.user.id)
-                            friendly++;
+						if (fleet.fleet_owner == this.user.id) {
+							totalMetal += int.Parse(fleet.fleet_resource_metal);
+							totalCrystal += int.Parse(fleet.fleet_resource_crystal);
+							totalDeuterium += int.Parse(fleet.fleet_resource_deuterium);
+							friendly++;
+						}
                         else
                             enemy++;
                     }
                     summary += String.Format("{0} yours, {1} enemy", friendly, enemy);
+					summary += "\n";
+					summary += String.Format ("M:{0:0,0}, C:{1:0,0}, D:{2:0,0}", totalMetal, totalCrystal, totalDeuterium);
                 }
 
 
