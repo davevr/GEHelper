@@ -36,7 +36,13 @@ namespace GEHelper.Core
             if (!String.IsNullOrEmpty(settingsString))
                 _instance = settingsString.FromJson<AppSettings>();
             else
+            {
                 _instance = new AppSettings();
+                _instance.Username = "davevr@gmail.com";
+                _instance.Password = "Love4Runess";
+                _instance.Universe = "srv3";
+            }
+
         }
 
         public void SaveSettings()

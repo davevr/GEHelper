@@ -64,11 +64,13 @@ namespace GEHelper.Core
         {
             _list = new GalaxyList();
 
-            foreach (JsonObject curObj in list)
+            foreach (JsonObject curSubList in list)
             {
-
-                GEGalaxyPlanet newPlanet = curObj.ToJson().FromJson<GEGalaxyPlanet>();
-                _list.Add(newPlanet);
+                foreach (KeyValuePair<string, string> curObj in curSubList)
+                {
+                    GEGalaxyPlanet newPlanet = curObj.Value.FromJson<GEGalaxyPlanet>();
+                    _list.Add(newPlanet);
+                }
             }
 
         }

@@ -69,6 +69,8 @@ namespace GEHelper.Core
         private bool _serverSelected = false;
         private GEState _serverState = null;
         private RestClient client = null;
+        public GalaxyList ScanResults = null;
+        public GalaxyList FilteredScanResults = null;
 
         private static GEServer _singleton = null;
 
@@ -100,6 +102,8 @@ namespace GEHelper.Core
         {
             client = new RestClient(url);
             client.CookieContainer = new CookieContainer();
+            ScanResults = new GalaxyList();
+            FilteredScanResults = new GalaxyList();
         }
 
         private void MakeAPICall(string paramStr, string_callback callback)

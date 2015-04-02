@@ -9,9 +9,9 @@
 	<string name="chooseYourUniverse">Choose your Universe!</string>
 	<string name="summaryScreenTitle">Planets Screen Title</string>
 	<string name="summaryScreenFooter">Footer Area</string>
-	<string name="scanTitleText">Scan Title Text</string>
-  <string name="fleetTitleText">Fleet Status</string>
-  <string name="drawer_open">Open navigation drawer</string>
-  <string name="drawer_close">Close navigation drawer</string>
-  <string name="item_imageView_contentDescription">Planet</string>
+	<string name="scanTitleText">Filter Options</string>
+	<string name="fleetTitleText">Fleet Status</string>
+	<string name="drawer_open">Open navigation drawer</string>
+	<string name="drawer_close">Close navigation drawer</string>
+	<string name="item_imageView_contentDescription">Planet</string>
 </resources>
