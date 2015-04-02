@@ -12,6 +12,8 @@ using Android.Widget;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Android.Support.V4.App;
+
 using GEHelper.Core;
 
 namespace GEHelper.Activities
@@ -50,6 +52,9 @@ namespace GEHelper.Activities
         private int planetRange;
         private bool useLanx;
         private int myRank;
+
+		private FragmentTabHost tabHost;
+
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -90,6 +95,7 @@ namespace GEHelper.Activities
 
             int.TryParse(GEServer.Instance.ServerState.user.rank, out myRank);
             
+			Refresh ();
             return view;
         }
 
@@ -134,7 +140,16 @@ namespace GEHelper.Activities
             tokenSource = new CancellationTokenSource();
             token = tokenSource.Token;
             scanTask = new Task(StartScan, token);
-            scanTask.Start();
+			GEPlanet bestPlanet = FindPlanetWithMostDeut ();
+
+			if (bestPlanet == GEServer.Instance.CurrentPlanet)
+				scanTask.Start ();
+			else {
+				GEServer.Instance.SetPlanet(bestPlanet.id, (theResult) =>
+					{
+						scanTask.Start();
+					});
+			}
         }
 
 
@@ -177,6 +192,7 @@ namespace GEHelper.Activities
             curGalaxy = 1;
             curSystem = 1;
 
+			string curPlanet = GEServer.Instance.ServerState.user.current_planet;
             ScanNextSystem();
         }
 
@@ -192,6 +208,20 @@ namespace GEHelper.Activities
 
             ScanNextSystem();
         }
+
+		private GEPlanet FindPlanetWithMostDeut()
+		{
+			double curMax = double.MinValue;
+			GEPlanet bestPlanet = null;
+
+			foreach (GEPlanet curPlanet in GEServer.Instance.ServerState.planetList) {
+				if (curPlanet.deuterium > curMax) {
+					curMax = curPlanet.deuterium;
+					bestPlanet = curPlanet;
+				}
+			}
+			return bestPlanet;
+		}
 
         private void ScanNextSystem()
         {
@@ -241,7 +271,10 @@ namespace GEHelper.Activities
             GEServer.Instance.FilteredScanResults.Clear();
             foreach (GEGalaxyPlanet curPlanet in GEServer.Instance.ScanResults)
             {
-                if (CheckName(curPlanet) && CheckRank(curPlanet) && CheckRange(curPlanet) && CheckLanx(curPlanet))
+                if (CheckName(curPlanet) && 
+					CheckRank(curPlanet) && 
+					CheckRange(curPlanet) && 
+					CheckLanx(curPlanet))
                     GEServer.Instance.FilteredScanResults.Add(curPlanet);
             }
         }
@@ -266,12 +299,18 @@ namespace GEHelper.Activities
 
         private bool CheckRange(GEGalaxyPlanet curPlanet)
         {
-            return true;
+			if (!usePlanets || (GEServer.Instance.GetNearestPlanetInGalaxy (int.Parse (curPlanet.g), int.Parse (curPlanet.g), planetRange) != null))
+				return true;
+			else
+				return false;
         }
 
         private bool CheckLanx(GEGalaxyPlanet curPlanet)
         {
-            return true;
+			if (!useLanx || (GEServer.Instance.GetLanxable (int.Parse (curPlanet.g), int.Parse (curPlanet.g)) != ArgumentNullException))
+				return true;
+			else
+				return false;
         }
 
         private void ClearFilters()

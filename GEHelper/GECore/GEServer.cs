@@ -86,6 +86,55 @@ namespace GEHelper.Core
             get { return _serverState; }
         }
 
+		public GEPlanet	CurrentPlanet {
+			get {
+				string curPlanetId = ServerState.user.current_planet;
+				foreach (GEPlanet curPlanet in ServerState.planetList) {
+					if (curPlanet.id == curPlanetId)
+						return curPlanet;
+				}
+				return null;
+			}
+		}
+
+		public GEPlanet	GetNearestPlanet(int galaxy, int solarsystem, int planet) {
+			GEPlanet closest = null;
+			int minDistance = int.MaxValue;
+			foreach (GEPlanet curPlanet in ServerState.planetList) {
+				int distanceTo = curPlanet.GetTravelDistance (galaxy, solarsystem, planet);
+				if (distanceTo < minDistance) {
+					minDistance = distanceTo;
+					closest = curPlanet;
+				}
+			}
+
+			return closest;
+		}
+
+		public GEPlanet	GetNearestPlanetInGalaxy(int galaxy, int solarsystem, int maxDistance) {
+			GEPlanet closest = null;
+			int minDistance = int.MaxValue;
+			foreach (GEPlanet curPlanet in ServerState.planetList) {
+				int distanceTo = curPlanet.GetDistanceInGalaxy(galaxy, solarsystem);
+				if (distanceTo < minDistance) {
+					minDistance = distanceTo;
+					closest = curPlanet;
+				}
+			}
+			if (minDistance <= maxDistance)
+				return closest;
+			else
+				return null;
+		}
+
+		public GEPlanet	GetLanxable(int galaxy, int solarsystem) {
+			foreach (GEPlanet curPlanet in ServerState.planetList) {
+				if (curPlanet.CanLanx(galaxy, solarsystem))
+					return curPlanet;
+				}
+			return null;
+		}
+
 
         public static GEServer Instance
         {

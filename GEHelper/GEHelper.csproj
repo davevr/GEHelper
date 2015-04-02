@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{683B7E36-76D3-4680-A2EC-41BD83A6B5E3}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
@@ -15,10 +13,12 @@
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <AndroidUseLatestPlatformSdk>
-    </AndroidUseLatestPlatformSdk>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
+    <AndroidLinkSkip />
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidStoreUncompressedFileExtensions />
+    <JavaOptions />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,18 +28,13 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
-    <AndroidLinkMode>None</AndroidLinkMode>
-    <AndroidLinkSkip />
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
-    <BundleAssemblies>False</BundleAssemblies>
-    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
-    <AndroidStoreUncompressedFileExtensions />
-    <MandroidI18n />
+    <MandroidI18n>
+    </MandroidI18n>
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
-    <JavaOptions />
-    <MonoDroidExtraArgs />
+    <MonoDroidExtraArgs>
+    </MonoDroidExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,28 +44,21 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
-    <AndroidLinkMode>None</AndroidLinkMode>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <AndroidLinkSkip />
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <BundleAssemblies>False</BundleAssemblies>
-    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
     <AndroidSupportedAbis>armeabi-v7a,x86</AndroidSupportedAbis>
-    <AndroidStoreUncompressedFileExtensions />
-    <MandroidI18n />
-    <JavaMaximumHeapSize />
-    <JavaOptions />
-    <MonoDroidExtraArgs />
+    <MandroidI18n>
+    </MandroidI18n>
+    <JavaMaximumHeapSize>
+    </JavaMaximumHeapSize>
+    <MonoDroidExtraArgs>
+    </MonoDroidExtraArgs>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="PullToRefresharp">
-      <HintPath>..\..\PullToRefresharp\PullToRefresharp.Android\bin\Release\PullToRefresharp.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp.MonoDroid, Version=105.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Components\restsharp-105.0.1.0\lib\android\RestSharp.MonoDroid.dll</HintPath>
+      <HintPath>lib\PullToRefresharp.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text.XamarinAndrod">
       <HintPath>..\Components\servicestacktext-3.9.61.0\lib\android\ServiceStack.Text.XamarinAndrod.dll</HintPath>
@@ -85,6 +73,9 @@
     </Reference>
     <Reference Include="Xamarin.Android.Support.v7.AppCompat">
       <HintPath>..\packages\Xamarin.Android.Support.v7.AppCompat.21.0.3.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.MonoDroid">
+      <HintPath>..\Components\restsharp-105.0.1.0\lib\android\RestSharp.MonoDroid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +144,387 @@
     <AndroidResource Include="Resources\layout\TargetItemWrapper.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\avatars_1.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1001.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1002.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1003.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1004.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1005.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1006.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1007.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1008.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1009.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1010.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1011.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1012.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1013.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1014.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1015.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1016.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1017.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1018.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1019.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1020.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1021.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1022.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1023.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1024.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1025.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1026.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1027.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1028.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1029.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1030.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1031.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1032.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1033.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1034.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1035.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1036.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1037.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1038.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1039.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1040.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1041.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1042.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1043.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1044.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1045.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1046.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1047.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1048.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1049.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1050.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1051.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1052.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1053.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1054.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1055.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1056.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1057.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1058.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1059.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1060.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1061.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1062.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1063.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1064.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1065.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1066.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1067.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1068.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1069.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1070.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1071.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1072.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1073.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1074.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1075.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1076.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1077.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1078.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1079.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1080.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1081.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1082.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1083.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1084.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1085.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1086.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1087.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1088.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1089.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1090.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1091.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1092.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1093.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1094.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1095.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1096.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1097.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1098.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1099.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1100.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1101.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1102.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1103.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1104.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1105.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1106.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1107.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1108.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1109.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1110.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1111.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1112.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1113.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1114.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1115.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1116.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1117.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1118.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1119.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1120.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1121.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1122.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1123.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1124.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1125.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1126.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1127.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1128.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_1129.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2001.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2002.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2003.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2004.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2005.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2006.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2007.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2008.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2009.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2010.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2011.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2012.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2013.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2014.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2015.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2016.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2017.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2018.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2019.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2020.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2021.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2022.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2023.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2024.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2025.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2026.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2027.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2028.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2029.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2030.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2031.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2032.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2033.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2034.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2035.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2036.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2037.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2038.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2039.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2040.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2041.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2042.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2043.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2044.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2045.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2046.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2047.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2048.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2049.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2050.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2051.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2052.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2053.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2054.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2055.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2056.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2057.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2058.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2059.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2060.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2061.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2062.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2063.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2064.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2065.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2066.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2067.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2068.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2069.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2070.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2071.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2072.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2073.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2074.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2075.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2076.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2077.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2078.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2079.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2080.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2081.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2082.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2083.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2084.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2085.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2086.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2087.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2088.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2089.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2090.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2091.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2092.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2093.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2094.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2095.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2096.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2097.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2098.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2099.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2100.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2101.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2102.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2103.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2104.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2105.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2106.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2107.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2108.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2109.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2110.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2111.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2112.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2113.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2114.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2115.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2116.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2117.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2118.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2119.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2120.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2121.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2122.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2123.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2124.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2125.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2126.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2127.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2128.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2129.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2130.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_2131.gif" />
+    <AndroidResource Include="Resources\drawable\avatars_null.gif" />
+    <AndroidResource Include="Resources\drawable\planets_1.png" />
+    <AndroidResource Include="Resources\drawable\planets_101.png" />
+    <AndroidResource Include="Resources\drawable\planets_102.png" />
+    <AndroidResource Include="Resources\drawable\planets_103.png" />
+    <AndroidResource Include="Resources\drawable\planets_104.png" />
+    <AndroidResource Include="Resources\drawable\planets_105.png" />
+    <AndroidResource Include="Resources\drawable\planets_106.png" />
+    <AndroidResource Include="Resources\drawable\planets_107.png" />
+    <AndroidResource Include="Resources\drawable\planets_108.png" />
+    <AndroidResource Include="Resources\drawable\planets_109.png" />
+    <AndroidResource Include="Resources\drawable\planets_110.png" />
+    <AndroidResource Include="Resources\drawable\planets_201.png" />
+    <AndroidResource Include="Resources\drawable\planets_202.png" />
+    <AndroidResource Include="Resources\drawable\planets_203.png" />
+    <AndroidResource Include="Resources\drawable\planets_204.png" />
+    <AndroidResource Include="Resources\drawable\planets_205.png" />
+    <AndroidResource Include="Resources\drawable\planets_206.png" />
+    <AndroidResource Include="Resources\drawable\planets_207.png" />
+    <AndroidResource Include="Resources\drawable\planets_208.png" />
+    <AndroidResource Include="Resources\drawable\planets_209.png" />
+    <AndroidResource Include="Resources\drawable\planets_210.png" />
+    <AndroidResource Include="Resources\drawable\planets_301.png" />
+    <AndroidResource Include="Resources\drawable\planets_302.png" />
+    <AndroidResource Include="Resources\drawable\planets_303.png" />
+    <AndroidResource Include="Resources\drawable\planets_304.png" />
+    <AndroidResource Include="Resources\drawable\planets_305.png" />
+    <AndroidResource Include="Resources\drawable\planets_306.png" />
+    <AndroidResource Include="Resources\drawable\planets_307.png" />
+    <AndroidResource Include="Resources\drawable\planets_308.png" />
+    <AndroidResource Include="Resources\drawable\planets_401.png" />
+    <AndroidResource Include="Resources\drawable\planets_402.png" />
+    <AndroidResource Include="Resources\drawable\planets_403.png" />
+    <AndroidResource Include="Resources\drawable\planets_404.png" />
+    <AndroidResource Include="Resources\drawable\planets_405.png" />
+    <AndroidResource Include="Resources\drawable\planets_406.png" />
+    <AndroidResource Include="Resources\drawable\planets_407.png" />
+    <AndroidResource Include="Resources\drawable\planets_408.png" />
+    <AndroidResource Include="Resources\drawable\planets_409.png" />
+    <AndroidResource Include="Resources\drawable\planets_501.png" />
+    <AndroidResource Include="Resources\drawable\planets_502.png" />
+    <AndroidResource Include="Resources\drawable\planets_503.png" />
+    <AndroidResource Include="Resources\drawable\planets_504.png" />
+    <AndroidResource Include="Resources\drawable\planets_505.png" />
+    <AndroidResource Include="Resources\drawable\planets_506.png" />
+    <AndroidResource Include="Resources\drawable\planets_507.png" />
+    <AndroidResource Include="Resources\drawable\planets_508.png" />
+    <AndroidResource Include="Resources\drawable\planets_509.png" />
+    <AndroidResource Include="Resources\drawable\planets_510.png" />
+    <AndroidResource Include="Resources\drawable\planets_empty.png" />
+    <AndroidResource Include="Resources\drawable\planets_moon.png" />
+    <AndroidResource Include="Resources\drawable\resources_anti_ballistic_missiles.png" />
+    <AndroidResource Include="Resources\drawable\resources_armour_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_astrophysics_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_battlecruiser.png" />
+    <AndroidResource Include="Resources\drawable\resources_battleship.png" />
+    <AndroidResource Include="Resources\drawable\resources_bomber.png" />
+    <AndroidResource Include="Resources\drawable\resources_colony_ship.png" />
+    <AndroidResource Include="Resources\drawable\resources_combustion_drive_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_computer_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_cruiser.png" />
+    <AndroidResource Include="Resources\drawable\resources_crystal_mine.png" />
+    <AndroidResource Include="Resources\drawable\resources_crystal_storage.png" />
+    <AndroidResource Include="Resources\drawable\resources_deathstar.png" />
+    <AndroidResource Include="Resources\drawable\resources_destroyer.png" />
+    <AndroidResource Include="Resources\drawable\resources_deuterium_storage.png" />
+    <AndroidResource Include="Resources\drawable\resources_deuterium_synthesizer.png" />
+    <AndroidResource Include="Resources\drawable\resources_energy_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_espionage_probe.png" />
+    <AndroidResource Include="Resources\drawable\resources_espionage_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_fusion_reactor.png" />
+    <AndroidResource Include="Resources\drawable\resources_gauss_cannon.png" />
+    <AndroidResource Include="Resources\drawable\resources_graviton_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_heavy_fighter.png" />
+    <AndroidResource Include="Resources\drawable\resources_heavy_laser.png" />
+    <AndroidResource Include="Resources\drawable\resources_hyperspace_drive_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_hyperspace_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_impulse_drive_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_intergalactic_research_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_interplanetary_missiles.png" />
+    <AndroidResource Include="Resources\drawable\resources_ion_cannon.png" />
+    <AndroidResource Include="Resources\drawable\resources_ion_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_jump_gate.png" />
+    <AndroidResource Include="Resources\drawable\resources_large_cargo.png" />
+    <AndroidResource Include="Resources\drawable\resources_large_shield_dome.png" />
+    <AndroidResource Include="Resources\drawable\resources_laser_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_light_fighter.png" />
+    <AndroidResource Include="Resources\drawable\resources_light_laser.png" />
+    <AndroidResource Include="Resources\drawable\resources_metal_mine.png" />
+    <AndroidResource Include="Resources\drawable\resources_metal_storage.png" />
+    <AndroidResource Include="Resources\drawable\resources_missile_silo.png" />
+    <AndroidResource Include="Resources\drawable\resources_moon_base.png" />
+    <AndroidResource Include="Resources\drawable\resources_nanite_factory.png" />
+    <AndroidResource Include="Resources\drawable\resources_off_admiral.png" />
+    <AndroidResource Include="Resources\drawable\resources_off_energy.png" />
+    <AndroidResource Include="Resources\drawable\resources_off_engineer.png" />
+    <AndroidResource Include="Resources\drawable\resources_off_exspy.png" />
+    <AndroidResource Include="Resources\drawable\resources_off_general.png" />
+    <AndroidResource Include="Resources\drawable\resources_off_geologist.png" />
+    <AndroidResource Include="Resources\drawable\resources_off_scientist.png" />
+    <AndroidResource Include="Resources\drawable\resources_off_spy.png" />
+    <AndroidResource Include="Resources\drawable\resources_off_storer.png" />
+    <AndroidResource Include="Resources\drawable\resources_plasma_cannon.png" />
+    <AndroidResource Include="Resources\drawable\resources_plasma_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_recycler.png" />
+    <AndroidResource Include="Resources\drawable\resources_research_lab.png" />
+    <AndroidResource Include="Resources\drawable\resources_robotics_factory.png" />
+    <AndroidResource Include="Resources\drawable\resources_rocket_launcher.png" />
+    <AndroidResource Include="Resources\drawable\resources_sensor_phalanx.png" />
+    <AndroidResource Include="Resources\drawable\resources_shielding_tech.png" />
+    <AndroidResource Include="Resources\drawable\resources_shipyard.png" />
+    <AndroidResource Include="Resources\drawable\resources_small_cargo.png" />
+    <AndroidResource Include="Resources\drawable\resources_small_shield_dome.png" />
+    <AndroidResource Include="Resources\drawable\resources_solar_plant.png" />
+    <AndroidResource Include="Resources\drawable\resources_solar_satellite.png" />
+    <AndroidResource Include="Resources\drawable\resources_terraformer.png" />
+    <AndroidResource Include="Resources\drawable\resources_weapons_tech.png" />
+    <AndroidResource Include="Resources\layout\FilterViewFragment.axml" />
+    <AndroidResource Include="Resources\layout\ActionViewFragment.axml" />
+    <AndroidResource Include="Resources\layout\ScanViewFragment.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -169,401 +541,23 @@
     </Content>
     <AndroidResource Include="Resources\drawable-xhdpi\splash.jpg" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_drawer.png" />
-    <Content Include="Resources\drawable\avatars\1.gif" />
-    <Content Include="Resources\drawable\avatars\1001.gif" />
-    <Content Include="Resources\drawable\avatars\1002.gif" />
-    <Content Include="Resources\drawable\avatars\1003.gif" />
-    <Content Include="Resources\drawable\avatars\1004.gif" />
-    <Content Include="Resources\drawable\avatars\1005.gif" />
-    <Content Include="Resources\drawable\avatars\1006.gif" />
-    <Content Include="Resources\drawable\avatars\1007.gif" />
-    <Content Include="Resources\drawable\avatars\1008.gif" />
-    <Content Include="Resources\drawable\avatars\1009.gif" />
-    <Content Include="Resources\drawable\avatars\1010.gif" />
-    <Content Include="Resources\drawable\avatars\1011.gif" />
-    <Content Include="Resources\drawable\avatars\1012.gif" />
-    <Content Include="Resources\drawable\avatars\1013.gif" />
-    <Content Include="Resources\drawable\avatars\1014.gif" />
-    <Content Include="Resources\drawable\avatars\1015.gif" />
-    <Content Include="Resources\drawable\avatars\1016.gif" />
-    <Content Include="Resources\drawable\avatars\1017.gif" />
-    <Content Include="Resources\drawable\avatars\1018.gif" />
-    <Content Include="Resources\drawable\avatars\1019.gif" />
-    <Content Include="Resources\drawable\avatars\1020.gif" />
-    <Content Include="Resources\drawable\avatars\1021.gif" />
-    <Content Include="Resources\drawable\avatars\1022.gif" />
-    <Content Include="Resources\drawable\avatars\1023.gif" />
-    <Content Include="Resources\drawable\avatars\1024.gif" />
-    <Content Include="Resources\drawable\avatars\1025.gif" />
-    <Content Include="Resources\drawable\avatars\1026.gif" />
-    <Content Include="Resources\drawable\avatars\1027.gif" />
-    <Content Include="Resources\drawable\avatars\1028.gif" />
-    <Content Include="Resources\drawable\avatars\1029.gif" />
-    <Content Include="Resources\drawable\avatars\1030.gif" />
-    <Content Include="Resources\drawable\avatars\1031.gif" />
-    <Content Include="Resources\drawable\avatars\1032.gif" />
-    <Content Include="Resources\drawable\avatars\1033.gif" />
-    <Content Include="Resources\drawable\avatars\1034.gif" />
-    <Content Include="Resources\drawable\avatars\1035.gif" />
-    <Content Include="Resources\drawable\avatars\1036.gif" />
-    <Content Include="Resources\drawable\avatars\1037.gif" />
-    <Content Include="Resources\drawable\avatars\1038.gif" />
-    <Content Include="Resources\drawable\avatars\1039.gif" />
-    <Content Include="Resources\drawable\avatars\1040.gif" />
-    <Content Include="Resources\drawable\avatars\1041.gif" />
-    <Content Include="Resources\drawable\avatars\1042.gif" />
-    <Content Include="Resources\drawable\avatars\1043.gif" />
-    <Content Include="Resources\drawable\avatars\1044.gif" />
-    <Content Include="Resources\drawable\avatars\1045.gif" />
-    <Content Include="Resources\drawable\avatars\1046.gif" />
-    <Content Include="Resources\drawable\avatars\1047.gif" />
-    <Content Include="Resources\drawable\avatars\1048.gif" />
-    <Content Include="Resources\drawable\avatars\1049.gif" />
-    <Content Include="Resources\drawable\avatars\1050.gif" />
-    <Content Include="Resources\drawable\avatars\1051.gif" />
-    <Content Include="Resources\drawable\avatars\1052.gif" />
-    <Content Include="Resources\drawable\avatars\1053.gif" />
-    <Content Include="Resources\drawable\avatars\1054.gif" />
-    <Content Include="Resources\drawable\avatars\1055.gif" />
-    <Content Include="Resources\drawable\avatars\1056.gif" />
-    <Content Include="Resources\drawable\avatars\1057.gif" />
-    <Content Include="Resources\drawable\avatars\1058.gif" />
-    <Content Include="Resources\drawable\avatars\1059.gif" />
-    <Content Include="Resources\drawable\avatars\1060.gif" />
-    <Content Include="Resources\drawable\avatars\1061.gif" />
-    <Content Include="Resources\drawable\avatars\1062.gif" />
-    <Content Include="Resources\drawable\avatars\1063.gif" />
-    <Content Include="Resources\drawable\avatars\1064.gif" />
-    <Content Include="Resources\drawable\avatars\1065.gif" />
-    <Content Include="Resources\drawable\avatars\1066.gif" />
-    <Content Include="Resources\drawable\avatars\1067.gif" />
-    <Content Include="Resources\drawable\avatars\1068.gif" />
-    <Content Include="Resources\drawable\avatars\1069.gif" />
-    <Content Include="Resources\drawable\avatars\1070.gif" />
-    <Content Include="Resources\drawable\avatars\1071.gif" />
-    <Content Include="Resources\drawable\avatars\1072.gif" />
-    <Content Include="Resources\drawable\avatars\1073.gif" />
-    <Content Include="Resources\drawable\avatars\1074.gif" />
-    <Content Include="Resources\drawable\avatars\1075.gif" />
-    <Content Include="Resources\drawable\avatars\1076.gif" />
-    <Content Include="Resources\drawable\avatars\1077.gif" />
-    <Content Include="Resources\drawable\avatars\1078.gif" />
-    <Content Include="Resources\drawable\avatars\1079.gif" />
-    <Content Include="Resources\drawable\avatars\1080.gif" />
-    <Content Include="Resources\drawable\avatars\1081.gif" />
-    <Content Include="Resources\drawable\avatars\1082.gif" />
-    <Content Include="Resources\drawable\avatars\1083.gif" />
-    <Content Include="Resources\drawable\avatars\1084.gif" />
-    <Content Include="Resources\drawable\avatars\1085.gif" />
-    <Content Include="Resources\drawable\avatars\1086.gif" />
-    <Content Include="Resources\drawable\avatars\1087.gif" />
-    <Content Include="Resources\drawable\avatars\1088.gif" />
-    <Content Include="Resources\drawable\avatars\1089.gif" />
-    <Content Include="Resources\drawable\avatars\1090.gif" />
-    <Content Include="Resources\drawable\avatars\1091.gif" />
-    <Content Include="Resources\drawable\avatars\1092.gif" />
-    <Content Include="Resources\drawable\avatars\1093.gif" />
-    <Content Include="Resources\drawable\avatars\1094.gif" />
-    <Content Include="Resources\drawable\avatars\1095.gif" />
-    <Content Include="Resources\drawable\avatars\1096.gif" />
-    <Content Include="Resources\drawable\avatars\1097.gif" />
-    <Content Include="Resources\drawable\avatars\1098.gif" />
-    <Content Include="Resources\drawable\avatars\1099.gif" />
-    <Content Include="Resources\drawable\avatars\1100.gif" />
-    <Content Include="Resources\drawable\avatars\1101.gif" />
-    <Content Include="Resources\drawable\avatars\1102.gif" />
-    <Content Include="Resources\drawable\avatars\1103.gif" />
-    <Content Include="Resources\drawable\avatars\1104.gif" />
-    <Content Include="Resources\drawable\avatars\1105.gif" />
-    <Content Include="Resources\drawable\avatars\1106.gif" />
-    <Content Include="Resources\drawable\avatars\1107.gif" />
-    <Content Include="Resources\drawable\avatars\1108.gif" />
-    <Content Include="Resources\drawable\avatars\1109.gif" />
-    <Content Include="Resources\drawable\avatars\1110.gif" />
-    <Content Include="Resources\drawable\avatars\1111.gif" />
-    <Content Include="Resources\drawable\avatars\1112.gif" />
-    <Content Include="Resources\drawable\avatars\1113.gif" />
-    <Content Include="Resources\drawable\avatars\1114.gif" />
-    <Content Include="Resources\drawable\avatars\1115.gif" />
-    <Content Include="Resources\drawable\avatars\1116.gif" />
-    <Content Include="Resources\drawable\avatars\1117.gif" />
-    <Content Include="Resources\drawable\avatars\1118.gif" />
-    <Content Include="Resources\drawable\avatars\1119.gif" />
-    <Content Include="Resources\drawable\avatars\1120.gif" />
-    <Content Include="Resources\drawable\avatars\1121.gif" />
-    <Content Include="Resources\drawable\avatars\1122.gif" />
-    <Content Include="Resources\drawable\avatars\1123.gif" />
-    <Content Include="Resources\drawable\avatars\1124.gif" />
-    <Content Include="Resources\drawable\avatars\1125.gif" />
-    <Content Include="Resources\drawable\avatars\1126.gif" />
-    <Content Include="Resources\drawable\avatars\1127.gif" />
-    <Content Include="Resources\drawable\avatars\1128.gif" />
-    <Content Include="Resources\drawable\avatars\1129.gif" />
-    <Content Include="Resources\drawable\avatars\2001.gif" />
-    <Content Include="Resources\drawable\avatars\2002.gif" />
-    <Content Include="Resources\drawable\avatars\2003.gif" />
-    <Content Include="Resources\drawable\avatars\2004.gif" />
-    <Content Include="Resources\drawable\avatars\2005.gif" />
-    <Content Include="Resources\drawable\avatars\2006.gif" />
-    <Content Include="Resources\drawable\avatars\2007.gif" />
-    <Content Include="Resources\drawable\avatars\2008.gif" />
-    <Content Include="Resources\drawable\avatars\2009.gif" />
-    <Content Include="Resources\drawable\avatars\2010.gif" />
-    <Content Include="Resources\drawable\avatars\2011.gif" />
-    <Content Include="Resources\drawable\avatars\2012.gif" />
-    <Content Include="Resources\drawable\avatars\2013.gif" />
-    <Content Include="Resources\drawable\avatars\2014.gif" />
-    <Content Include="Resources\drawable\avatars\2015.gif" />
-    <Content Include="Resources\drawable\avatars\2016.gif" />
-    <Content Include="Resources\drawable\avatars\2017.gif" />
-    <Content Include="Resources\drawable\avatars\2018.gif" />
-    <Content Include="Resources\drawable\avatars\2019.gif" />
-    <Content Include="Resources\drawable\avatars\2020.gif" />
-    <Content Include="Resources\drawable\avatars\2021.gif" />
-    <Content Include="Resources\drawable\avatars\2022.gif" />
-    <Content Include="Resources\drawable\avatars\2023.gif" />
-    <Content Include="Resources\drawable\avatars\2024.gif" />
-    <Content Include="Resources\drawable\avatars\2025.gif" />
-    <Content Include="Resources\drawable\avatars\2026.gif" />
-    <Content Include="Resources\drawable\avatars\2027.gif" />
-    <Content Include="Resources\drawable\avatars\2028.gif" />
-    <Content Include="Resources\drawable\avatars\2029.gif" />
-    <Content Include="Resources\drawable\avatars\2030.gif" />
-    <Content Include="Resources\drawable\avatars\2031.gif" />
-    <Content Include="Resources\drawable\avatars\2032.gif" />
-    <Content Include="Resources\drawable\avatars\2033.gif" />
-    <Content Include="Resources\drawable\avatars\2034.gif" />
-    <Content Include="Resources\drawable\avatars\2035.gif" />
-    <Content Include="Resources\drawable\avatars\2036.gif" />
-    <Content Include="Resources\drawable\avatars\2037.gif" />
-    <Content Include="Resources\drawable\avatars\2038.gif" />
-    <Content Include="Resources\drawable\avatars\2039.gif" />
-    <Content Include="Resources\drawable\avatars\2040.gif" />
-    <Content Include="Resources\drawable\avatars\2041.gif" />
-    <Content Include="Resources\drawable\avatars\2042.gif" />
-    <Content Include="Resources\drawable\avatars\2043.gif" />
-    <Content Include="Resources\drawable\avatars\2044.gif" />
-    <Content Include="Resources\drawable\avatars\2045.gif" />
-    <Content Include="Resources\drawable\avatars\2046.gif" />
-    <Content Include="Resources\drawable\avatars\2047.gif" />
-    <Content Include="Resources\drawable\avatars\2048.gif" />
-    <Content Include="Resources\drawable\avatars\2049.gif" />
-    <Content Include="Resources\drawable\avatars\2050.gif" />
-    <Content Include="Resources\drawable\avatars\2051.gif" />
-    <Content Include="Resources\drawable\avatars\2052.gif" />
-    <Content Include="Resources\drawable\avatars\2053.gif" />
-    <Content Include="Resources\drawable\avatars\2054.gif" />
-    <Content Include="Resources\drawable\avatars\2055.gif" />
-    <Content Include="Resources\drawable\avatars\2056.gif" />
-    <Content Include="Resources\drawable\avatars\2057.gif" />
-    <Content Include="Resources\drawable\avatars\2058.gif" />
-    <Content Include="Resources\drawable\avatars\2059.gif" />
-    <Content Include="Resources\drawable\avatars\2060.gif" />
-    <Content Include="Resources\drawable\avatars\2061.gif" />
-    <Content Include="Resources\drawable\avatars\2062.gif" />
-    <Content Include="Resources\drawable\avatars\2063.gif" />
-    <Content Include="Resources\drawable\avatars\2064.gif" />
-    <Content Include="Resources\drawable\avatars\2065.gif" />
-    <Content Include="Resources\drawable\avatars\2066.gif" />
-    <Content Include="Resources\drawable\avatars\2067.gif" />
-    <Content Include="Resources\drawable\avatars\2068.gif" />
-    <Content Include="Resources\drawable\avatars\2069.gif" />
-    <Content Include="Resources\drawable\avatars\2070.gif" />
-    <Content Include="Resources\drawable\avatars\2071.gif" />
-    <Content Include="Resources\drawable\avatars\2072.gif" />
-    <Content Include="Resources\drawable\avatars\2073.gif" />
-    <Content Include="Resources\drawable\avatars\2074.gif" />
-    <Content Include="Resources\drawable\avatars\2075.gif" />
-    <Content Include="Resources\drawable\avatars\2076.gif" />
-    <Content Include="Resources\drawable\avatars\2077.gif" />
-    <Content Include="Resources\drawable\avatars\2078.gif" />
-    <Content Include="Resources\drawable\avatars\2079.gif" />
-    <Content Include="Resources\drawable\avatars\2080.gif" />
-    <Content Include="Resources\drawable\avatars\2081.gif" />
-    <Content Include="Resources\drawable\avatars\2082.gif" />
-    <Content Include="Resources\drawable\avatars\2083.gif" />
-    <Content Include="Resources\drawable\avatars\2084.gif" />
-    <Content Include="Resources\drawable\avatars\2085.gif" />
-    <Content Include="Resources\drawable\avatars\2086.gif" />
-    <Content Include="Resources\drawable\avatars\2087.gif" />
-    <Content Include="Resources\drawable\avatars\2088.gif" />
-    <Content Include="Resources\drawable\avatars\2089.gif" />
-    <Content Include="Resources\drawable\avatars\2090.gif" />
-    <Content Include="Resources\drawable\avatars\2091.gif" />
-    <Content Include="Resources\drawable\avatars\2092.gif" />
-    <Content Include="Resources\drawable\avatars\2093.gif" />
-    <Content Include="Resources\drawable\avatars\2094.gif" />
-    <Content Include="Resources\drawable\avatars\2095.gif" />
-    <Content Include="Resources\drawable\avatars\2096.gif" />
-    <Content Include="Resources\drawable\avatars\2097.gif" />
-    <Content Include="Resources\drawable\avatars\2098.gif" />
-    <Content Include="Resources\drawable\avatars\2099.gif" />
-    <Content Include="Resources\drawable\avatars\2100.gif" />
-    <Content Include="Resources\drawable\avatars\2101.gif" />
-    <Content Include="Resources\drawable\avatars\2102.gif" />
-    <Content Include="Resources\drawable\avatars\2103.gif" />
-    <Content Include="Resources\drawable\avatars\2104.gif" />
-    <Content Include="Resources\drawable\avatars\2105.gif" />
-    <Content Include="Resources\drawable\avatars\2106.gif" />
-    <Content Include="Resources\drawable\avatars\2107.gif" />
-    <Content Include="Resources\drawable\avatars\2108.gif" />
-    <Content Include="Resources\drawable\avatars\2109.gif" />
-    <Content Include="Resources\drawable\avatars\2110.gif" />
-    <Content Include="Resources\drawable\avatars\2111.gif" />
-    <Content Include="Resources\drawable\avatars\2112.gif" />
-    <Content Include="Resources\drawable\avatars\2113.gif" />
-    <Content Include="Resources\drawable\avatars\2114.gif" />
-    <Content Include="Resources\drawable\avatars\2115.gif" />
-    <Content Include="Resources\drawable\avatars\2116.gif" />
-    <Content Include="Resources\drawable\avatars\2117.gif" />
-    <Content Include="Resources\drawable\avatars\2118.gif" />
-    <Content Include="Resources\drawable\avatars\2119.gif" />
-    <Content Include="Resources\drawable\avatars\2120.gif" />
-    <Content Include="Resources\drawable\avatars\2121.gif" />
-    <Content Include="Resources\drawable\avatars\2122.gif" />
-    <Content Include="Resources\drawable\avatars\2123.gif" />
-    <Content Include="Resources\drawable\avatars\2124.gif" />
-    <Content Include="Resources\drawable\avatars\2125.gif" />
-    <Content Include="Resources\drawable\avatars\2126.gif" />
-    <Content Include="Resources\drawable\avatars\2127.gif" />
-    <Content Include="Resources\drawable\avatars\2128.gif" />
-    <Content Include="Resources\drawable\avatars\2129.gif" />
-    <Content Include="Resources\drawable\avatars\2130.gif" />
-    <Content Include="Resources\drawable\avatars\2131.gif" />
-    <Content Include="Resources\drawable\avatars\null.gif" />
-    <Content Include="Resources\drawable\planets\1.png" />
-    <Content Include="Resources\drawable\planets\101.png" />
-    <Content Include="Resources\drawable\planets\102.png" />
-    <Content Include="Resources\drawable\planets\103.png" />
-    <Content Include="Resources\drawable\planets\104.png" />
-    <Content Include="Resources\drawable\planets\105.png" />
-    <Content Include="Resources\drawable\planets\106.png" />
-    <Content Include="Resources\drawable\planets\107.png" />
-    <Content Include="Resources\drawable\planets\108.png" />
-    <Content Include="Resources\drawable\planets\109.png" />
-    <Content Include="Resources\drawable\planets\110.png" />
-    <Content Include="Resources\drawable\planets\201.png" />
-    <Content Include="Resources\drawable\planets\202.png" />
-    <Content Include="Resources\drawable\planets\203.png" />
-    <Content Include="Resources\drawable\planets\204.png" />
-    <Content Include="Resources\drawable\planets\205.png" />
-    <Content Include="Resources\drawable\planets\206.png" />
-    <Content Include="Resources\drawable\planets\207.png" />
-    <Content Include="Resources\drawable\planets\208.png" />
-    <Content Include="Resources\drawable\planets\209.png" />
-    <Content Include="Resources\drawable\planets\210.png" />
-    <Content Include="Resources\drawable\planets\301.png" />
-    <Content Include="Resources\drawable\planets\302.png" />
-    <Content Include="Resources\drawable\planets\303.png" />
-    <Content Include="Resources\drawable\planets\304.png" />
-    <Content Include="Resources\drawable\planets\305.png" />
-    <Content Include="Resources\drawable\planets\306.png" />
-    <Content Include="Resources\drawable\planets\307.png" />
-    <Content Include="Resources\drawable\planets\308.png" />
-    <Content Include="Resources\drawable\planets\401.png" />
-    <Content Include="Resources\drawable\planets\402.png" />
-    <Content Include="Resources\drawable\planets\403.png" />
-    <Content Include="Resources\drawable\planets\404.png" />
-    <Content Include="Resources\drawable\planets\405.png" />
-    <Content Include="Resources\drawable\planets\406.png" />
-    <Content Include="Resources\drawable\planets\407.png" />
-    <Content Include="Resources\drawable\planets\408.png" />
-    <Content Include="Resources\drawable\planets\409.png" />
-    <Content Include="Resources\drawable\planets\501.png" />
-    <Content Include="Resources\drawable\planets\502.png" />
-    <Content Include="Resources\drawable\planets\503.png" />
-    <Content Include="Resources\drawable\planets\504.png" />
-    <Content Include="Resources\drawable\planets\505.png" />
-    <Content Include="Resources\drawable\planets\506.png" />
-    <Content Include="Resources\drawable\planets\507.png" />
-    <Content Include="Resources\drawable\planets\508.png" />
-    <Content Include="Resources\drawable\planets\509.png" />
-    <Content Include="Resources\drawable\planets\510.png" />
-    <Content Include="Resources\drawable\planets\empty.png" />
-    <Content Include="Resources\drawable\planets\moon.png" />
-    <Content Include="Resources\drawable\resources\anti_ballistic_missiles.png" />
-    <Content Include="Resources\drawable\resources\armour_tech.png" />
-    <Content Include="Resources\drawable\resources\astrophysics_tech.png" />
-    <Content Include="Resources\drawable\resources\battlecruiser.png" />
-    <Content Include="Resources\drawable\resources\battleship.png" />
-    <Content Include="Resources\drawable\resources\bomber.png" />
-    <Content Include="Resources\drawable\resources\colony_ship.png" />
-    <Content Include="Resources\drawable\resources\combustion_drive_tech.png" />
-    <Content Include="Resources\drawable\resources\computer_tech.png" />
-    <Content Include="Resources\drawable\resources\cruiser.png" />
-    <Content Include="Resources\drawable\resources\crystal_mine.png" />
-    <Content Include="Resources\drawable\resources\crystal_storage.png" />
-    <Content Include="Resources\drawable\resources\deathstar.png" />
-    <Content Include="Resources\drawable\resources\destroyer.png" />
-    <Content Include="Resources\drawable\resources\deuterium_storage.png" />
-    <Content Include="Resources\drawable\resources\deuterium_synthesizer.png" />
-    <Content Include="Resources\drawable\resources\energy_tech.png" />
-    <Content Include="Resources\drawable\resources\espionage_probe.png" />
-    <Content Include="Resources\drawable\resources\espionage_tech.png" />
-    <Content Include="Resources\drawable\resources\fusion_reactor.png" />
-    <Content Include="Resources\drawable\resources\gauss_cannon.png" />
-    <Content Include="Resources\drawable\resources\graviton_tech.png" />
-    <Content Include="Resources\drawable\resources\heavy_fighter.png" />
-    <Content Include="Resources\drawable\resources\heavy_laser.png" />
-    <Content Include="Resources\drawable\resources\hyperspace_drive_tech.png" />
-    <Content Include="Resources\drawable\resources\hyperspace_tech.png" />
-    <Content Include="Resources\drawable\resources\impulse_drive_tech.png" />
-    <Content Include="Resources\drawable\resources\intergalactic_research_tech.png" />
-    <Content Include="Resources\drawable\resources\interplanetary_missiles.png" />
-    <Content Include="Resources\drawable\resources\ion_cannon.png" />
-    <Content Include="Resources\drawable\resources\ion_tech.png" />
-    <Content Include="Resources\drawable\resources\jump_gate.png" />
-    <Content Include="Resources\drawable\resources\large_cargo.png" />
-    <Content Include="Resources\drawable\resources\large_shield_dome.png" />
-    <Content Include="Resources\drawable\resources\laser_tech.png" />
-    <Content Include="Resources\drawable\resources\light_fighter.png" />
-    <Content Include="Resources\drawable\resources\light_laser.png" />
-    <Content Include="Resources\drawable\resources\metal_mine.png" />
-    <Content Include="Resources\drawable\resources\metal_storage.png" />
-    <Content Include="Resources\drawable\resources\missile_silo.png" />
-    <Content Include="Resources\drawable\resources\moon_base.png" />
-    <Content Include="Resources\drawable\resources\nanite_factory.png" />
-    <Content Include="Resources\drawable\resources\off_admiral.png" />
-    <Content Include="Resources\drawable\resources\off_energy.png" />
-    <Content Include="Resources\drawable\resources\off_engineer.png" />
-    <Content Include="Resources\drawable\resources\off_exspy.png" />
-    <Content Include="Resources\drawable\resources\off_general.png" />
-    <Content Include="Resources\drawable\resources\off_geologist.png" />
-    <Content Include="Resources\drawable\resources\off_scientist.png" />
-    <Content Include="Resources\drawable\resources\off_spy.png" />
-    <Content Include="Resources\drawable\resources\off_storer.png" />
-    <Content Include="Resources\drawable\resources\plasma_cannon.png" />
-    <Content Include="Resources\drawable\resources\plasma_tech.png" />
-    <Content Include="Resources\drawable\resources\recycler.png" />
-    <Content Include="Resources\drawable\resources\research_lab.png" />
-    <Content Include="Resources\drawable\resources\robotics_factory.png" />
-    <Content Include="Resources\drawable\resources\rocket_launcher.png" />
-    <Content Include="Resources\drawable\resources\sensor_phalanx.png" />
-    <Content Include="Resources\drawable\resources\shielding_tech.png" />
-    <Content Include="Resources\drawable\resources\shipyard.png" />
-    <Content Include="Resources\drawable\resources\small_cargo.png" />
-    <Content Include="Resources\drawable\resources\small_shield_dome.png" />
-    <Content Include="Resources\drawable\resources\solar_plant.png" />
-    <Content Include="Resources\drawable\resources\solar_satellite.png" />
-    <Content Include="Resources\drawable\resources\terraformer.png" />
-    <Content Include="Resources\drawable\resources\weapons_tech.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="restsharp">
-      <Visible>False</Visible>
       <Version>105.0.1.0</Version>
+      <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="servicestacktext">
-      <Visible>False</Visible>
       <Version>3.9.61.0</Version>
+      <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="xamandroidsupportv4-18">
-      <Visible>False</Visible>
       <Version>21.0.3.0</Version>
+      <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="xamandroidsupportv7appcompat">
-      <Visible>False</Visible>
       <Version>21.0.3.0</Version>
+      <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>

@@ -3,73 +3,94 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:minWidth="25px"
-        android:minHeight="25px">
-        <ImageView
-            android:id="@+id/item_imageView"
-            android:background="@android:color/darker_gray"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="5dp"
-            android:contentDescription="@string/item_imageView_contentDescription" />
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <LinearLayout
-            android:orientation="vertical"
-            android:minWidth="25px"
-            android:minHeight="25px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout1">
-            <TextView
-                android:id="@+id/item_titleTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="title text" />
-            <TextView
-                android:id="@+id/item_descriptionTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="description text" />
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px">
+            <ImageView
+                android:id="@+id/item_imageView"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/item_imageView_contentDescription" />
             <LinearLayout
-                android:id="@+id/item_moonView"
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:minWidth="25px"
-                android:minHeight="25px">
-                <ImageView
-                    android:id="@+id/item_moonimageView"
-                    android:background="@android:color/darker_gray"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_margin="2dp"
-                    android:contentDescription="@string/item_imageView_contentDescription" />
+                android:id="@+id/linearLayout1">
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/item_titleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="title text"
+                        android:textStyle="bold" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/item_titleLocView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="1:234:5" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/item_moonView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:minWidth="25px"
+                    android:minHeight="25px">
+                    <ImageView
+                        android:id="@+id/item_moonimageView"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_margin="2dp"
+                        android:contentDescription="@string/item_imageView_contentDescription" />
+                    <TextView
                         android:id="@+id/item_moontitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="title text" />
+                        android:text="title text"
+                        android:textStyle="bold" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
                     <TextView
-                        android:id="@+id/item_moondescriptionTextView"
+                        android:id="@+id/item_moonSizeView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="description text" />
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="9705m" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+        <TextView
+            android:id="@+id/item_descriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="description text"
+            android:layout_gravity="right" />
     </LinearLayout>
 </merge>

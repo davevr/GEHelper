@@ -21,6 +21,8 @@ namespace GEHelper
         private TextView mMoonTitleTextView;
         private TextView mMoonDescriptionTextView;
         private LinearLayout mMoonView;
+		private TextView mPlanetLocView;
+		private TextView mMoonSizeView;
 
         public static PlanetItemView inflate(ViewGroup parent)
         {
@@ -51,18 +53,27 @@ namespace GEHelper
             mMoonTitleTextView = FindViewById<TextView>(Resource.Id.item_moontitleTextView);
             mMoonDescriptionTextView = FindViewById<TextView>(Resource.Id.item_moondescriptionTextView);
             mMoonView = FindViewById<LinearLayout>(Resource.Id.item_moonView);
+			mPlanetLocView = FindViewById<TextView> (Resource.Id.item_titleLocView);
+			mMoonSizeView = FindViewById<TextView> (Resource.Id.item_moonSizeView);
         }
 
 
         public void SetItem(Core.GEPlanet curPlanet)
         {
             mTitleTextView.Text = curPlanet.name;
+			mPlanetLocView.Text = String.Format ("{0}:{1}:{2}", curPlanet.g, curPlanet.s, curPlanet.p);
             mDescriptionTextView.Text =  String.Format("M:{0:0,0}  C:{1:0,0}  D:{2:0,0}", curPlanet.metal, curPlanet.crystal, curPlanet.deuterium);
+			string planetStr = "planets_" + curPlanet.image;
+			int resourceId = Resources.GetIdentifier(planetStr, "drawable", this.Context.PackageName);
+
+			mImageView.SetImageResource (resourceId);
             if (curPlanet.moon != null)
             {
+				mMoonImageView.SetImageResource (Resource.Drawable.planets_moon);
                 mMoonView.Visibility = ViewStates.Visible;
                 mMoonTitleTextView.Text = curPlanet.moon.name;
                 mMoonDescriptionTextView.Text = String.Format("M:{0:0,0}  C:{1:0,0}  D:{2:0,0}", curPlanet.moon.metal, curPlanet.moon.crystal, curPlanet.moon.deuterium);
+				mMoonSizeView.Text = String.Format ("{0}m", curPlanet.moon.diameter);
             }
             else
             {

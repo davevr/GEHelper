@@ -90,6 +90,61 @@ namespace GEHelper.Core
             }
         }
 
+		public bool CanLanx(int galaxy, int solarsystem) {
+			if (this.moon != null) {
+				int lanxLevel = 0;
+				int.TryParse(this.moon.sensor_phalanx, out lanxLevel);
+				int lanxDistance = (lanxLevel * lanxLevel) - 1;
+				if (galaxy == int.Parse(g)) {
+					int spread = Math.Abs (solarsystem - int.Parse (s));
+					return spread <= lanxDistance;
+				} else 
+					return false; // can't lanx across galaxy
+			} else {
+				return false; // no moon
+			}
+		}
+
+		public int GetDistanceInGalaxy(int galaxy, int solarsystem) {
+			if (galaxy == int.Parse (g)) {
+				int spread = Math.Abs (solarsystem - int.Parse (s));
+				return spread;
+			} else
+				return int.MaxValue;
+			
+		}
+
+		public int GetTravelDistance(int galaxy, int solarsystem, int planet) {
+			int flightDistance = int.MaxValue;
+
+			if (galaxy == int.Parse (g)) {
+				// within galaxy
+				if (solarsystem == int.Parse (s)) {
+					// within system
+					flightDistance = 1000 + 5 * Math.Abs (planet - int.Parse (p));
+				} else {
+					// across the system
+					flightDistance = 2700 + 95 * Math.Abs (solarsystem - int.Parse (s));
+				}
+			} else {
+				
+				flightDistance = 20000 * Math.Abs (galaxy - int.Parse (g));
+			}
+
+			return flightDistance;
+		}
+
+		public int GetTravelTime(int galaxy, int solarsystem, int planet, int minVel, int speed) {
+			int flightDistance = GetTravelDistance(galaxy, solarsystem, planet);
+			int time = 10 + 3500 * Math.Sqrt ((10 * flightDistance) / minVel);
+			if (speed != 100)
+				time = (int)((double)time / (speed / 100d));
+
+			return time;
+		}
+
+
+
         public int metal_perhour { get; set; }
         public int metal_max { get; set; }
         //public double crystal { get; set; }
