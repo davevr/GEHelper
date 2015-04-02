@@ -59,6 +59,7 @@ namespace GEHelper.Core
         public string server_time { get; set; }
         public string token { get; set; }
     }
+		
 
 
     public class GEServer
@@ -71,6 +72,7 @@ namespace GEHelper.Core
         private RestClient client = null;
         public GalaxyList ScanResults = null;
         public GalaxyList FilteredScanResults = null;
+		public DateTime LastScanDate;
 
         private static GEServer _singleton = null;
 
@@ -98,12 +100,29 @@ namespace GEHelper.Core
             }
         }
 
+		public void SaveState()
+		{
+			AppSettings.Instance.SafeSaveSetting ("scanresults", ScanResults.ToJson ());
+			AppSettings.Instance.SafeSaveSetting ("lastscandate", LastScanDate.ToJson());
+		}
+
+		private void LoadState()
+		{
+			string scanStr = AppSettings.Instance.SafeLoadSetting ("scanresults", "");
+			if (!String.IsNullOrEmpty (scanStr)) {
+				ScanResults = scanStr.FromJson<GalaxyList> ();
+				string dateStr = AppSettings.Instance.SafeLoadSetting ("lastscandate", "");
+				LastScanDate = dateStr.FromJson<DateTime> ();
+			}
+		}
+
         private void InitClient()
         {
             client = new RestClient(url);
             client.CookieContainer = new CookieContainer();
             ScanResults = new GalaxyList();
             FilteredScanResults = new GalaxyList();
+			LoadState ();
         }
 
         private void MakeAPICall(string paramStr, string_callback callback)
@@ -309,6 +328,7 @@ namespace GEHelper.Core
             queryString += "&g=" + galaxy.ToString();
             queryString += "&s=" + system.ToString();
             queryString += "live=1";
+
 
             MakeAPICall(queryString, (content) =>
             {

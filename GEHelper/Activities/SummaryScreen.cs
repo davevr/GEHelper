@@ -19,6 +19,7 @@ using Android.Support.V7.View;
 using Android.Support.V7.AppCompat;
 using Android.Support.V7.App;
 using Android.Support.V4.Widget;
+using GEHelper.Core;
 
 namespace GEHelper.Activities
 {
@@ -92,6 +93,12 @@ namespace GEHelper.Activities
             selectItem(0);
 
         }
+
+		protected override void OnStop ()
+		{
+			base.OnStop ();
+			GEServer.Instance.SaveState ();
+		}
 
         protected override void OnPostCreate(Bundle savedInstanceState)
         {
