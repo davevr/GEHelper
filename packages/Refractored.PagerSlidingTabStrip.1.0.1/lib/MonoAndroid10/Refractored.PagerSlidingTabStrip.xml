@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Refractored.PagerSlidingTabStrip</name>
+    </assembly>
+    <members>
+        <member name="M:com.refractored.PagerSlidingTabStrip.SetTypeface(Android.Graphics.Typeface,Android.Graphics.TypefaceStyle)">
+            <summary>
+            Sets the typeface
+            </summary>
+            <param name="typeFace"></param>
+            <param name="style"></param>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.OnPageChangeListener">
+            <summary>
+            Gets or sets the page change listener
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.OnTabReselectedListener">
+            <summary>
+            Gets or sets the tab reselected listener
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.IndicatorColor">
+            <summary>
+            Gets or sets the indicator color
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.IndicatorHeight">
+            <summary>
+            Gets or sets the indicator height
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.UnderlineHeight">
+            <summary>
+            Gets or sets the underline height
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.UnderlineColor">
+            <summary>
+            Gets or sets the underline color
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.DividerWidth">
+            <summary>
+            gets or sets the divider width
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.DividerPadding">
+            <summary>
+            gets or sets the divider padding
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.DividerColor">
+            <summary>
+            gets or sets the divider color
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.TabPaddingLeftRight">
+            <summary>
+            Gets or sets padding left
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.TabTextSize">
+            <summary>
+            Gets or sets text size
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.TabTextColor">
+            <summary>
+            Gets or sets tab text color
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.ShouldExpand">
+            <summary>
+            Gets or sets if should expand
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.IsPaddingMiddle">
+            <summary>
+            Gets or sets is padding middle
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.ScrollOffset">
+            <summary>
+            Sets the scrolloffset
+            </summary>
+        </member>
+        <member name="P:com.refractored.PagerSlidingTabStrip.TabBackground">
+            <summary>
+            Sets tab background
+            </summary>
+        </member>
+    </members>
+</doc>

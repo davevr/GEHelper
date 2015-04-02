@@ -1,20 +1,42 @@
 ﻿<Properties StartupItem="GEHelper/GEHelper.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.192.168.56.101:5555" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="GEHelper/Views/PlanetItemView.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GEHelper/Activities/SearchAndScanActivity.cs">
     <Files>
       <File FileName="GEHelper/Activities/PlanetsFragment.cs" Line="14" Column="14" />
-      <File FileName="GEHelper/Activities/SearchAndScanActivity.cs" Line="93" Column="15" />
-      <File FileName="GEHelper/GECore/GEServer.cs" Line="1" Column="1" />
-      <File FileName="GEHelper/GECore/AppSettings.cs" Line="1" Column="1" />
-      <File FileName="GEHelper/MainActivity.cs" Line="1" Column="1" />
-      <File FileName="GEHelper/Activities/SummaryScreen.cs" Line="100" Column="1" />
-      <File FileName="GEHelper/Views/PlanetItemView.cs" Line="61" Column="45" />
+      <File FileName="GEHelper/Activities/SearchAndScanActivity.cs" Line="120" Column="4" />
+      <File FileName="GEHelper/Activities/FilterViewFragment.cs" Line="1" Column="1" />
+      <File FileName="GEHelper/Activities/ActionViewFragment.cs" Line="1" Column="1" />
+      <File FileName="GEHelper/Activities/ScanViewFragment.cs" Line="36" Column="1" />
+      <File FileName="GEHelper/GECore/GEPlanet.cs" Line="139" Column="76" NotebookId="1" />
+      <File FileName="GEHelper/GECore/GEServer.cs" Line="115" Column="1" NotebookId="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="GEHelper" expanded="True">
+            <Node name="Activities" expanded="True">
+              <Node name="SearchAndScanActivity.cs" selected="True" />
+            </Node>
+            <Node name="GECore" expanded="True" />
+            <Node name="Resources" expanded="True">
+              <Node name="layout" expanded="True" />
+            </Node>
+            <Node name="Views" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>curPlanet.id</Value>
+          <Value>curPlanet.s</Value>
+          <Value>curPlanet.g</Value>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/ultradad/Github/GEHelper/GEHelper/GECore/GEServer.cs" line="111" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.GEHelper AndroidDesignerPreferredDevice="Nexus 4" />
 </Properties>

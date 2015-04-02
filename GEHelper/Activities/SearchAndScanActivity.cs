@@ -11,15 +11,16 @@ using Android.Views;
 using Android.Widget;
 using System.Threading;
 using System.Threading.Tasks;
-
+using Android.Support.V4.View;
 using Android.Support.V4.App;
 
 using GEHelper.Core;
+using com.refractored;
 
 namespace GEHelper.Activities
 {
     [Activity(Label = "SearchAndScanActivity")]
-    public class SearchAndScanActivity : Fragment
+	public class SearchAndScanActivity : Android.App.Fragment
     {
         public SummaryScreen SummaryPage { get; set; }
         private int curGalaxy, curSystem;
@@ -53,8 +54,48 @@ namespace GEHelper.Activities
         private bool useLanx;
         private int myRank;
 
-		private FragmentTabHost tabHost;
+		public class ScanPageAdapter : FragmentPagerAdapter{
+			private  string[] Titles = {"Scan", "Filter", "Action"};
 
+
+			public ScanPageAdapter(Android.Support.V4.App.FragmentManager fm) : base(fm)
+			{
+			}
+
+			public override Java.Lang.ICharSequence GetPageTitleFormatted (int position)
+			{
+				return new Java.Lang.String (Titles [position]);
+			}
+
+			public override int Count {
+				get {
+					return Titles.Length;
+				}
+			}
+
+			public override Android.Support.V4.App.Fragment GetItem (int position)
+			{
+				switch (position) {
+				case 0:
+					return SearchAndScanActivity.ScanView;
+					break;
+
+				case 1:
+					return SearchAndScanActivity.FilterView;
+					break;
+
+				case 2:
+					return SearchAndScanActivity.ActionView;
+					break;
+
+				}
+				return null;
+			}
+		}
+
+		public static FilterViewFragment FilterView;
+		public static ScanViewFragment ScanView;
+		public static ActionViewFragment ActionView;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -62,6 +103,22 @@ namespace GEHelper.Activities
 
             var view = inflater.Inflate(Resource.Layout.SearchAndScan, container, false);
 
+			var pager = view.FindViewById<ViewPager> (Resource.Id.pager);
+			pager.Adapter = new ScanPageAdapter (Android.Support.V4.App.FragmentManager);
+
+			var tabs = view.FindViewById<PagerSlidingTabStrip> (Resource.Id.tabs);
+			tabs.SetViewPager (pager);
+
+			FilterView = new FilterViewFragment ();
+			FilterView.BaseView = this;
+
+			ScanView = new ScanViewFragment ();
+			ScanView.BaseView = this;
+
+			ActionView = new ActionViewFragment ();
+			ActionView.BaseView = this;
+
+			/*
             userNameField = view.FindViewById<EditText>(Resource.Id.usernameField);
             rankRangeField = view.FindViewById<EditText>(Resource.Id.rankRangeField);
             planetRangeField = view.FindViewById<EditText>(Resource.Id.nearPlanetField);
@@ -96,7 +153,9 @@ namespace GEHelper.Activities
             int.TryParse(GEServer.Instance.ServerState.user.rank, out myRank);
             
 			Refresh ();
+			*/
             return view;
+     
         }
 
         void ClearFilterBtn_Click(object sender, EventArgs e)
@@ -299,7 +358,7 @@ namespace GEHelper.Activities
 
         private bool CheckRange(GEGalaxyPlanet curPlanet)
         {
-			if (!usePlanets || (GEServer.Instance.GetNearestPlanetInGalaxy (int.Parse (curPlanet.g), int.Parse (curPlanet.g), planetRange) != null))
+			if (!usePlanets || (GEServer.Instance.GetNearestPlanetInGalaxy (int.Parse (curPlanet.g), int.Parse (curPlanet.s), planetRange) != null))
 				return true;
 			else
 				return false;
@@ -307,7 +366,7 @@ namespace GEHelper.Activities
 
         private bool CheckLanx(GEGalaxyPlanet curPlanet)
         {
-			if (!useLanx || (GEServer.Instance.GetLanxable (int.Parse (curPlanet.g), int.Parse (curPlanet.g)) != ArgumentNullException))
+			if (!useLanx || (GEServer.Instance.GetLanxable (int.Parse (curPlanet.g), int.Parse (curPlanet.s)) != null))
 				return true;
 			else
 				return false;

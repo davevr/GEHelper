@@ -136,7 +136,7 @@ namespace GEHelper.Core
 
 		public int GetTravelTime(int galaxy, int solarsystem, int planet, int minVel, int speed) {
 			int flightDistance = GetTravelDistance(galaxy, solarsystem, planet);
-			int time = 10 + 3500 * Math.Sqrt ((10 * flightDistance) / minVel);
+			int time = (int)(10 + 3500 * Math.Sqrt ((10 * flightDistance) / minVel));
 			if (speed != 100)
 				time = (int)((double)time / (speed / 100d));
 
