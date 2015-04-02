@@ -204,6 +204,80 @@ namespace GEHelper.Core
             
         }
 
+        public void SetPlanet(string planetId, string_callback callback)
+        {
+            string queryString = "";
+            queryString += "object=planet";
+            queryString += "&action=set";
+            queryString += "&pid=" + planetId;
+
+            try
+            {
+                MakeAPICall(queryString, (content) =>
+                {
+                    try
+                    {
+                        GEStatusObject response = content.FromJson<GEStatusObject>();
+                        response.Normalize();
+                        _serverState = response.state;
+                        if (callback != null)
+                            callback("ok");
+                    }
+                    catch (Exception)
+                    {
+                        if (callback != null)
+                            callback("failed");
+                    }
+                });
+            }
+            catch (Exception exp)
+            {
+                // to do:  do something
+                if (callback != null)
+                    callback("failed");
+            }
+
+        }
+
+        public void ScanPlanet(string galaxy, string solarsystem, string planet, string type, string_callback callback)
+        {
+            string queryString = "";
+            queryString += "object=shipyard";
+            queryString += "&action=ajax";
+            queryString += "&mission=6";
+            queryString += "&g=" + galaxy;
+            queryString += "&s=" + solarsystem;
+            queryString += "&p=" + planet;
+            queryString += "&t=" + type;        // 1=planet, 2=moon, 3=debris
+
+            try
+            {
+                MakeAPICall(queryString, (content) =>
+                {
+                    try
+                    {
+                        GEStatusObject response = content.FromJson<GEStatusObject>();
+                        response.Normalize();
+                        _serverState = response.state;
+                        if (callback != null)
+                            callback("ok");
+                    }
+                    catch (Exception)
+                    {
+                        if (callback != null)
+                            callback("failed");
+                    }
+                });
+            }
+            catch (Exception exp)
+            {
+                // to do:  do something
+                if (callback != null)
+                    callback("failed");
+            }
+
+        }
+
         public void Refresh(string_callback callback)
         {
             string queryString = "";
