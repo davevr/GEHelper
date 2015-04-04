@@ -157,11 +157,14 @@ namespace GEHelper.Core
 
 		private void LoadState()
 		{
-			string scanStr = AppSettings.Instance.SafeLoadSetting ("scanresults", "");
-			if (!String.IsNullOrEmpty (scanStr)) {
-				ScanResults = scanStr.FromJson<GalaxyList> ();
-				string dateStr = AppSettings.Instance.SafeLoadSetting ("lastscandate", "");
-				LastScanDate = dateStr.FromJson<DateTime> ();
+			try {
+				string scanStr = AppSettings.Instance.SafeLoadSetting ("scanresults", "");
+				if (!String.IsNullOrEmpty (scanStr)) {
+					ScanResults = scanStr.FromJson<GalaxyList> ();
+					string dateStr = AppSettings.Instance.SafeLoadSetting ("lastscandate", "");
+					LastScanDate = dateStr.FromJson<DateTime> ();
+				}
+			} catch (Exception exp) {
 			}
 		}
 

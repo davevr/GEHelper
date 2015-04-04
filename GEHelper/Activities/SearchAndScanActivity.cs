@@ -20,39 +20,39 @@ using com.refractored;
 namespace GEHelper.Activities
 {
     [Activity(Label = "SearchAndScanActivity")]
-	public class SearchAndScanActivity : Android.App.Fragment
+	public class SearchAndScanActivity : Android.Support.V4.App.Fragment
     {
         public SummaryScreen SummaryPage { get; set; }
         private int curGalaxy, curSystem;
         private CancellationToken token;
         private CancellationTokenSource tokenSource;
         private Task scanTask = null;
+		private TextView StatusField;
+		private TextView TotalCountField;
+		private TextView ShownCountField;
+		private TextView SelectedCountField;
 
-        private CheckBox showFilterCheckbox;
-        private EditText userNameField;
-        private CheckBox nearRankCheckbox;
-        private CheckBox nearPlanetCheckbox;
-        private CheckBox lanxableCheckbox;
-        private EditText rankRangeField;
-        private EditText planetRangeField;
-        private TextView StatusField;
 
-        private Button ScanNowBtn;
-        private Button CancelScanBtn;
-        private Button SaveScanBtn;
-        private Button FilterNowBtn;
-        private Button ClearFilterBtn;
+		public static FilterViewFragment FilterView;
+		public static ScanViewFragment ScanView;
+		public static ActionViewFragment ActionView;
 
-        private LinearLayout FilterArea;
-        private ListView TargetList;
+		// filters
+		public string scanName;
+		public bool useRank;
+		public int rankRange;
+		public bool usePlanets;
+		public int planetRange;
+		public bool useLanx;
+		public bool useUsername;
+		public bool useAlliance;
+		public string allianceName;
+		public bool useDebris;
+		public long debrisSize;
+		public bool includeOwnPlanets;
 
-        private string scanName;
-        private bool useRank;
-        private int rankRange;
-        private bool usePlanets;
-        private int planetRange;
-        private bool useLanx;
-        private int myRank;
+
+		private int myRank;
 
 		public class ScanPageAdapter : FragmentPagerAdapter{
 			private  string[] Titles = {"Scan", "Filter", "Action"};
@@ -75,36 +75,39 @@ namespace GEHelper.Activities
 
 			public override Android.Support.V4.App.Fragment GetItem (int position)
 			{
+				Android.Support.V4.App.Fragment theItem = null;
 				switch (position) {
 				case 0:
-					return SearchAndScanActivity.ScanView;
+					theItem = SearchAndScanActivity.ScanView;
 					break;
 
 				case 1:
-					return SearchAndScanActivity.FilterView;
+					theItem = SearchAndScanActivity.FilterView;
 					break;
 
 				case 2:
-					return SearchAndScanActivity.ActionView;
+					theItem = SearchAndScanActivity.ActionView;
 					break;
 
 				}
-				return null;
+				return theItem;
 			}
 		}
 
-		public static FilterViewFragment FilterView;
-		public static ScanViewFragment ScanView;
-		public static ActionViewFragment ActionView;
+
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
 
             var view = inflater.Inflate(Resource.Layout.SearchAndScan, container, false);
+			StatusField = view.FindViewById<TextView>(Resource.Id.statusField);
+			TotalCountField = view.FindViewById<TextView>(Resource.Id.totalCount);
+			ShownCountField = view.FindViewById<TextView>(Resource.Id.shownCount);
+			SelectedCountField = view.FindViewById<TextView>(Resource.Id.selectedCount);
 
 			var pager = view.FindViewById<ViewPager> (Resource.Id.pager);
-			pager.Adapter = new ScanPageAdapter (Android.Support.V4.App.FragmentManager);
+			pager.Adapter = new ScanPageAdapter (this.FragmentManager);
 
 			var tabs = view.FindViewById<PagerSlidingTabStrip> (Resource.Id.tabs);
 			tabs.SetViewPager (pager);
@@ -118,75 +121,45 @@ namespace GEHelper.Activities
 			ActionView = new ActionViewFragment ();
 			ActionView.BaseView = this;
 
-			/*
-            userNameField = view.FindViewById<EditText>(Resource.Id.usernameField);
-            rankRangeField = view.FindViewById<EditText>(Resource.Id.rankRangeField);
-            planetRangeField = view.FindViewById<EditText>(Resource.Id.nearPlanetField);
-
-            showFilterCheckbox = view.FindViewById<CheckBox>(Resource.Id.showFiltersCheckbox);
-            nearRankCheckbox = view.FindViewById<CheckBox>(Resource.Id.nearRankCheckbox);
-            nearPlanetCheckbox = view.FindViewById<CheckBox>(Resource.Id.nearPlanetCheckbox);
-            lanxableCheckbox = view.FindViewById<CheckBox>(Resource.Id.lanxCheckbox);
-
-            ScanNowBtn = view.FindViewById<Button>(Resource.Id.scanBtn);
-            CancelScanBtn = view.FindViewById<Button>(Resource.Id.cancelBtn);
-            SaveScanBtn = view.FindViewById<Button>(Resource.Id.saveBtn);
-            FilterNowBtn = view.FindViewById<Button>(Resource.Id.filterNowBtn);
-            ClearFilterBtn = view.FindViewById<Button>(Resource.Id.clearFilterBtn);
-            FilterArea = view.FindViewById <LinearLayout>(Resource.Id.FilterLayout);
-
-            TargetList = view.FindViewById<ListView>(Resource.Id.enemyList);
-            TargetList.Adapter = new TargetListAdapter(this.Activity, null);
-
-            StatusField = view.FindViewById<TextView>(Resource.Id.statusField);
+			int.TryParse(GEServer.Instance.ServerState.user.rank, out myRank);
 
 
-            ScanNowBtn.Click += ScanNowBtn_Click;
-            CancelScanBtn.Click += CancelScanBtn_Click;
-            FilterNowBtn.Click += FilterNowBtn_Click;
-            ClearFilterBtn.Click += ClearFilterBtn_Click;
-            FilterArea.Visibility = ViewStates.Gone;
-            CancelScanBtn.Enabled = false;
-            SaveScanBtn.Enabled = false;
-            showFilterCheckbox.CheckedChange += showFilterCheckbox_CheckedChange;
-
-            int.TryParse(GEServer.Instance.ServerState.user.rank, out myRank);
-            
 			Refresh ();
-			*/
             return view;
      
         }
 
-        void ClearFilterBtn_Click(object sender, EventArgs e)
+		public void UpdateCounters()
+		{
+			int totalCount = GEServer.Instance.ScanResults.Count;
+			int shownCount = GEServer.Instance.FilteredScanResults.Count;
+			int selectedCount = ScanView.TargetList.CheckedItemCount;
+
+			TotalCountField.Text = string.Format ("{0} total", totalCount);
+			ShownCountField.Text = string.Format ("{0} shown", shownCount);
+			SelectedCountField.Text = string.Format ("{0} selected", selectedCount);
+		}
+
+		public void SetStatus(string statusText)
+		{
+			StatusField.Text = statusText;
+		}
+
+
+        public void UserClearFilters()
         {
             ClearFilters();
             Refresh();
         }
 
-        void FilterNowBtn_Click(object sender, EventArgs e)
+        public void UserApplyFilters()
         {
-            scanName = userNameField.Text;
-            useRank = nearRankCheckbox.Checked;
-            if (useRank)
-                int.TryParse(rankRangeField.Text, out rankRange);
-            usePlanets = nearPlanetCheckbox.Checked;
-            if (usePlanets)
-                int.TryParse(planetRangeField.Text, out planetRange);
-            useLanx = lanxableCheckbox.Checked;
             ApplyFilters();
             Refresh();
         }
 
-        void showFilterCheckbox_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (showFilterCheckbox.Checked)
-                FilterArea.Visibility = ViewStates.Visible;
-            else
-                FilterArea.Visibility = ViewStates.Gone;
-        }
 
-        void CancelScanBtn_Click(object sender, EventArgs e)
+		public void UserCancelScan()
         {
             if (scanTask != null)
             {
@@ -194,7 +167,7 @@ namespace GEHelper.Activities
             }
         }
 
-        void ScanNowBtn_Click(object sender, EventArgs e)
+		public void UserStartScan()
         {
             tokenSource = new CancellationTokenSource();
             token = tokenSource.Token;
@@ -217,16 +190,8 @@ namespace GEHelper.Activities
         {
             try
             {
-                TargetList.InvalidateViews();
-                TargetList.SmoothScrollToPosition(0);
-                int total = GEServer.Instance.ScanResults.Count;
-                int showing = GEServer.Instance.FilteredScanResults.Count;
-                if (total == showing)
-                    StatusField.Text = String.Format("{0} targets found", total);
-                else if (showing == 0)
-                    StatusField.Text = String.Format("None of the {0} results match filter", total);
-                else
-                    StatusField.Text = String.Format("Showing {0:0}/{1:0} targets", showing, total);
+				ScanView.Refresh();
+				UpdateCounters();
 
             }
             catch (Exception exp)
@@ -240,27 +205,27 @@ namespace GEHelper.Activities
         {
             this.Activity.RunOnUiThread(() =>
                 {
-                    ScanNowBtn.Enabled = false;
-                    CancelScanBtn.Enabled = true;
+					ScanView.ShowScanProgress();
+                    ScanView.ScanNowBtn.Enabled = false;
+					ScanView.CancelScanBtn.Enabled = true;
                     GEServer.Instance.ScanResults.Clear();
                     GEServer.Instance.FilteredScanResults.Clear();
-                    TargetList.Enabled = false;
+					ScanView.TargetList.Enabled = false;
 
                 });
 
             curGalaxy = 1;
             curSystem = 1;
 
-			string curPlanet = GEServer.Instance.ServerState.user.current_planet;
-            ScanNextSystem();
+			ScanNextSystem();
         }
 
         private void ContinueScan()
         {
             this.Activity.RunOnUiThread(() =>
             {
-                ScanNowBtn.Enabled = false;
-                CancelScanBtn.Enabled = true;
+				ScanView.ScanNowBtn.Enabled = false;
+				ScanView.CancelScanBtn.Enabled = true;
 
             });
 
@@ -314,14 +279,16 @@ namespace GEHelper.Activities
         private void AsyncTaskComplete()
         {
             this.Activity.RunOnUiThread(() =>
-            {
-                ScanNowBtn.Enabled = true;
-                CancelScanBtn.Enabled = false;
-                StatusField.Text = "Scanning found " + GEServer.Instance.ScanResults.Count.ToString() + " targets";
-                TargetList.Enabled = true;
-                ClearFilters();
-                Refresh();
-            });
+	            {
+					ScanView.HideScanProgress();
+					ScanView.ScanNowBtn.Enabled = true;
+					ScanView.CancelScanBtn.Enabled = false;
+					SetStatus("Scan complete");
+					UpdateCounters();
+					ScanView.TargetList.Enabled = true;
+	                ClearFilters();
+	                Refresh();
+	            });
 
         }
 
@@ -333,6 +300,9 @@ namespace GEHelper.Activities
                 if (CheckName(curPlanet) && 
 					CheckRank(curPlanet) && 
 					CheckRange(curPlanet) && 
+					CheckAlliance(curPlanet) &&
+					CheckDebris(curPlanet) &&
+					CheckOwnPlanet(curPlanet) &&
 					CheckLanx(curPlanet))
                     GEServer.Instance.FilteredScanResults.Add(curPlanet);
             }
@@ -340,11 +310,19 @@ namespace GEHelper.Activities
 
         private bool CheckName(GEGalaxyPlanet curPlanet)
         {
-            if (String.IsNullOrWhiteSpace(scanName) || (String.Compare(scanName, curPlanet.username, StringComparison.OrdinalIgnoreCase) == 0))
+			if (!useUsername || (String.IsNullOrWhiteSpace(scanName) || (String.Compare(scanName, curPlanet.username, StringComparison.OrdinalIgnoreCase) == 0)))
                 return true;
             else
                 return false;
         }
+
+		private bool CheckAlliance(GEGalaxyPlanet curPlanet)
+		{
+			if (!useAlliance || (String.IsNullOrWhiteSpace(allianceName) || (String.Compare(allianceName, curPlanet.ally_name, StringComparison.OrdinalIgnoreCase) == 0)))
+				return true;
+			else
+				return false;
+		}
 
         private bool CheckRank(GEGalaxyPlanet curPlanet)
         {
@@ -355,6 +333,28 @@ namespace GEHelper.Activities
             else
                 return false;
         }
+
+		private bool CheckDebris(GEGalaxyPlanet curPlanet)
+		{
+			if (useDebris) {
+				long	crystal = 0, metal = 0;
+				long.TryParse (curPlanet.debries_metal, out metal);
+				long.TryParse (curPlanet.debries_crystal, out crystal);
+				long totalDebris = metal + crystal;
+				return (totalDebris >= debrisSize);
+
+			} else
+				return true;
+			
+		}
+
+		private bool CheckOwnPlanet(GEGalaxyPlanet curPlanet)
+		{
+			if (!includeOwnPlanets || (curPlanet.user_id == GEServer.Instance.ServerState.user.id))
+				return true;
+			else
+				return false;
+		}
 
         private bool CheckRange(GEGalaxyPlanet curPlanet)
         {
@@ -384,12 +384,7 @@ namespace GEHelper.Activities
 
         private void AsyncUpdateCount(int gal, int sol)
         {
-            this.Activity.RunOnUiThread(() =>
-            {
-                StatusField.Text = "Now scanning system " + sol.ToString() + " in galaxy " + gal.ToString();
-
-
-            });
+			ScanView.UpdateScanProgress (gal, sol);
 
         }
     }

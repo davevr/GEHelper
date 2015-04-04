@@ -22,6 +22,7 @@ namespace GEHelper
         private LinearLayout mMoonView;
 		private TextView mPlanetLocView;
 		private TextView mMoonSizeView;
+		private TextView mDebrisView;
 
         public static TargetItemView inflate(ViewGroup parent)
         {
@@ -54,6 +55,7 @@ namespace GEHelper
             mMoonView = FindViewById<LinearLayout>(Resource.Id.item_moonView);
 			mPlanetLocView = FindViewById<TextView> (Resource.Id.item_titleLocView);
 			mMoonSizeView = FindViewById<TextView> (Resource.Id.item_moonSizeView);
+			mDebrisView = FindViewById<TextView> (Resource.Id.debrisText);
         }
 
 
@@ -77,6 +79,18 @@ namespace GEHelper
             {
                 mMoonView.Visibility = ViewStates.Gone;
             }
+
+			long crystal = 0, metal = 0;
+
+			long.TryParse (curPlanet.debries_crystal, out crystal);
+			long.TryParse (curPlanet.debries_metal, out metal);
+
+			if ((crystal == 0) && (metal == 0))
+				mDebrisView.Visibility = ViewStates.Gone;
+			else {
+				mDebrisView.Visibility = ViewStates.Visible;
+				mDebrisView.Text = string.Format ("{0} metal and {1} crystal", metal, crystal);
+			}
 
         }
 

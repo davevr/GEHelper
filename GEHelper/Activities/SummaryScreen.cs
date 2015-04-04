@@ -23,7 +23,7 @@ using GEHelper.Core;
 
 namespace GEHelper.Activities
 {
-    [Activity(Label = "Galactic Empires Helper", Icon = "@drawable/icon", Theme = "@style/Theme.AppCompat.Light")]
+	[Activity(Label = "Galactic Empires Helper", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/Theme.AppCompat.Light")]
     public class SummaryScreen : Android.Support.V7.App.ActionBarActivity
     {
         private bool refreshInProgress = false;
@@ -73,26 +73,72 @@ namespace GEHelper.Activities
 
             SetContentView(Resource.Layout.SummaryScreen);
 
-            // set up drawer
-            mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            mDrawerList = FindViewById<ListView>(Resource.Id.left_drawer);
-            // Set the adapter for the list view
-            mDrawerList.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, mPlanetTitles);
-            // Set the list's click listener
-            mDrawerList.ItemClick += mDrawerList_ItemClick;
-
-            mDrawerToggle = new MyDrawerToggle(this, mDrawerLayout, Resource.String.drawer_open, Resource.String.drawer_close);
-
             
-            mDrawerLayout.SetDrawerListener(mDrawerToggle);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            SupportActionBar.SetHomeButtonEnabled(true);
+			InitGame ();
 
          
 
-            selectItem(0);
 
         }
+
+		protected void InitDrawers()
+		{
+			// set up drawer
+			mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+			mDrawerList = FindViewById<ListView>(Resource.Id.left_drawer);
+			// Set the adapter for the list view
+			mDrawerList.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, mPlanetTitles);
+			// Set the list's click listener
+			mDrawerList.ItemClick += mDrawerList_ItemClick;
+
+			mDrawerToggle = new MyDrawerToggle(this, mDrawerLayout, Resource.String.drawer_open, Resource.String.drawer_close);
+
+
+			mDrawerLayout.SetDrawerListener(mDrawerToggle);
+			SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+			SupportActionBar.SetHomeButtonEnabled(true);
+			selectItem(0);
+			mDrawerToggle.SyncState();
+		}
+
+		protected void InitGame() 
+		{
+			Core.AppSettings.Instance.LoadSettings();
+
+			if (!String.IsNullOrEmpty(Core.AppSettings.Instance.Username))
+			{
+				string username = Core.AppSettings.Instance.Username;
+				if (!String.IsNullOrEmpty(Core.AppSettings.Instance.Password))
+				{
+					string password = Core.AppSettings.Instance.Password;
+					if (!String.IsNullOrEmpty(Core.AppSettings.Instance.Universe))
+					{
+						string universe = Core.AppSettings.Instance.Universe;
+
+						GEHelper.Core.GEServer.Instance.Login(username, password, (result) =>
+							{
+								if (result == "")
+								{
+									Core.GEServer.Instance.SetServer(universe, (theResult) =>
+										{
+											RunOnUiThread(() => 
+												{
+													InitDrawers();
+												});
+											
+										});
+								}
+								else
+								{
+									// auto password is wrong
+
+								}
+							});
+					}
+				}
+			}
+
+		}
 
 		protected override void OnStop ()
 		{
@@ -103,7 +149,7 @@ namespace GEHelper.Activities
         protected override void OnPostCreate(Bundle savedInstanceState)
         {
  	         base.OnPostCreate(savedInstanceState);
-            mDrawerToggle.SyncState();
+            
         }
 
         public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
@@ -129,12 +175,12 @@ namespace GEHelper.Activities
             selectItem(e.Position);
         }
 
-        private Android.App.Fragment oldPage = null;
+		private Android.Support.V4.App.Fragment oldPage = null;
 
         private void selectItem(int position)
         {
-            Android.App.Fragment newPage = null;
-            var fragmentManager = this.FragmentManager;
+			Android.Support.V4.App.Fragment newPage = null;
+			var fragmentManager = this.SupportFragmentManager;
             var ft = fragmentManager.BeginTransaction();
             bool firstTime = false;
 

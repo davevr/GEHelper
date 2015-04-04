@@ -10,11 +10,12 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Android.Support.V4.App;
 
 namespace GEHelper.Activities
 {
    
-    public class FleetFragment : Fragment
+	public class FleetFragment : Android.Support.V4.App.Fragment
     {
         public SummaryScreen SummaryPage { get; set; }
         private PullToRefresharp.Android.Widget.ListView fleetList;

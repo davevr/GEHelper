@@ -14,7 +14,7 @@ using Android.Widget;
 namespace GEHelper.Activities
 {
      
-    public class PlanetsFragment : Fragment
+	public class PlanetsFragment : Android.Support.V4.App.Fragment
     {
         private PullToRefresharp.Android.Widget.ListView planetList;
         TextView summaryView;

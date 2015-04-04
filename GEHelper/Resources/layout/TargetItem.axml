@@ -51,6 +51,14 @@
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="1:234:5" />
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/item_descriptionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="description text"
+                    android:layout_gravity="right" />
                 <LinearLayout
                     android:id="@+id/item_moonView"
                     android:layout_width="match_parent"
@@ -85,12 +93,12 @@
             </LinearLayout>
         </LinearLayout>
         <TextView
-            android:id="@+id/item_descriptionTextView"
+            android:id="@+id/debrisText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="description text"
+            android:text="debris test"
             android:layout_gravity="right" />
     </LinearLayout>
 </merge>

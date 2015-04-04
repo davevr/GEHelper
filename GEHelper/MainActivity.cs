@@ -8,7 +8,7 @@ using Android.OS;
 
 namespace GEHelper
 {
-    [Activity(Label = "Galactic Empire Helper", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "Galactic Empire Helper", Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         private Bundle gameState;

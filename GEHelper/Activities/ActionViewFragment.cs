@@ -11,11 +11,15 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Android.Support.V4.View;
+using Android.Support.V4.App;
 
 namespace GEHelper
 {
-	public class ActionViewFragment : Fragment
+	public class ActionViewFragment : Android.Support.V4.App.Fragment
 	{
+		public GEHelper.Activities.SearchAndScanActivity BaseView;
+
 		public override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
@@ -28,7 +32,10 @@ namespace GEHelper
 			// Use this to return your custom view for this Fragment
 			// return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
-			return base.OnCreateView (inflater, container, savedInstanceState);
+			base.OnCreateView (inflater, container, savedInstanceState);
+			var view = inflater.Inflate(Resource.Layout.ActionViewFragment, container, false);
+
+			return view;
 		}
 	}
 }
