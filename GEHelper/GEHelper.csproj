@@ -35,6 +35,14 @@
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <MonoDroidExtraArgs>
     </MonoDroidExtraArgs>
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidLinkSkip />
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <AndroidStoreUncompressedFileExtensions />
+    <JavaOptions>
+    </JavaOptions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -83,15 +91,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\ChooseUniverseActivity.cs" />
+    <Compile Include="Activities\FleetActionFragment.cs" />
     <Compile Include="Activities\FleetFragment.cs" />
+    <Compile Include="Activities\FleetSummaryFragment.cs" />
+    <Compile Include="Activities\PlanetActionFragment.cs" />
+    <Compile Include="Activities\PlanetBuildFragment.cs" />
+    <Compile Include="Activities\PlanetOverviewFragment.cs" />
     <Compile Include="Activities\SearchAndScanActivity.cs" />
     <Compile Include="Activities\SignInActivity.cs" />
     <Compile Include="Activities\PlanetsFragment.cs" />
     <Compile Include="Adapters\FleetListAdapter.cs" />
     <Compile Include="Adapters\TargetListAdapter.cs" />
     <Compile Include="GECore\AppSettings.cs" />
+    <Compile Include="GECore\GECosts.cs" />
     <Compile Include="GECore\GEFleet.cs" />
     <Compile Include="GECore\GEGalaxy.cs" />
+    <Compile Include="GECore\GEMail.cs" />
     <Compile Include="GECore\GEPlanet.cs" />
     <Compile Include="GECore\GEServer.cs" />
     <Compile Include="GECore\GEState.cs" />
@@ -531,6 +546,21 @@
     <AndroidResource Include="Resources\layout\FilterViewFragment.axml" />
     <AndroidResource Include="Resources\layout\ActionViewFragment.axml" />
     <AndroidResource Include="Resources\layout\ScanViewFragment.axml" />
+    <AndroidResource Include="Resources\layout\PlanetActionFragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PlanetOverviewFragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FleetSummaryFragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FleetActionFragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PlanetBuildFragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -547,6 +577,9 @@
     </Content>
     <AndroidResource Include="Resources\drawable-xhdpi\splash.jpg" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_drawer.png" />
+    <AndroidResource Include="Resources\drawable\list_color_selector.xml" />
+    <AndroidResource Include="Resources\drawable\list_item_text_selector.xml" />
+    <AndroidResource Include="Resources\values\colors.xml" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="restsharp">
@@ -554,8 +587,8 @@
       <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="servicestacktext">
-      <Version>3.9.61.0</Version>
       <Visible>False</Visible>
+      <Version>3.9.61.3</Version>
     </XamarinComponentReference>
     <XamarinComponentReference Include="xamandroidsupportv4-18">
       <Version>21.0.3.0</Version>

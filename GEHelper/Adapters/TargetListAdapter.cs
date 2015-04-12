@@ -15,11 +15,13 @@ namespace GEHelper
     public class TargetListAdapter : BaseAdapter<Core.GEGalaxyPlanet>
     {
         private Activity context;
+        private ListView theListView;
 
-        public TargetListAdapter(Activity context, Core.GEGalaxyPlanet[] items)
+        public TargetListAdapter(Activity context, Core.GEGalaxyPlanet[] items, ListView theList)
             : base()
         {
             this.context = context;
+            this.theListView = theList;
         }
         public override long GetItemId(int position)
         {
@@ -38,7 +40,7 @@ namespace GEHelper
             TargetItemView view = (TargetItemView)convertView; // re-use an existing view, if one is available
             if (view == null) // otherwise create a new one
                 view = TargetItemView.inflate(parent);
-            view.SetItem(this[position]);
+            view.SetItem(this[position], theListView.CheckedItemPositions.Get(position));
 
             return view;
         }

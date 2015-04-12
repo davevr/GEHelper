@@ -6,9 +6,44 @@
     android:minWidth="25px"
     android:minHeight="25px">
     <TextView
-        android:text="This is the action view.  Also very exciting - not!!!"
+        android:text="Actions for Selected Target Planets"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="Send Probes"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView1" />
+        android:id="@+id/SendSpiesBtn" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/statusArea">
+        <TextView
+            android:text="Sent:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:text="15/15"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/sendProbeField" />
+        <TextView
+            android:text="Received:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp" />
+        <TextView
+            android:text="15/15"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/receivedProbeField" />
+    </LinearLayout>
 </LinearLayout>

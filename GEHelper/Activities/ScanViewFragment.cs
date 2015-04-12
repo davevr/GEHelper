@@ -26,15 +26,6 @@ namespace GEHelper
 		public ListView TargetList;
 
 
-
-
-		public override void OnCreate (Bundle savedInstanceState)
-		{
-			base.OnCreate (savedInstanceState);
-
-			// Create your fragment here
-		}
-
 		public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			// Use this to return your custom view for this Fragment
@@ -47,9 +38,8 @@ namespace GEHelper
 			ScanNowBtn = view.FindViewById<Button>(Resource.Id.scanBtn);
 			CancelScanBtn = view.FindViewById<Button>(Resource.Id.cancelBtn);
 			TargetList = view.FindViewById<ListView>(Resource.Id.enemyList);
-			TargetList.Adapter = new TargetListAdapter(this.Activity, null);
+			TargetList.Adapter = new TargetListAdapter(this.Activity, null, TargetList);
 			TargetList.ChoiceMode = ChoiceMode.Multiple;
-
 
 			ScanNowBtn.Click += ScanNowBtn_Click;
 			CancelScanBtn.Click += CancelScanBtn_Click;
@@ -57,6 +47,13 @@ namespace GEHelper
 
 			return view;
 		}
+
+
+
+        private void UpdateSelection()
+        {
+            BaseView.UpdateCounters();
+        }
 
 		public void Refresh()
 		{

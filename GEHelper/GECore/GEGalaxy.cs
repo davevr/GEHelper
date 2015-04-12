@@ -15,6 +15,9 @@ namespace GEHelper.Core
         public string id { get; set; }
         public string name { get; set; }
         public string diameter { get; set; }
+
+        public Resources resources { get; set; }
+        public Fleet fleet { get; set; }
     }
 
     public class GEGalaxyPlanet
@@ -22,9 +25,9 @@ namespace GEHelper.Core
         public string id { get; set; }
         public string name { get; set; }
         public string user_id { get; set; }
-        public string g { get; set; }
-        public string s { get; set; }
-        public string p { get; set; }
+        public int g { get; set; }
+        public int s { get; set; }
+        public int p { get; set; }
         public string planet_type { get; set; }
         public string moon_id { get; set; }
         public string debries_crystal { get; set; }
@@ -46,11 +49,14 @@ namespace GEHelper.Core
         public string avatar { get; set; }
         public GEGalaxyMoon moon { get; set; }
         public string status { get; set; }
+
+        public Resources resources { get; set; }
+        public Fleet fleet { get; set; }
     }
 
     public class GalaxyList :  ObservableCollection<GEGalaxyPlanet> 
     {
-
+        public DateTime lastScanDate;
     }
 
     public class GalaxyShowList

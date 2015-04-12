@@ -10,6 +10,7 @@ namespace GEHelper.Core
     public class GEStatusObject
     {
         public GalaxyShowList galaxyshow  {get; set;}
+        public MailList maillist { get; set; }
         public List<object> authchooseserver { get; set; }
         public int status { get; set; }
         public int timestamp { get; set; }

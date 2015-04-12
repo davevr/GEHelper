@@ -11,6 +11,9 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V4.App;
+using Android.Support.V4.View;
+using com.refractored;
+
 
 namespace GEHelper.Activities
 {
@@ -18,8 +21,50 @@ namespace GEHelper.Activities
 	public class FleetFragment : Android.Support.V4.App.Fragment
     {
         public SummaryScreen SummaryPage { get; set; }
-        private PullToRefresharp.Android.Widget.ListView fleetList;
-        TextView summaryView;
+
+        public static FleetSummaryFragment SummaryView;
+        public static FleetActionFragment ActionView;
+
+        public class FleetPageAdapter : FragmentPagerAdapter
+        {
+            private string[] Titles = { "Summary", "Action" };
+
+
+            public FleetPageAdapter(Android.Support.V4.App.FragmentManager fm)
+                : base(fm)
+            {
+            }
+
+            public override Java.Lang.ICharSequence GetPageTitleFormatted(int position)
+            {
+                return new Java.Lang.String(Titles[position]);
+            }
+
+            public override int Count
+            {
+                get
+                {
+                    return Titles.Length;
+                }
+            }
+
+            public override Android.Support.V4.App.Fragment GetItem(int position)
+            {
+                Android.Support.V4.App.Fragment theItem = null;
+                switch (position)
+                {
+                    case 0:
+                        theItem = FleetFragment.SummaryView;
+                        break;
+
+                    case 1:
+                        theItem = FleetFragment.ActionView;
+                        break;
+
+                }
+                return theItem;
+            }
+        }
 
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -27,20 +72,19 @@ namespace GEHelper.Activities
             base.OnCreateView(inflater, container, savedInstanceState);
 
             var view = inflater.Inflate(Resource.Layout.FleetFragment, container, false);
+            var pager = view.FindViewById<ViewPager>(Resource.Id.fleet_pager);
+            pager.Adapter = new FleetPageAdapter(this.FragmentManager);
 
-            fleetList = view.FindViewById<PullToRefresharp.Android.Widget.ListView>(Resource.Id.FleetList);
-            fleetList.Adapter = new FleetListAdapter(this.Activity, null);
+            var tabs = view.FindViewById<PagerSlidingTabStrip>(Resource.Id.fleet_tabs);
+            tabs.SetViewPager(pager);
 
-            summaryView = view.FindViewById<TextView>(Resource.Id.summaryFooterText);
+            SummaryView = new FleetSummaryFragment();
+            SummaryView.BaseView = this;
 
-            fleetList.RefreshActivated += (o, e) =>
-            {
-                SummaryPage.StartRefresh(() => { fleetList.OnRefreshCompleted(); });
-
-            };
+            ActionView = new FleetActionFragment();
+            ActionView.BaseView = this;
 
             Refresh();
-
             return view;
         }
 
@@ -48,9 +92,7 @@ namespace GEHelper.Activities
         {
             try
             {
-                fleetList.InvalidateViews();
-                fleetList.SmoothScrollToPosition(0);
-                summaryView.Text = Core.GEServer.Instance.ServerState.FleetSummary;
+                SummaryView.Refresh();
 
             }
             catch (Exception exp)

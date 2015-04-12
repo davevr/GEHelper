@@ -54,7 +54,8 @@ namespace GEHelper.Activities
 
 		private int myRank;
 
-		public class ScanPageAdapter : FragmentPagerAdapter{
+		public class ScanPageAdapter : FragmentPagerAdapter
+        {
 			private  string[] Titles = {"Scan", "Filter", "Action"};
 
 
@@ -95,6 +96,13 @@ namespace GEHelper.Activities
 		}
 
 
+        public override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            ClearFilters();
+        }
+
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -105,12 +113,6 @@ namespace GEHelper.Activities
 			TotalCountField = view.FindViewById<TextView>(Resource.Id.totalCount);
 			ShownCountField = view.FindViewById<TextView>(Resource.Id.shownCount);
 			SelectedCountField = view.FindViewById<TextView>(Resource.Id.selectedCount);
-
-			var pager = view.FindViewById<ViewPager> (Resource.Id.pager);
-			pager.Adapter = new ScanPageAdapter (this.FragmentManager);
-
-			var tabs = view.FindViewById<PagerSlidingTabStrip> (Resource.Id.tabs);
-			tabs.SetViewPager (pager);
 
 			FilterView = new FilterViewFragment ();
 			FilterView.BaseView = this;
@@ -123,8 +125,13 @@ namespace GEHelper.Activities
 
 			int.TryParse(GEServer.Instance.ServerState.user.rank, out myRank);
 
+            var pager = view.FindViewById<ViewPager>(Resource.Id.scan_pager);
+            pager.Adapter = new ScanPageAdapter(this.FragmentManager);
 
-			Refresh ();
+            var tabs = view.FindViewById<PagerSlidingTabStrip>(Resource.Id.scan_tabs);
+            tabs.SetViewPager(pager);
+
+			//Refresh ();
             return view;
      
         }
@@ -350,15 +357,15 @@ namespace GEHelper.Activities
 
 		private bool CheckOwnPlanet(GEGalaxyPlanet curPlanet)
 		{
-			if (!includeOwnPlanets || (curPlanet.user_id == GEServer.Instance.ServerState.user.id))
+			if (includeOwnPlanets)
 				return true;
 			else
-				return false;
+                return (curPlanet.user_id != GEServer.Instance.ServerState.user.id);
 		}
 
         private bool CheckRange(GEGalaxyPlanet curPlanet)
         {
-			if (!usePlanets || (GEServer.Instance.GetNearestPlanetInGalaxy (int.Parse (curPlanet.g), int.Parse (curPlanet.s), planetRange) != null))
+			if (!usePlanets || (GEServer.Instance.GetNearestPlanetInGalaxy (curPlanet.g, curPlanet.s, planetRange) != null))
 				return true;
 			else
 				return false;
@@ -366,7 +373,7 @@ namespace GEHelper.Activities
 
         private bool CheckLanx(GEGalaxyPlanet curPlanet)
         {
-			if (!useLanx || (GEServer.Instance.GetLanxable (int.Parse (curPlanet.g), int.Parse (curPlanet.s)) != null))
+			if (!useLanx || (GEServer.Instance.GetLanxable (curPlanet.g, curPlanet.s) != null))
 				return true;
 			else
 				return false;

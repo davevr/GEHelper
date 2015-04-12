@@ -292,6 +292,16 @@ namespace GEHelper.Core
         }
     }
 
+    public class PlanetSummaryData
+    {
+        public Resources resources { get; set; }
+        public Fleet ships { get; set; }
+        public Defense defense { get; set; }
+        public Buildings buildings { get; set; }
+        public Tech tech { get; set; }
+        public DateTime lastUpdated { get; set; }
+       
+    }
 
     public class GEPlanetSummary
     {
@@ -302,6 +312,8 @@ namespace GEHelper.Core
         public string p { get; set; }
         public string planet_type { get; set; }
         public GEPlanetSummary moon {get; set;}
+
+        public PlanetSummaryData data { get; set; }
     }
 
 

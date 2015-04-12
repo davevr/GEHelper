@@ -24,6 +24,7 @@ namespace GEHelper
 		private TextView mMoonSizeView;
 		private TextView mDebrisView;
 
+
         public static TargetItemView inflate(ViewGroup parent)
         {
             TargetItemView itemView = (TargetItemView)LayoutInflater.From(parent.Context).Inflate(Resource.Layout.TargetItemWrapper, parent, false);
@@ -59,7 +60,7 @@ namespace GEHelper
         }
 
 
-        public void SetItem(Core.GEGalaxyPlanet curPlanet)
+        public void SetItem(Core.GEGalaxyPlanet curPlanet, bool isSelected)
         {
 			mTitleTextView.Text = curPlanet.name;
 			mPlanetLocView.Text = String.Format ("{0}:{1}:{2}", curPlanet.g, curPlanet.s, curPlanet.p);
@@ -92,7 +93,15 @@ namespace GEHelper
 				mDebrisView.Text = string.Format ("{0} metal and {1} crystal", metal, crystal);
 			}
 
+            /*
+            if (isSelected)
+                SetBackgroundColor(Android.Graphics.Color.Red);
+            else
+                SetBackgroundColor(Android.Graphics.Color.Green);
+            */
         }
+
+        
 
     }
 }

@@ -41,13 +41,9 @@ namespace GEHelper.Core
         public string fleet_start_time_real { get; set; }
         public string fleet_end_time_real { get; set; }
         public string start_time_real { get; set; }
-        public FleetTypes fleet_types { get; set; }
+        public Fleet fleet_types { get; set; }
     }
 
-    public class FleetTypes
-    {
-        public string large_cargo { get; set; }
-        public string small_cargo { get; set; }
-    }
+   
 }
 

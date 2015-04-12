@@ -6,12 +6,12 @@
     android:minWidth="25px"
     android:minHeight="25px">
     <com.refractored.PagerSlidingTabStrip
-        android:id="@+id/tabs"
+        android:id="@+id/scan_tabs"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary" />
     <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+        android:id="@+id/scan_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

@@ -5,10 +5,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Android.Content.PM;
 
 namespace GEHelper
 {
-    [Activity(Label = "Galactic Empire Helper", Icon = "@drawable/icon")]
+    [Activity(Label = "Galactic Empire Helper", Icon = "@drawable/icon", ConfigurationChanges = ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
         private Bundle gameState;

@@ -27,11 +27,25 @@ namespace GEHelper
         }
         public override Core.GEPlanet this[int position]
         {
-            get { return Core.GEServer.Instance.ServerState.planetList[position]; }
+            get 
+            { 
+                return Core.GEServer.Instance.ServerState.planetList[position]; 
+            }
         }
         public override int Count
         {
-            get { return Core.GEServer.Instance.ServerState.planetList.Count; }
+            get 
+            {
+                try
+                {
+                    return Core.GEServer.Instance.ServerState.planetList.Count;
+                }
+                catch (Exception exp)
+                {
+                    return 0;
+                }
+                
+            }
         }
         public override View GetView(int position, View convertView, ViewGroup parent)
         {

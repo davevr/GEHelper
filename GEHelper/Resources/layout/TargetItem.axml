@@ -39,6 +39,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="title text"
+                        android:textColor="@drawable/list_item_text_selector"
                         android:textStyle="bold" />
                     <View
                         android:layout_width="0dp"
@@ -49,6 +50,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@drawable/list_item_text_selector"
                         android:text="1:234:5" />
                 </LinearLayout>
                 <TextView
