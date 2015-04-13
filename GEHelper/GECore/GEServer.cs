@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using RestSharp;
 using ServiceStack.Text;
+using System.Globalization;
 
 
 namespace GEHelper.Core
@@ -74,14 +75,49 @@ namespace GEHelper.Core
         private RestClient client = null;
         public GalaxyList ScanResults = null;
         public GalaxyList FilteredScanResults = null;
-        public FleetSpecList FleetSpecs = null;
-        public DefenseSpecList DefenseSpecs = null;
+        public BuildSpecList BuildSpecs = null;
+
 
         private static GEServer _singleton = null;
 
         public bool IsServerSelected
         {
             get { return _serverSelected; }
+        }
+
+        public bool IsFleetSlotAvailable
+        {
+            get 
+            {
+                int numSlots = ServerState.fleetList.FindAll(e => e.fleet_owner == ServerState.user.id).Count;
+                int maxSlots = int.Parse(ServerState.user.computer_tech) + 1;
+
+                return (numSlots < maxSlots);
+            }
+        }
+
+        public DateTime GetFirstFleetReturnTime()
+        {
+            CultureInfo enUS = new CultureInfo("en-US"); 
+            DateTime curDateTime;
+            DateTime minDateTime = DateTime.Now.AddYears(100);
+            string dateFormat = "M/dd/yyyy h:mm:ss tt EST";
+
+            foreach (GEFleet curFleet in ServerState.fleetList)
+            {
+                if (curFleet.fleet_owner == ServerState.user.id)
+                {
+                    int numSeconds = int.Parse(curFleet.fleet_end_time);
+                    curDateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                    curDateTime.AddSeconds(numSeconds);
+
+                    if (curDateTime < minDateTime)
+                        minDateTime = curDateTime;
+                }
+            }
+
+            return minDateTime;
+
         }
 
         public GEState ServerState
@@ -138,6 +174,71 @@ namespace GEHelper.Core
 			return null;
 		}
 
+        public void BuildSpecOnAllPlanets(BuildSpec theSpec, string_callback callback)
+        {
+            BuildSpecOnNthPlanet(0, theSpec, callback);
+        }
+
+        private void BuildSpecOnNthPlanet(int curPlanetIndex, BuildSpec curSpec, string_callback callback)
+        {
+            GEPlanet curPlanet = ServerState.planetList[curPlanetIndex];
+            long defMetal, defCrystal, defDeut;
+
+            curSpec.GetBuildCost(out defMetal, out defCrystal, out defDeut);
+
+
+            SetPlanet(curPlanet.id, (theResult) =>
+            {
+                // now, build the spec
+                long maxCount = long.MaxValue;
+                long curCount;
+
+                curCount = (long)curPlanet.metal / defMetal;
+                if (curCount < maxCount)
+                    maxCount = curCount;
+
+                curCount = (long)curPlanet.crystal / defCrystal;
+                if (curCount < maxCount)
+                    maxCount = curCount;
+
+                curCount = (long)curPlanet.deuterium / defDeut;
+                if (curCount < maxCount)
+                    maxCount = curCount;
+
+                if (maxCount > 0)
+                {
+                    Fleet fleetList = curSpec.fleet.Multiply(maxCount);
+
+                    BuildFleet(fleetList, (fleetResult) =>
+                    {
+                        Defense defList = curSpec.defense.Multiply(maxCount);
+
+                        BuildDefense(defList, (defResult) =>
+                        {
+                            ContinueBuildOnNextPlanet(curPlanetIndex, curSpec, callback);
+                        });
+
+                    });
+                }
+                else
+                {
+                    // no room on this planet, just move on
+                    ContinueBuildOnNextPlanet(curPlanetIndex, curSpec, callback);
+                }
+                    
+
+            });
+        }
+
+        private void ContinueBuildOnNextPlanet(int curPlanetIndex, BuildSpec curSpec, string_callback callback)
+        {
+            curPlanetIndex++;
+            if (curPlanetIndex >= ServerState.planetList.Count)
+                callback("ok");
+            else
+                BuildSpecOnNthPlanet(curPlanetIndex, curSpec, callback);
+        }
+
 
         public static GEServer Instance
         {
@@ -156,8 +257,7 @@ namespace GEHelper.Core
 		{
 			AppSettings.Instance.SafeSaveSetting ("scanresults", ScanResults.ToJson ());
 
-            AppSettings.Instance.SafeSaveSetting("fleetspecs", FleetSpecs.ToJson());
-            AppSettings.Instance.SafeSaveSetting("defensespecs", DefenseSpecs.ToJson());
+            AppSettings.Instance.SafeSaveSetting("buildspecs", BuildSpecs.ToJson());
 		}
 
 		private void LoadState()
@@ -175,45 +275,17 @@ namespace GEHelper.Core
 
             try
             {
-                string scanStr = AppSettings.Instance.SafeLoadSetting("fleetspecs", "");
+                string scanStr = AppSettings.Instance.SafeLoadSetting("buildspecs", "");
                 if (!String.IsNullOrEmpty(scanStr))
-                    FleetSpecs = scanStr.FromJson<FleetSpecList>();
+                    BuildSpecs = scanStr.FromJson<BuildSpecList>();
             }
             catch (Exception exp)
             {
-                FleetSpecs = new FleetSpecList();
-                FleetSpec defSpec = new FleetSpec();
-                defSpec.name = "Standard Attack";
-                defSpec.small_cargo = 15;
-                defSpec.light_fighter = 45;
-                defSpec.heavy_fighter = 15;
-                defSpec.cruiser = 5;
-                defSpec.battleship = 1;
-                defSpec.recycler = 10;
-                defSpec.battlecruiser = 1;
-                FleetSpecs.Add(defSpec);
+                
 
             }
 
-            try
-            {
-                string scanStr = AppSettings.Instance.SafeLoadSetting("defensespecs", "");
-                if (!String.IsNullOrEmpty(scanStr))
-                    DefenseSpecs = scanStr.FromJson<DefenseSpecList>();
-            }
-            catch (Exception exp)
-            {
-                DefenseSpecs = new DefenseSpecList();
-                DefenseSpec defSpec = new DefenseSpec();
-                defSpec.name = "Standard Defense";
-                defSpec.rocket_launcher = 32;
-                defSpec.light_laser = 16;
-                defSpec.heavy_laser = 8;
-                defSpec.gauss_cannon = 2;
-                defSpec.ion_cannon = 4;
-                defSpec.plasma_cannon = 1;
-                DefenseSpecs.Add(defSpec);
-            }
+           
 		}
         
         private void InitClient()
@@ -222,10 +294,38 @@ namespace GEHelper.Core
             client.CookieContainer = new CookieContainer();
             ScanResults = new GalaxyList();
             FilteredScanResults = new GalaxyList();
-            FleetSpecs = new FleetSpecList();
-            DefenseSpecs = new DefenseSpecList();
+            CreateDefaulBuildSpecs();
 			LoadState ();
         }
+
+        private void CreateDefaulBuildSpecs()
+        {
+            BuildSpecs = new BuildSpecList();
+            BuildSpec fleetSpec = new BuildSpec();
+            fleetSpec.name = "Standard Attack Fleet";
+            fleetSpec.fleet.small_cargo = 15;
+            fleetSpec.fleet.light_fighter = 45;
+            fleetSpec.fleet.heavy_fighter = 15;
+            fleetSpec.fleet.cruiser = 5;
+            fleetSpec.fleet.battleship = 1;
+            fleetSpec.fleet.recycler = 10;
+            fleetSpec.fleet.battlecruiser = 1;
+            BuildSpecs.Add(fleetSpec);
+
+            BuildSpec defSpec = new BuildSpec();
+            defSpec.name = "Standard Defense";
+            defSpec.defense.rocket_launcher = 32;
+            defSpec.defense.light_laser = 16;
+            defSpec.defense.heavy_laser = 8;
+            defSpec.defense.gauss_cannon = 2;
+            defSpec.defense.ion_cannon = 4;
+            defSpec.defense.plasma_cannon = 1;
+            BuildSpecs.Add(defSpec);
+
+
+        }
+
+       
 
         private void MakeAPICall(string paramStr, string_callback callback)
         {
@@ -608,149 +708,119 @@ namespace GEHelper.Core
 
         public void BuildFleet(Fleet fleetList, string_callback callback)
         {
-            bool didIt = false;
             if (fleetList.small_cargo > 0)
             {
-                didIt = true;
                 BuildShips("small_cargo", (int)fleetList.small_cargo, (resultStr) =>
                     {
                         fleetList.small_cargo = 0;
                         BuildFleet(fleetList, callback);
                     });
             }
-
-            if (fleetList.large_cargo > 0)
+            else if (fleetList.large_cargo > 0)
             {
-                didIt = true;
                 BuildShips("large_cargo", (int)fleetList.large_cargo, (resultStr) =>
                 {
                     fleetList.large_cargo = 0;
                     BuildFleet(fleetList, callback);
                 });
             }
-
-            if (fleetList.light_fighter > 0)
+            else if (fleetList.light_fighter > 0)
             {
-                didIt = true;
                 BuildShips("light_fighter", (int)fleetList.light_fighter, (resultStr) =>
                 {
                     fleetList.light_fighter = 0;
                     BuildFleet(fleetList, callback);
                 });
             }
-
-            if (fleetList.heavy_fighter > 0)
+            else if (fleetList.heavy_fighter > 0)
             {
-                didIt = true;
                 BuildShips("heavy_fighter", (int)fleetList.heavy_fighter, (resultStr) =>
                 {
                     fleetList.heavy_fighter = 0;
                     BuildFleet(fleetList, callback);
                 });
             }
-
-            if (fleetList.cruiser > 0)
+            else if (fleetList.cruiser > 0)
             {
-                didIt = true;
                 BuildShips("cruiser", (int)fleetList.cruiser, (resultStr) =>
                 {
                     fleetList.cruiser = 0;
                     BuildFleet(fleetList, callback);
                 });
             }
-
-            if (fleetList.battleship > 0)
+            else if (fleetList.battleship > 0)
             {
-                didIt = true;
                 BuildShips("battleship", (int)fleetList.battleship, (resultStr) =>
                 {
                     fleetList.battleship = 0;
                     BuildFleet(fleetList, callback);
                 });
             }
-
-            if (fleetList.colony_ship > 0)
+            else if (fleetList.colony_ship > 0)
             {
-                didIt = true;
                 BuildShips("colony_ship", (int)fleetList.colony_ship, (resultStr) =>
                 {
                     fleetList.colony_ship = 0;
                     BuildFleet(fleetList, callback);
                 });
             }
-
-            if (fleetList.recycler > 0)
+            else if (fleetList.recycler > 0)
             {
-                didIt = true;
                 BuildShips("recycler", (int)fleetList.recycler, (resultStr) =>
                 {
                     fleetList.recycler = 0;
                     BuildFleet(fleetList, callback);
                 });
             }
-
-            if (fleetList.espionage_probe > 0)
+            else if (fleetList.espionage_probe > 0)
             {
-                didIt = true;
                 BuildShips("espionage_probe", (int)fleetList.espionage_probe, (resultStr) =>
                 {
                     fleetList.espionage_probe = 0;
                     BuildFleet(fleetList, callback);
                 });
             }
-
-            if (fleetList.bomber > 0)
+            else if (fleetList.bomber > 0)
             {
-                didIt = true;
                 BuildShips("bomber", (int)fleetList.bomber, (resultStr) =>
                 {
                     fleetList.bomber = 0;
                     BuildFleet(fleetList, callback);
                 });
             }
-
-            if (fleetList.solar_satellite > 0)
+            else if (fleetList.solar_satellite > 0)
             {
-                didIt = true;
                 BuildShips("solar_satellite", (int)fleetList.solar_satellite, (resultStr) =>
                 {
                     fleetList.solar_satellite = 0;
                     BuildFleet(fleetList, callback);
                 });
             }
-
-            if (fleetList.destroyer > 0)
+            else if (fleetList.destroyer > 0)
             {
-                didIt = true;
                 BuildShips("destroyer", (int)fleetList.destroyer, (resultStr) =>
                 {
                     fleetList.destroyer = 0;
                     BuildFleet(fleetList, callback);
                 });
             }
-
-            if (fleetList.deathstar > 0)
+            else if (fleetList.deathstar > 0)
             {
-                didIt = true;
                 BuildShips("deathstar", (int)fleetList.deathstar, (resultStr) =>
                 {
                     fleetList.deathstar = 0;
                     BuildFleet(fleetList, callback);
                 });
             }
-
-            if (fleetList.battlecruiser > 0)
+            else if (fleetList.battlecruiser > 0)
             {
-                didIt = true;
                 BuildShips("battlecruiser", (int)fleetList.battlecruiser, (resultStr) =>
                 {
                     fleetList.battlecruiser = 0;
                     BuildFleet(fleetList, callback);
                 });
             }
-
-
-            if (!didIt)
+            else
                 callback("ok");
 
         }
@@ -790,6 +860,7 @@ namespace GEHelper.Core
             }
         }
 
+
         // mailtype:  0 = spy, 5 = tranport
         public void DeleteAllMail(string mailtype, string_callback callback)
         {
@@ -827,110 +898,87 @@ namespace GEHelper.Core
 
         public void BuildDefense(Defense defList, string_callback callback)
         {
-            bool didIt = false;
-
             if (defList.rocket_launcher > 0)
             {
-                didIt = true;
                 BuildDefenseItem("rocket_launcher", (int)defList.rocket_launcher, (resultStr) =>
                 {
                     defList.rocket_launcher = 0;
                     BuildDefense(defList, callback);
                 });
             }
-
-            if (defList.light_laser > 0)
+            else if (defList.light_laser > 0)
             {
-                didIt = true;
                 BuildDefenseItem("light_laser", (int)defList.light_laser, (resultStr) =>
                 {
                     defList.light_laser = 0;
                     BuildDefense(defList, callback);
                 });
             }
-
-            if (defList.heavy_laser > 0)
+            else if (defList.heavy_laser > 0)
             {
-                didIt = true;
                 BuildDefenseItem("heavy_laser", (int)defList.heavy_laser, (resultStr) =>
                 {
                     defList.heavy_laser = 0;
                     BuildDefense(defList, callback);
                 });
             }
-
-            if (defList.gauss_cannon > 0)
+            else if (defList.gauss_cannon > 0)
             {
-                didIt = true;
                 BuildDefenseItem("gauss_cannon", (int)defList.gauss_cannon, (resultStr) =>
                 {
                     defList.gauss_cannon = 0;
                     BuildDefense(defList, callback);
                 });
             }
-
-            if (defList.ion_cannon > 0)
+            else if (defList.ion_cannon > 0)
             {
-                didIt = true;
                 BuildDefenseItem("ion_cannon", (int)defList.ion_cannon, (resultStr) =>
                 {
                     defList.ion_cannon = 0;
                     BuildDefense(defList, callback);
                 });
             }
-
-            if (defList.plasma_cannon > 0)
+            else if (defList.plasma_cannon > 0)
             {
-                didIt = true;
                 BuildDefenseItem("plasma_cannon", (int)defList.plasma_cannon, (resultStr) =>
                 {
                     defList.plasma_cannon = 0;
                     BuildDefense(defList, callback);
                 });
             }
-
-            if (defList.small_shield_dome > 0)
+            else if (defList.small_shield_dome > 0)
             {
-                didIt = true;
                 BuildDefenseItem("small_shield_dome", (int)defList.small_shield_dome, (resultStr) =>
                 {
                     defList.small_shield_dome = 0;
                     BuildDefense(defList, callback);
                 });
             }
-
-            if (defList.large_shield_dome > 0)
+            else if (defList.large_shield_dome > 0)
             {
-                didIt = true;
                 BuildDefenseItem("large_shield_dome", (int)defList.large_shield_dome, (resultStr) =>
                 {
                     defList.large_shield_dome = 0;
                     BuildDefense(defList, callback);
                 });
             }
-
-            if (defList.anti_ballistic_missiles > 0)
+            else if (defList.anti_ballistic_missiles > 0)
             {
-                didIt = true;
                 BuildDefenseItem("anti_ballistic_missiles", (int)defList.anti_ballistic_missiles, (resultStr) =>
                 {
                     defList.anti_ballistic_missiles = 0;
                     BuildDefense(defList, callback);
                 });
             }
-
-            if (defList.interplanetary_missiles > 0)
+            else if (defList.interplanetary_missiles > 0)
             {
-                didIt = true;
                 BuildDefenseItem("interplanetary_missiles", (int)defList.interplanetary_missiles, (resultStr) =>
                 {
                     defList.interplanetary_missiles = 0;
                     BuildDefense(defList, callback);
                 });
             }
-
-
-            if (!didIt)
+            else
                 callback("ok");
 
         }

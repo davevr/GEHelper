@@ -85,24 +85,40 @@ namespace GEHelper
 
         void MaybeScanNextPlanet(GalaxyList theList)
         {
-            GEGalaxyPlanet curPlanet = theList[0];
-            GEPlanet bestPlanet = GEServer.Instance.GetNearestPlanet(curPlanet.g, curPlanet.s, curPlanet.p);
+            if (!GEServer.Instance.IsFleetSlotAvailable)
+            {
+                DateTime minTime = GEServer.Instance.GetFirstFleetReturnTime();
+                TimeSpan waitTime = minTime - DateTime.Now;
+                System.Threading.Thread.Sleep(5000);
+                GEServer.Instance.Refresh((theResult) =>
+                    {
+                        MaybeScanNextPlanet(theList);
+                    });
 
-            if (bestPlanet == GEServer.Instance.CurrentPlanet)
-                ScanNextPlanet(theList);
+            }
             else
             {
-                GEServer.Instance.SetPlanet(bestPlanet.id, (theResult) =>
-                {
+                GEGalaxyPlanet curPlanet = theList[0];
+                GEPlanet bestPlanet = GEServer.Instance.GetNearestPlanet(curPlanet.g, curPlanet.s, curPlanet.p);
+
+                if (bestPlanet == GEServer.Instance.CurrentPlanet)
                     ScanNextPlanet(theList);
-                });
+                else
+                {
+                    GEServer.Instance.SetPlanet(bestPlanet.id, (theResult) =>
+                    {
+                        ScanNextPlanet(theList);
+                    });
+                }
             }
+            
         }
 
         void ScanNextPlanet(GalaxyList theList)
         {
             GEGalaxyPlanet curPlanet = theList[0];
             theList.RemoveAt(0);
+
             GEServer.Instance.SpyPlanet(curPlanet.g, curPlanet.s, curPlanet.p, "1", (theResult) =>
                 {
                     if (theResult == "ok")

@@ -100,6 +100,7 @@
     <Compile Include="Activities\SearchAndScanActivity.cs" />
     <Compile Include="Activities\SignInActivity.cs" />
     <Compile Include="Activities\PlanetsFragment.cs" />
+    <Compile Include="Adapters\BuildSpecListAdapter.cs" />
     <Compile Include="Adapters\FleetListAdapter.cs" />
     <Compile Include="Adapters\TargetListAdapter.cs" />
     <Compile Include="GECore\AppSettings.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Adapters\PlanetListAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Activities\SummaryScreen.cs" />
+    <Compile Include="Views\BuildSpecItemView.cs" />
     <Compile Include="Views\FleetItemView.cs" />
     <Compile Include="Views\PlanetItemView.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -559,6 +561,12 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\PlanetBuildFragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\BuildSpecItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\BuildSpecItemWrapper.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
