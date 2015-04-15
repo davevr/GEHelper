@@ -40,6 +40,7 @@ namespace GEHelper
 			TargetList = view.FindViewById<ListView>(Resource.Id.enemyList);
 			TargetList.Adapter = new TargetListAdapter(this.Activity, null, TargetList);
 			TargetList.ChoiceMode = ChoiceMode.Multiple;
+            TargetList.ItemClick += TargetList_ItemClick;
 
 			ScanNowBtn.Click += ScanNowBtn_Click;
 			CancelScanBtn.Click += CancelScanBtn_Click;
@@ -47,6 +48,13 @@ namespace GEHelper
 
 			return view;
 		}
+
+        void TargetList_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            bool    isChecked =  !TargetList.IsItemChecked(e.Position);
+            TargetList.SetItemChecked(e.Position, isChecked);
+            
+        }
 
 
 

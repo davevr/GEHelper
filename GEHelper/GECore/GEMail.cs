@@ -294,45 +294,45 @@ namespace GEHelper.Core
             return newFleet;
         }
 
-        public static long rocket_launcher_metal_cost = 30000;
-        public static long rocket_launcher_crystal_cost = 40000;
-        public static long rocket_launcher_deuterium_cost = 15000;
+        public static long rocket_launcher_metal_cost = 2000;
+        public static long rocket_launcher_crystal_cost = 0;
+        public static long rocket_launcher_deuterium_cost = 0;
 
-        public static long light_laser_metal_cost = 30000;
-        public static long light_laser_crystal_cost = 40000;
-        public static long light_laser_deuterium_cost = 15000;
+        public static long light_laser_metal_cost = 1500;
+        public static long light_laser_crystal_cost = 500;
+        public static long light_laser_deuterium_cost = 0;
 
-        public static long heavy_laser_metal_cost = 30000;
-        public static long heavy_laser_crystal_cost = 40000;
-        public static long heavy_laser_deuterium_cost = 15000;
+        public static long heavy_laser_metal_cost = 6000;
+        public static long heavy_laser_crystal_cost = 2000;
+        public static long heavy_laser_deuterium_cost = 0;
 
-        public static long gauss_cannon_metal_cost = 30000;
-        public static long gauss_cannon_crystal_cost = 40000;
-        public static long gauss_cannon_deuterium_cost = 15000;
+        public static long gauss_cannon_metal_cost = 20000;
+        public static long gauss_cannon_crystal_cost = 15000;
+        public static long gauss_cannon_deuterium_cost = 2000;
 
-        public static long ion_cannon_metal_cost = 30000;
-        public static long ion_cannon_crystal_cost = 40000;
-        public static long ion_cannon_deuterium_cost = 15000;
+        public static long ion_cannon_metal_cost = 2000;
+        public static long ion_cannon_crystal_cost = 6000;
+        public static long ion_cannon_deuterium_cost = 0;
 
-        public static long plasma_cannon_metal_cost = 30000;
-        public static long plasma_cannon_crystal_cost = 40000;
-        public static long plasma_cannon_deuterium_cost = 15000;
+        public static long plasma_cannon_metal_cost = 50000;
+        public static long plasma_cannon_crystal_cost = 50000;
+        public static long plasma_cannon_deuterium_cost = 30000;
 
-        public static long small_shield_dome_metal_cost = 30000;
-        public static long small_shield_dome_crystal_cost = 40000;
-        public static long small_shield_dome_deuterium_cost = 15000;
+        public static long small_shield_dome_metal_cost = 10000;
+        public static long small_shield_dome_crystal_cost = 10000;
+        public static long small_shield_dome_deuterium_cost = 0;
 
-        public static long large_shield_dome_metal_cost = 30000;
-        public static long large_shield_dome_crystal_cost = 40000;
-        public static long large_shield_dome_deuterium_cost = 15000;
+        public static long large_shield_dome_metal_cost = 50000;
+        public static long large_shield_dome_crystal_cost = 50000;
+        public static long large_shield_dome_deuterium_cost = 0;
 
-        public static long anti_ballistic_missiles_metal_cost = 30000;
-        public static long anti_ballistic_missiles_crystal_cost = 40000;
-        public static long anti_ballistic_missiles_deuterium_cost = 15000;
+        public static long anti_ballistic_missiles_metal_cost = 8000;
+        public static long anti_ballistic_missiles_crystal_cost = 0;
+        public static long anti_ballistic_missiles_deuterium_cost = 2000;
 
-        public static long interplanetary_missiles_metal_cost = 30000;
-        public static long interplanetary_missiles_crystal_cost = 40000;
-        public static long interplanetary_missiles_deuterium_cost = 15000;
+        public static long interplanetary_missiles_metal_cost = 12500;
+        public static long interplanetary_missiles_crystal_cost = 2500;
+        public static long interplanetary_missiles_deuterium_cost = 10000;
 
        
         public string SummaryString()

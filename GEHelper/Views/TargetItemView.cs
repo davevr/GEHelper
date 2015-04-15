@@ -93,12 +93,12 @@ namespace GEHelper
 				mDebrisView.Text = string.Format ("{0} metal and {1} crystal", metal, crystal);
 			}
 
-            /*
+            
             if (isSelected)
-                SetBackgroundColor(Android.Graphics.Color.Red);
+                SetBackgroundColor(Android.Graphics.Color.Cyan);
             else
-                SetBackgroundColor(Android.Graphics.Color.Green);
-            */
+                SetBackgroundColor(Android.Graphics.Color.Transparent);
+            
         }
 
         

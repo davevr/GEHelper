@@ -40,7 +40,7 @@ namespace GEHelper
             TargetItemView view = (TargetItemView)convertView; // re-use an existing view, if one is available
             if (view == null) // otherwise create a new one
                 view = TargetItemView.inflate(parent);
-            view.SetItem(this[position], theListView.CheckedItemPositions.Get(position));
+            view.SetItem(this[position], theListView.IsItemChecked(position));
 
             return view;
         }

@@ -46,11 +46,15 @@ namespace GEHelper
         }
 
 
-        public void SetItem(Core.BuildSpec curSpec)
+        public void SetItem(Core.BuildSpec curSpec, bool selected)
         {
 
             mTitleTextView.Text = curSpec.name;
             mDescriptionTextView.Text = curSpec.SummaryString();
+            if (selected)
+                this.SetBackgroundColor(Android.Graphics.Color.Cyan);
+            else
+                this.SetBackgroundColor(Android.Graphics.Color.Transparent);
         }
 			
     }
