@@ -50,6 +50,13 @@ namespace GEHelper.Activities
 		public bool useDebris;
 		public long debrisSize;
 		public bool includeOwnPlanets;
+        public bool inactiveOnly;
+        public bool useLimits;
+        public int startGalaxy;
+        public int startSystem;
+        public int endGalaxy;
+        public int endSystem;
+
 
 
 		private int myRank;
@@ -221,8 +228,16 @@ namespace GEHelper.Activities
 
                 });
 
-            curGalaxy = 1;
-            curSystem = 1;
+            if (!useLimits)
+            {
+                startGalaxy = 1;
+                startSystem = 1;
+                endGalaxy = 5;
+                endSystem = 500;
+            }
+
+            curGalaxy = startGalaxy;
+            curSystem = startSystem;
 
 			ScanNextSystem();
         }
@@ -256,6 +271,7 @@ namespace GEHelper.Activities
 
         private void ScanNextSystem()
         {
+            bool scanEnded = false;
             AsyncUpdateCount(curGalaxy, curSystem);
             GEServer.Instance.ScanGalaxy(curGalaxy, curSystem, (resultList) =>
             {
@@ -268,12 +284,23 @@ namespace GEHelper.Activities
                 }
 
                 curSystem++;
-                if (curSystem > 500)
+                if  (curGalaxy == endGalaxy)
                 {
-                    curSystem = 1;
-                    curGalaxy++;
+                    if (curSystem > endSystem)
+                        scanEnded = true;
                 }
-                if (token.IsCancellationRequested || (curGalaxy > 5))
+                else
+                {
+                    if (curSystem > 500)
+                    {
+                        curSystem = 1;
+                        curGalaxy++;
+                        if (curGalaxy > endGalaxy)
+                            scanEnded = true;
+                    }
+                }
+                
+                if (token.IsCancellationRequested || scanEnded)
                 {
                     AsyncTaskComplete();
                 }
@@ -310,6 +337,8 @@ namespace GEHelper.Activities
 					CheckAlliance(curPlanet) &&
 					CheckDebris(curPlanet) &&
 					CheckOwnPlanet(curPlanet) &&
+                    CheckInactive(curPlanet) &&
+                    CheckScanLimit(curPlanet) &&
 					CheckLanx(curPlanet))
                     GEServer.Instance.FilteredScanResults.Add(curPlanet);
             }
@@ -330,6 +359,28 @@ namespace GEHelper.Activities
 			else
 				return false;
 		}
+
+        private bool CheckInactive(GEGalaxyPlanet curPlanet)
+        {
+            if (!inactiveOnly || !curPlanet.IsActive)
+                return true;
+            else
+                return false;
+        }
+
+        private bool CheckScanLimit(GEGalaxyPlanet curPlanet)
+        {
+            if (useLimits)
+            {
+                if (curPlanet.g >= startGalaxy && curPlanet.g <= endGalaxy &&
+                    curPlanet.s >= startSystem && curPlanet.s <= endSystem)
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return true;
+        }
 
         private bool CheckRank(GEGalaxyPlanet curPlanet)
         {

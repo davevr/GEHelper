@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RestSharp;
 using ServiceStack.Text;
 using System.Globalization;
+using Java.IO;
 
 
 namespace GEHelper.Core
@@ -255,24 +256,63 @@ namespace GEHelper.Core
 
 		public void SaveState()
 		{
-			AppSettings.Instance.SafeSaveSetting ("scanresults", ScanResults.ToJson ());
+            SaveScanResults();
 
             AppSettings.Instance.SafeSaveSetting("buildspecs", BuildSpecs.ToJson());
 		}
 
+        private void LoadScanResults()
+        {
+            Java.IO.File path = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDocuments);
+            string pathName = path.Path;
+            string filename = Path.Combine(pathName, "scanresults.txt");
+
+            try
+            {
+                using (var streamWriter = new StreamReader(filename))
+                {
+                    string jsonString = streamWriter.ReadToEnd();
+                    if (!String.IsNullOrEmpty(jsonString))
+                        ScanResults = jsonString.FromJson<GalaxyList>();
+                    else
+                        ScanResults = new GalaxyList();
+                }
+
+            }
+            catch (Exception exp)
+            {
+                ScanResults = new GalaxyList();
+            }
+            
+        }
+
+        private void SaveScanResults()
+        {
+            try
+            {
+                Java.IO.File path = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDocuments);
+                string pathName = path.Path;
+                string filename = Path.Combine(pathName, "scanresults.txt");
+                path.Mkdir();
+
+                string jsonString = ScanResults.ToJson();
+                //System.IO.File.Create(filename);
+                using (var streamWriter = new StreamWriter(filename, false))
+                {
+                    streamWriter.Write(jsonString);
+                }
+            }
+            catch (Exception exp)
+            {
+                System.Console.Error.WriteLine(exp.Message);
+            }
+            
+        }
+
 		private void LoadState()
 		{
-			try {
-				string scanStr = AppSettings.Instance.SafeLoadSetting ("scanresults", "");
-				if (!String.IsNullOrEmpty (scanStr)) {
-					ScanResults = scanStr.FromJson<GalaxyList> ();
-           
-				}
-                
-			} catch (Exception exp) {
-                ScanResults = new GalaxyList();
-			}
 
+            LoadScanResults();
             try
             {
                 string scanStr = AppSettings.Instance.SafeLoadSetting("buildspecs", "");

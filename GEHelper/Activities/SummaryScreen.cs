@@ -20,10 +20,11 @@ using Android.Support.V7.AppCompat;
 using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using GEHelper.Core;
+using Android.Content.PM;
 
 namespace GEHelper.Activities
 {
-	[Activity(Label = "Galactic Empires Helper", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/Theme.AppCompat.Light")]
+	[Activity(Label = "Galactic Empires Helper", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/Theme.AppCompat.Light", ConfigurationChanges = ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class SummaryScreen : Android.Support.V7.App.ActionBarActivity
     {
         private bool refreshInProgress = false;

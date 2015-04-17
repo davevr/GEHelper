@@ -22,6 +22,9 @@ namespace GEHelper
 	{
 		public GEHelper.Activities.SearchAndScanActivity BaseView;
         private Button sendSpyBtn;
+        private Button startBombardBtn;
+        private Button endBombardBtn;
+        private Button copyResutlsBtn;
         private TextView sentProbeField;
         private TextView receivedProbeField;
         private LinearLayout statusArea;
@@ -45,10 +48,45 @@ namespace GEHelper
             sendSpyBtn = view.FindViewById<Button>(Resource.Id.SendSpiesBtn);
             sendSpyBtn.Click += sendSpyBtn_Click;
 
+            startBombardBtn = view.FindViewById<Button>(Resource.Id.StartBombardBtn);
+            endBombardBtn = view.FindViewById<Button>(Resource.Id.EndBombardBtn);
+            copyResutlsBtn = view.FindViewById<Button>(Resource.Id.CopyResultsBtn);
+
+            startBombardBtn.Enabled = false;
+            endBombardBtn.Enabled = false;
+
+            copyResutlsBtn.Click += copyResutlsBtn_Click;
+
             statusArea.Visibility = ViewStates.Gone;
 
 			return view;
 		}
+
+        void copyResutlsBtn_Click(object sender, EventArgs e)
+        {
+            ClipboardManager clipboard = (ClipboardManager)this.Activity.GetSystemService(Context.ClipboardService);
+            string theStr = GetResultString();
+            var clip = ClipData.NewPlainText("fleet", theStr);
+            clipboard.PrimaryClip = clip;
+        }
+
+        private string GetResultString()
+        {
+            string theStr = "";
+
+            foreach (GEGalaxyPlanet curPlanet in GEServer.Instance.FilteredScanResults)
+            {
+                theStr += String.Format("{0}:{1}:{2} - {3}",
+                    curPlanet.g, curPlanet.s, curPlanet.p, curPlanet.name);
+                theStr += System.Environment.NewLine;
+
+                theStr += String.Format("    owned by {0}", curPlanet.username);
+                theStr += System.Environment.NewLine;
+                theStr += System.Environment.NewLine;
+            }
+
+            return theStr;
+        }
 
         void sendSpyBtn_Click(object sender, EventArgs e)
         {

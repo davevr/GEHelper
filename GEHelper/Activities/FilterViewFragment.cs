@@ -33,6 +33,13 @@ namespace GEHelper
 		private EditText allianceField;
 		private CheckBox debrisCheckbox;
 		private EditText debrisField;
+        private CheckBox inactiveCheckbox;
+        private CheckBox limitScanRangeCheckbox;
+        private EditText startGalaxyField;
+        private EditText endGalaxyField;
+        private EditText startSystemField;
+        private EditText endSystemField;
+        private LinearLayout ScanLimitArea;
 
 		private Button FilterNowBtn;
 		private Button ClearFilterBtn;
@@ -65,17 +72,37 @@ namespace GEHelper
 
 			ownPlanetsCheckbox = view.FindViewById<CheckBox>(Resource.Id.ownPlanetsCheckbox);
 
+            inactiveCheckbox = view.FindViewById<CheckBox>(Resource.Id.inactiveCheckbox);
+
+            limitScanRangeCheckbox = view.FindViewById<CheckBox>(Resource.Id.limitRangeCheckbox);
+            ScanLimitArea = view.FindViewById<LinearLayout>(Resource.Id.scanLimitArea);
+            startGalaxyField = view.FindViewById<EditText>(Resource.Id.startGalaxyField);
+            endGalaxyField = view.FindViewById<EditText>(Resource.Id.endGalaxyField);
+            startSystemField = view.FindViewById<EditText>(Resource.Id.startSystemField);
+            endSystemField = view.FindViewById<EditText>(Resource.Id.endSystemField);
+
 			FilterNowBtn = view.FindViewById<Button>(Resource.Id.filterNowBtn);
 			ClearFilterBtn = view.FindViewById<Button>(Resource.Id.clearFilterBtn);
 
 
-
+            ScanLimitArea.Visibility = ViewStates.Gone;
 
 			FilterNowBtn.Click += FilterNowBtn_Click;
 			ClearFilterBtn.Click += ClearFilterBtn_Click;
+            limitScanRangeCheckbox.CheckedChange += limitScanRangeCheckbox_CheckedChange;
 
 			return view;
 		}
+
+        void limitScanRangeCheckbox_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
+        {
+            if (e.IsChecked)
+                ScanLimitArea.Visibility = ViewStates.Visible;
+            else
+                ScanLimitArea.Visibility = ViewStates.Gone;
+        }
+
+
 
 		void ClearFilterBtn_Click(object sender, EventArgs e)
 		{
@@ -108,7 +135,16 @@ namespace GEHelper
 
 			BaseView.includeOwnPlanets = ownPlanetsCheckbox.Checked;
 
+            BaseView.inactiveOnly = inactiveCheckbox.Checked;
 
+            BaseView.useLimits = limitScanRangeCheckbox.Checked;
+            if (BaseView.useLimits)
+            {
+                int.TryParse(startGalaxyField.Text, out BaseView.startGalaxy);
+                int.TryParse(endGalaxyField.Text, out BaseView.endGalaxy);
+                int.TryParse(startSystemField.Text, out BaseView.startSystem);
+                int.TryParse(endSystemField.Text, out BaseView.endSystem);
+            }
 
 
 			BaseView.UserApplyFilters ();

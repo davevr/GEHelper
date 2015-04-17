@@ -46,4 +46,33 @@
             android:layout_height="match_parent"
             android:id="@+id/receivedProbeField" />
     </LinearLayout>
+    <TextView
+        android:text="Bombard"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="Start Attack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/StartBombardBtn" />
+        <Button
+            android:text="End Attack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/EndBombardBtn" />
+    </LinearLayout>
+    <Button
+        android:text="Copy to Clipboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/CopyResultsBtn" />
 </LinearLayout>

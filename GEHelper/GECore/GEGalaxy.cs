@@ -52,6 +52,14 @@ namespace GEHelper.Core
 
         public Resources resources { get; set; }
         public Fleet fleet { get; set; }
+
+        public bool IsActive
+        {
+            get
+            {
+                return status != "(Inactive)";
+            }
+        }
     }
 
     public class GalaxyList :  ObservableCollection<GEGalaxyPlanet> 
