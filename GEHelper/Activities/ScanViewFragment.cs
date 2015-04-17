@@ -22,6 +22,7 @@ namespace GEHelper
 	{
 		public GEHelper.Activities.SearchAndScanActivity BaseView;
 		public Button ScanNowBtn;
+		public Button ScanFilterBtn;
 		public Button CancelScanBtn;
 		public ListView TargetList;
 
@@ -34,8 +35,8 @@ namespace GEHelper
 			base.OnCreateView (inflater, container, savedInstanceState);
 			var view = inflater.Inflate(Resource.Layout.ScanViewFragment, container, false);
 
-
 			ScanNowBtn = view.FindViewById<Button>(Resource.Id.scanBtn);
+			ScanFilterBtn = view.FindViewById<Button>(Resource.Id.scanFilteredBtn);
 			CancelScanBtn = view.FindViewById<Button>(Resource.Id.cancelBtn);
 			TargetList = view.FindViewById<ListView>(Resource.Id.enemyList);
 			TargetList.Adapter = new TargetListAdapter(this.Activity, null, TargetList);
@@ -45,6 +46,8 @@ namespace GEHelper
 			ScanNowBtn.Click += ScanNowBtn_Click;
 			CancelScanBtn.Click += CancelScanBtn_Click;
 			CancelScanBtn.Enabled = false;
+
+			ScanFilterBtn.Click += ScanFilterBtn_Click;
 
 			return view;
 		}
@@ -86,7 +89,12 @@ namespace GEHelper
 
 		public void ScanNowBtn_Click(object sender, EventArgs e)
 		{
-			BaseView.UserStartScan ();
+			BaseView.UserStartScan (false);
+		}
+
+		public void ScanFilterBtn_Click(object sender, EventArgs e)
+		{
+			BaseView.UserStartScan (true);
 		}
 
 		public void ShowScanProgress()

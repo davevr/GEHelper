@@ -110,9 +110,9 @@ namespace GEHelper.Core
 				int spread = Math.Abs (solarsystem - int.Parse (s));
 				return spread;
 			} else
-				return int.MaxValue;
-			
+				return int.MaxValue;	
 		}
+
 
 		public int GetTravelDistance(int galaxy, int solarsystem, int planet) {
 			int flightDistance = int.MaxValue;

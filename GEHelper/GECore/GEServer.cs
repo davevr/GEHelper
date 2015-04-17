@@ -167,6 +167,34 @@ namespace GEHelper.Core
 				return null;
 		}
 
+		public int GetBuildTimeInSeconds(BuildSpec theSpec, GEPlanet thePlanet)
+		{
+			int speed = this.ServerState.user.game_speed;
+			int shipyardLevel = int.Parse(thePlanet.shipyard);
+			int naniteLevel = int.Parse (thePlanet.nanite_factory);
+			int totalSec = 0;
+			long totalMetal = 0, totalCrystal = 0;
+			long curMetal, curCrystal, curDeut;
+
+			if (theSpec.defense != null) {
+				theSpec.defense.GetBuildCost (out curMetal, out curCrystal, out curDeut);
+				totalMetal += curMetal;
+				totalCrystal += curCrystal;
+			}
+
+			if (theSpec.fleet != null) {
+				theSpec.fleet.GetBuildCost (out curMetal, out curCrystal, out curDeut);
+				totalMetal += curMetal;
+				totalCrystal += curCrystal;
+			}
+
+			double timeInHours = (totalMetal + totalCrystal) / (2500 * (1 + shipyardLevel) * Math.Pow (2, naniteLevel) * speed);
+			totalSec = (int)(timeInHours / (double)3600);
+
+			return totalSec;
+		}
+
+
 		public GEPlanet	GetLanxable(int galaxy, int solarsystem) {
 			foreach (GEPlanet curPlanet in ServerState.planetList) {
 				if (curPlanet.CanLanx(galaxy, solarsystem))
