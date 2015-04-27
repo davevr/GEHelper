@@ -58,6 +58,9 @@ namespace GEHelper.Activities
         public int endGalaxy;
         public int endSystem;
 
+		private bool filteredScan;
+		private List<GEGalaxyPlanet> rescanList;
+
 
 
 		private int myRank;
@@ -224,8 +227,14 @@ namespace GEHelper.Activities
             }
         }
 
-		public void UserStartScan()
+		public void UserStartScan(bool filtered)
         {
+			filteredScan = filtered;
+			rescanList = null;
+			if (filtered && (!useLimits))
+			{
+				rescanList = new List<GEGalaxyPlanet>(GEServer.Instance.FilteredScanResults);
+			}
             tokenSource = new CancellationTokenSource();
             token = tokenSource.Token;
             scanTask = new Task(StartScan, token);
@@ -271,13 +280,14 @@ namespace GEHelper.Activities
 
                 });
 
-            if (!useLimits)
-            {
-                startGalaxy = 1;
-                startSystem = 1;
-                endGalaxy = 5;
-                endSystem = 500;
-            }
+			if (rescanList == null) {
+				if (!useLimits) {
+					startGalaxy = 1;
+					startSystem = 1;
+					endGalaxy = 5;
+					endSystem = 500;
+				}
+			}
 
             curGalaxy = startGalaxy;
             curSystem = startSystem;

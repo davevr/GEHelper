@@ -25,8 +25,13 @@
             android:layout_height="match_parent"
             android:id="@+id/cancelBtn" />
         <Button
-            android:text="Refresh Scan"
+            android:text="Full Scan"
             android:id="@+id/scanBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <Button
+            android:text="Rescan Filtered"
+            android:id="@+id/scanFilteredBtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
     </LinearLayout>

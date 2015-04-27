@@ -1,39 +1,22 @@
 ﻿<Properties StartupItem="GEHelper/GEHelper.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.0467ad8243839436" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.192.168.56.101:5555" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="GEHelper/Activities/SearchAndScanActivity.cs">
     <Files>
-      <File FileName="GEHelper/Activities/SearchAndScanActivity.cs" Line="193" Column="21" />
-      <File FileName="GEHelper/Activities/ScanViewFragment.cs" Line="65" Column="5" />
-      <File FileName="GEHelper/Activities/ActionViewFragment.cs" Line="19" Column="49" />
-      <File FileName="GEHelper/Activities/FleetFragment.cs" Line="19" Column="6" />
+      <File FileName="GEHelper/Activities/SearchAndScanActivity.cs" Line="196" Column="34" />
+      <File FileName="GEHelper/Activities/ActionViewFragment.cs" Line="1" Column="1" />
+      <File FileName="GEHelper/Activities/FleetFragment.cs" Line="1" Column="1" />
       <File FileName="GEHelper/Activities/SignInActivity.cs" Line="1" Column="1" />
       <File FileName="GEHelper/Activities/ChooseUniverseActivity.cs" Line="1" Column="1" />
-      <File FileName="GEHelper/MainActivity.cs" Line="67" Column="14" />
-      <File FileName="GEHelper/Activities/SummaryScreen.cs" Line="117" Column="7" />
-      <File FileName="GEHelper/Activities/PlanetsFragment.cs" Line="51" Column="36" />
-      <File FileName="GEHelper/Activities/FilterViewFragment.cs" Line="112" Column="4" />
-      <File FileName="GEHelper/Views/TargetItemView.cs" Line="92" Column="84" />
-      <File FileName="GEHelper/GECore/GEPlanet.cs" Line="111" Column="12" NotebookId="1" />
-      <File FileName="GEHelper/GECore/GEServer.cs" Line="168" Column="5" NotebookId="1" />
-      <File FileName="GEHelper/Adapters/PlanetListAdapter.cs" Line="34" Column="1" NotebookId="1" />
+      <File FileName="GEHelper/MainActivity.cs" Line="1" Column="1" />
+      <File FileName="GEHelper/Activities/SummaryScreen.cs" Line="1" Column="1" />
+      <File FileName="GEHelper/Activities/PlanetsFragment.cs" Line="1" Column="1" />
+      <File FileName="GEHelper/Activities/FilterViewFragment.cs" Line="1" Column="1" />
+      <File FileName="GEHelper/Views/TargetItemView.cs" Line="1" Column="1" />
+      <File FileName="GEHelper/GECore/GEPlanet.cs" Line="116" Column="3" NotebookId="1" />
+      <File FileName="GEHelper/GECore/GEServer.cs" Line="169" Column="3" NotebookId="1" />
+      <File FileName="GEHelper/Adapters/PlanetListAdapter.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="GEHelper/Activities/ScanViewFragment.cs" Line="97" Column="26" NotebookId="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="GEHelper" expanded="True">
-            <Node name="Activities" expanded="True" />
-            <Node name="Adapters" expanded="True" />
-            <Node name="GECore" expanded="True" />
-            <Node name="Resources" expanded="True">
-              <Node name="layout" expanded="True" />
-            </Node>
-            <Node name="Views" expanded="True">
-              <Node name="TargetItemView.cs" selected="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

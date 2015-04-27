@@ -2637,8 +2637,8 @@ namespace GEHelper
 			// aapt resource value: 0x7f070055
 			public const int debrisField = 2131165269;
 			
-			// aapt resource value: 0x7f07008c
-			public const int debrisText = 2131165324;
+			// aapt resource value: 0x7f07008d
+			public const int debrisText = 2131165325;
 			
 			// aapt resource value: 0x7f070031
 			public const int decor_content_parent = 2131165233;
@@ -2655,8 +2655,8 @@ namespace GEHelper
 			// aapt resource value: 0x7f070009
 			public const int disableHome = 2131165193;
 			
-			// aapt resource value: 0x7f070089
-			public const int drawer_layout = 2131165321;
+			// aapt resource value: 0x7f07008a
+			public const int drawer_layout = 2131165322;
 			
 			// aapt resource value: 0x7f070013
 			public const int dropdown = 2131165203;
@@ -2691,8 +2691,8 @@ namespace GEHelper
 			// aapt resource value: 0x7f070061
 			public const int fleet_tabs = 2131165281;
 			
-			// aapt resource value: 0x7f07008a
-			public const int fragmentContainer = 2131165322;
+			// aapt resource value: 0x7f07008b
+			public const int fragmentContainer = 2131165323;
 			
 			// aapt resource value: 0x7f070079
 			public const int header = 2131165305;
@@ -2751,8 +2751,8 @@ namespace GEHelper
 			// aapt resource value: 0x7f070056
 			public const int lanxCheckbox = 2131165270;
 			
-			// aapt resource value: 0x7f07008b
-			public const int left_drawer = 2131165323;
+			// aapt resource value: 0x7f07008c
+			public const int left_drawer = 2131165324;
 			
 			// aapt resource value: 0x7f070059
 			public const int limitRangeCheckbox = 2131165273;
@@ -2823,14 +2823,17 @@ namespace GEHelper
 			// aapt resource value: 0x7f07007e
 			public const int scanBtn = 2131165310;
 			
+			// aapt resource value: 0x7f07007f
+			public const int scanFilteredBtn = 2131165311;
+			
 			// aapt resource value: 0x7f07005a
 			public const int scanLimitArea = 2131165274;
 			
-			// aapt resource value: 0x7f070080
-			public const int scan_pager = 2131165312;
+			// aapt resource value: 0x7f070081
+			public const int scan_pager = 2131165313;
 			
-			// aapt resource value: 0x7f07007f
-			public const int scan_tabs = 2131165311;
+			// aapt resource value: 0x7f070080
+			public const int scan_tabs = 2131165312;
 			
 			// aapt resource value: 0x7f070037
 			public const int search_badge = 2131165239;
@@ -2862,8 +2865,8 @@ namespace GEHelper
 			// aapt resource value: 0x7f070040
 			public const int search_voice_btn = 2131165248;
 			
-			// aapt resource value: 0x7f070083
-			public const int selectedCount = 2131165315;
+			// aapt resource value: 0x7f070084
+			public const int selectedCount = 2131165316;
 			
 			// aapt resource value: 0x7f070043
 			public const int sendProbeField = 2131165251;
@@ -2880,17 +2883,17 @@ namespace GEHelper
 			// aapt resource value: 0x7f070007
 			public const int showTitle = 2131165191;
 			
-			// aapt resource value: 0x7f070082
-			public const int shownCount = 2131165314;
+			// aapt resource value: 0x7f070083
+			public const int shownCount = 2131165315;
+			
+			// aapt resource value: 0x7f070089
+			public const int signInButton = 2131165321;
+			
+			// aapt resource value: 0x7f070086
+			public const int signInEmailAddress = 2131165318;
 			
 			// aapt resource value: 0x7f070088
-			public const int signInButton = 2131165320;
-			
-			// aapt resource value: 0x7f070085
-			public const int signInEmailAddress = 2131165317;
-			
-			// aapt resource value: 0x7f070087
-			public const int signInPassword = 2131165319;
+			public const int signInPassword = 2131165320;
 			
 			// aapt resource value: 0x7f070068
 			public const int splashimage = 2131165288;
@@ -2922,17 +2925,17 @@ namespace GEHelper
 			// aapt resource value: 0x7f07007b
 			public const int text = 2131165307;
 			
-			// aapt resource value: 0x7f070084
-			public const int textView1 = 2131165316;
+			// aapt resource value: 0x7f070085
+			public const int textView1 = 2131165317;
 			
-			// aapt resource value: 0x7f070086
-			public const int textView2 = 2131165318;
+			// aapt resource value: 0x7f070087
+			public const int textView2 = 2131165319;
 			
 			// aapt resource value: 0x7f070029
 			public const int title = 2131165225;
 			
-			// aapt resource value: 0x7f070081
-			public const int totalCount = 2131165313;
+			// aapt resource value: 0x7f070082
+			public const int totalCount = 2131165314;
 			
 			// aapt resource value: 0x7f07001d
 			public const int up = 2131165213;
