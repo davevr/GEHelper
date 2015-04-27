@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
+using ServiceStack.Text;
 
 namespace GEHelper.Core
 {
@@ -383,6 +385,16 @@ namespace GEHelper.Core
             return result;
         }
 
+        public double GetBuildTime()
+        {
+            long metal,  crystal,  deuterium;
+            GetBuildCost(out metal, out crystal, out deuterium);
+
+            double buildTime = 3600.0 * ((metal + crystal) / (2500.0 * (1 + double.Parse(GEServer.Instance.CurrentPlanet.shipyard)) * Math.Pow(2, double.Parse(GEServer.Instance.CurrentPlanet.nanite_factory))));
+
+            return buildTime / 5; // to do:  find universe time...
+        }
+
         public void GetBuildCost(out long metal, out long crystal, out long deuterium)
         {
             metal = crystal = deuterium = 0;
@@ -549,5 +561,49 @@ namespace GEHelper.Core
 
     public class MailList : List<MailItem> 
     { 
+    }
+
+    [DataContract]
+    public class MailCount
+    {
+         [DataMember(Name = "new")]
+        public int newCount {get; set;}
+         [DataMember(Name = "total")]
+        public int totalCount {get; set;}
+    }
+
+    [DataContract]
+    public class MailCatalog
+    {
+        [DataMember(Name = "0")]
+        public MailCount SpyReports { get; set; }
+        [DataMember(Name = "1")]
+        public MailCount PrivateMessages { get; set; }
+        [DataMember(Name = "2")]
+        public MailCount AllianceMessages { get; set; }
+        [DataMember(Name = "3")]
+        public MailCount CombatReports { get; set; }
+        [DataMember(Name = "4")]
+        public MailCount Type4Reports { get; set; }
+        [DataMember(Name = "5")]
+        public MailCount TransportationReports { get; set; }
+        [DataMember(Name = "6")]
+        public MailCount Type6Reports { get; set; }
+        [DataMember(Name = "7")]
+        public MailCount Type7Reports { get; set; }
+        [DataMember(Name = "15")]
+        public MailCount Type8Reports { get; set; }
+        [DataMember(Name = "16")]
+        public MailCount Type16Reports { get; set; }
+        [DataMember(Name = "99")]
+        public MailCount Type99Reports { get; set; }
+        [DataMember(Name = "100")]
+        public MailCount AllReports { get; set; } 
+
+    }
+
+    public class MailResult
+    {
+        public MailCatalog mailcat { get; set; }
     }
 }

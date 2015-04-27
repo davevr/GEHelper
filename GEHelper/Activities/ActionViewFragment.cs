@@ -15,6 +15,9 @@ using Android.Support.V4.View;
 using Android.Support.V4.App;
 using GEHelper.Core;
 using System.Timers;
+using System.Threading;
+using System.Threading.Tasks;
+
 
 namespace GEHelper
 {
@@ -25,13 +28,17 @@ namespace GEHelper
         private Button startBombardBtn;
         private Button endBombardBtn;
         private Button copyResutlsBtn;
+        private TextView bombardLabel;
         private TextView sentProbeField;
         private TextView receivedProbeField;
         private LinearLayout statusArea;
         private int numToSend = 0;
         private int numSent = 0;
         private int numReceived = 0;
-        private Timer waitTimer = null;
+        private System.Timers.Timer waitTimer = null;
+        private CancellationToken token;
+        private CancellationTokenSource tokenSource;
+        private Task bombardTask = null;
 
 
 		public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -51,16 +58,181 @@ namespace GEHelper
             startBombardBtn = view.FindViewById<Button>(Resource.Id.StartBombardBtn);
             endBombardBtn = view.FindViewById<Button>(Resource.Id.EndBombardBtn);
             copyResutlsBtn = view.FindViewById<Button>(Resource.Id.CopyResultsBtn);
+            bombardLabel = view.FindViewById<TextView>(Resource.Id.bombardStatusField);
 
-            startBombardBtn.Enabled = false;
+            startBombardBtn.Enabled = true;
             endBombardBtn.Enabled = false;
 
             copyResutlsBtn.Click += copyResutlsBtn_Click;
+            startBombardBtn.Click += startBombardBtn_Click;
+            endBombardBtn.Click += endBombardBtn_Click;
 
             statusArea.Visibility = ViewStates.Gone;
 
 			return view;
 		}
+
+        public void UpdateForSelection()
+        {
+            if (bombardLabel != null)
+                UpdateBombardStatus();
+        }
+
+        void UpdateBombardStatus()
+        {
+            this.BaseView.Activity.RunOnUiThread(() =>
+            {
+                if (BaseView.TargetPlanet != null)
+                {
+                    bombardLabel.Text = String.Format("bombard {0} ({1}:{2}:{3})", BaseView.TargetPlanet.name, BaseView.TargetPlanet.g, BaseView.TargetPlanet.s, BaseView.TargetPlanet.p);
+                }
+                else
+                {
+                    bombardLabel.Text = String.Format("bombard {0} targets", GEServer.Instance.FilteredScanResults.Count);
+                }
+            });
+
+        }
+
+        void endBombardBtn_Click(object sender, EventArgs e)
+        {
+            UserCancelBombard();
+        }
+
+        void startBombardBtn_Click(object sender, EventArgs e)
+        {
+            UserStartBombard(); 
+        }
+
+        public void UserCancelBombard()
+        {
+            if (bombardTask != null)
+            {
+                tokenSource.Cancel();
+            }
+        }
+
+        public void UserStartBombard()
+        {
+            tokenSource = new CancellationTokenSource();
+            token = tokenSource.Token;
+            bombardTask = new Task(StartBombard, token);
+            bombardTask.Start();
+        }
+
+        private void StartBombard()
+        {
+            this.Activity.RunOnUiThread(() =>
+            {
+                endBombardBtn.Enabled = true;
+                startBombardBtn.Enabled = false;
+            });
+
+            BombardActiveList();
+        }
+
+        private void BombardActiveList()
+        {
+            List<GEGalaxyPlanet> bombardList;
+
+            if (BaseView.TargetPlanet == null)
+                bombardList = new List<GEGalaxyPlanet>(GEServer.Instance.FilteredScanResults);
+            else
+            {
+                bombardList = new List<GEGalaxyPlanet>();
+                bombardList.Add(BaseView.TargetPlanet);
+
+            }
+
+            BombardNextPlanet(bombardList);
+        }
+
+        private void BombardNextPlanet(List<GEGalaxyPlanet> curList)
+        {
+            GEGalaxyPlanet curPlanet = curList[0];
+
+            curList.RemoveAt(0);
+            int maxRange = (5 * int.Parse(GEServer.Instance.ServerState.user.impulse_drive_tech)) - 1;
+            GEPlanet basePlanet = GEServer.Instance.GetNearestPlanetInGalaxy(curPlanet.g, curPlanet.s, maxRange);
+
+            if (basePlanet != null)
+            {
+                if (basePlanet != GEServer.Instance.CurrentPlanet)
+                {
+                    GEServer.Instance.SetPlanet(basePlanet.id, (theResult) =>
+                    {
+                        BombardPlanet(curPlanet, curList);
+                    });
+                }
+                else
+                    BombardPlanet(curPlanet, curList);
+            }
+            else
+            {
+                FinishBombardPlanet(curList);
+            }
+            
+            
+        }
+
+        private void BombardPlanet(GEGalaxyPlanet curPlanet, List<GEGalaxyPlanet> curList)
+        {
+            Defense defList = new Defense();
+            int maxMissiles = int.Parse(GEServer.Instance.CurrentPlanet.missile_silo) * 5;
+            maxMissiles -= int.Parse(GEServer.Instance.CurrentPlanet.anti_ballistic_missiles) / 2;
+            int needed = maxMissiles - int.Parse(GEServer.Instance.CurrentPlanet.interplanetary_missiles);
+            defList.interplanetary_missiles = needed;
+            int sleepTime = (int)defList.GetBuildTime();
+
+            GEServer.Instance.BuildDefense(defList, (theBuildResult) =>
+                {
+                    Thread.Sleep(sleepTime * 1000); // let them build before launch
+                    // next planet
+                    GEServer.Instance.Bombard(curPlanet.g, curPlanet.s, curPlanet.p, maxMissiles, (theResult) =>
+                       {
+                            FinishBombardPlanet(curList);
+                       });
+
+                });
+           
+
+        }
+
+        private void FinishBombardPlanet(List<GEGalaxyPlanet> curList)
+        {
+            if (token.IsCancellationRequested)
+            {
+                AsyncTaskComplete();
+            }
+            else
+                ContinueBombardment(curList);
+        }
+
+        private void ContinueBombardment(List<GEGalaxyPlanet> curList)
+        {
+
+            if (curList.Count > 0)
+                BombardNextPlanet(curList);
+            else
+                BombardActiveList();
+        }
+
+
+        private void AsyncUpdateCount(int gal, int sol)
+        {
+            //ScanView.UpdateScanProgress(gal, sol);
+
+        }
+
+        private void AsyncTaskComplete()
+        {
+            this.Activity.RunOnUiThread(() =>
+            {
+                endBombardBtn.Enabled = false;
+                startBombardBtn.Enabled = true;
+            });
+
+        }
 
         void copyResutlsBtn_Click(object sender, EventArgs e)
         {
@@ -149,7 +321,6 @@ namespace GEHelper
                     });
                 }
             }
-            
         }
 
         void ScanNextPlanet(GalaxyList theList)
@@ -163,17 +334,38 @@ namespace GEHelper
                         numSent++;
                     if (curPlanet.moon != null)
                     {
-                        GEServer.Instance.SpyPlanet(curPlanet.g, curPlanet.s, curPlanet.p, "3", (theMoonResult) =>
-                            {
-                                if (theMoonResult == "ok")
-                                    numSent++; 
-                                ScanNextPlanetInList(theList);
-                            });
-
+                        MaybeScanMoon(curPlanet, theList);
                     }
                     else
                         ScanNextPlanetInList(theList);
                 });
+        }
+
+        private void MaybeScanMoon(GEGalaxyPlanet thePlanet, GalaxyList theList)
+        {
+            if (!GEServer.Instance.IsFleetSlotAvailable)
+            {
+                DateTime minTime = GEServer.Instance.GetFirstFleetReturnTime();
+                TimeSpan waitTime = minTime - DateTime.Now;
+                System.Threading.Thread.Sleep(5000);
+                GEServer.Instance.Refresh((theResult) =>
+                {
+                    MaybeScanMoon(thePlanet, theList);
+                });
+
+            }
+            else
+                ScanMoon(thePlanet, theList);
+        }
+
+        private void ScanMoon(GEGalaxyPlanet curPlanet, GalaxyList theList)
+        {
+            GEServer.Instance.SpyPlanet(curPlanet.g, curPlanet.s, curPlanet.p, "3", (theMoonResult) =>
+            {
+                if (theMoonResult == "ok")
+                    numSent++;
+                ScanNextPlanetInList(theList);
+            });
         }
 
         void ScanNextPlanetInList(GalaxyList theList)
@@ -188,7 +380,7 @@ namespace GEHelper
 
         void WaitForScanToComplete()
         {
-            waitTimer = new Timer();
+            waitTimer = new System.Timers.Timer();
             waitTimer.Interval = 2000;
             waitTimer.AutoReset = false;
             waitTimer.Elapsed += waitTmer_Elapsed;
@@ -198,20 +390,23 @@ namespace GEHelper
 
         void waitTmer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            GEServer.Instance.CheckMail("0", (mailList) =>
+            GEServer.Instance.CheckAllMail((mailCat) =>
                 {
-                    numReceived = mailList.Count;
+                    numReceived = mailCat.SpyReports.totalCount;
                     UpdateStatusText();
+                    
                     if (numReceived >= numSent)
-                        CompleteSpyMission(mailList);
+                        CompleteSpyMission(mailCat);
                     else
                         waitTimer.Start();
+                     
 
                 });
         }
 
-        void CompleteSpyMission(MailList reportList)
+        void CompleteSpyMission(MailCatalog reportList)
         {
+            /*
            foreach (MailItem curItem in reportList)
            {
                int g = curItem.message_data.target_g;
@@ -232,8 +427,8 @@ namespace GEHelper
                    curMoon.resources = curItem.message_data.resources;
                    curMoon.fleet = curItem.message_data.ships;
                }
-
            }
+            */
 
            this.Activity.RunOnUiThread(() =>
                {

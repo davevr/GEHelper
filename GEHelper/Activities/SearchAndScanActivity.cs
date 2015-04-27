@@ -20,7 +20,7 @@ using com.refractored;
 namespace GEHelper.Activities
 {
     [Activity(Label = "SearchAndScanActivity")]
-	public class SearchAndScanActivity : Android.Support.V4.App.Fragment
+	public class SearchAndScanActivity : Android.Support.V4.App.Fragment, ViewPager.IOnPageChangeListener
     {
         public SummaryScreen SummaryPage { get; set; }
         private int curGalaxy, curSystem;
@@ -36,6 +36,7 @@ namespace GEHelper.Activities
 		public static FilterViewFragment FilterView;
 		public static ScanViewFragment ScanView;
 		public static ActionViewFragment ActionView;
+        public GEGalaxyPlanet _targetPlanet = null;
 
 		// filters
 		public string scanName;
@@ -135,14 +136,56 @@ namespace GEHelper.Activities
             var pager = view.FindViewById<ViewPager>(Resource.Id.scan_pager);
             pager.Adapter = new ScanPageAdapter(this.FragmentManager);
 
-            var tabs = view.FindViewById<PagerSlidingTabStrip>(Resource.Id.scan_tabs);
+            PagerSlidingTabStrip tabs = view.FindViewById<PagerSlidingTabStrip>(Resource.Id.scan_tabs);
             tabs.SetViewPager(pager);
+            tabs.OnPageChangeListener = this;
 
 			//Refresh ();
             return view;
      
         }
 
+        public void OnPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+        {
+
+        }
+
+        public void OnPageScrollStateChanged(int state)
+        {
+
+        }
+
+        public void OnPageSelected(int position)
+        {
+            switch(position)
+            {
+                case 0:
+                    break;
+
+                case 1:
+                    break;
+
+                case 2:
+                    UpdateForSelection();
+                    break;
+            }
+        }
+
+        public GEGalaxyPlanet TargetPlanet
+        {
+            get { return _targetPlanet; }
+            set
+            {
+                _targetPlanet = value;
+                UpdateForSelection();
+            }
+        }
+
+        public void UpdateForSelection()
+        {
+            ActionView.UpdateForSelection();
+
+        }
 		public void UpdateCounters()
 		{
 			int totalCount = GEServer.Instance.ScanResults.Count;

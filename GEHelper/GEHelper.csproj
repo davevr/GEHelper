@@ -582,9 +582,6 @@
     <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -593,6 +590,7 @@
     <AndroidResource Include="Resources\drawable\list_color_selector.xml" />
     <AndroidResource Include="Resources\drawable\list_item_text_selector.xml" />
     <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="PagerSlidingTabStrip">

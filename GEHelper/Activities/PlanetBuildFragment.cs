@@ -64,6 +64,7 @@ namespace GEHelper.Activities
 
         void BuildSpecListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
+            selectedIndex = e.Position;
             ((BuildSpecListAdapter)BuildSpecListView.Adapter).selectedIndex = e.Position;
             BuildSpecListView.SetSelection(selectedIndex);
 

@@ -15,6 +15,7 @@ namespace GEHelper.Core
     public delegate void bool_callback(bool theResult);
     public delegate void GalaxyList_callback(GalaxyList theResult);
     public delegate void MailList_callback(MailList theResult);
+    public delegate void MailCat_callback(MailCatalog theResult);
   
 
     public class ServerResponse
@@ -593,7 +594,7 @@ namespace GEHelper.Core
             queryString += "&p=" + planet;
             queryString += "&t=" + type;        // 1=planet, 3=moon, 2=debris
             queryString += "&speed=" + speed; // 1-10
-            queryString += "&mission=" + mission;  //1=attack, 3=transport, 4=deploy, 6=spy
+            queryString += "&mission=" + mission;  //1=attack, 3=transport, 4=deploy, 6=spy, 10=missles
             queryString += "&fleet_group=" + fleetGroup;  // 0 = none
             queryString += "&stay=" + stayTime; // 0 = none
 
@@ -670,6 +671,48 @@ namespace GEHelper.Core
 
         }
 
+        public void Bombard(int galaxy, int solarsystem, int planet, int qty, string_callback callback)
+        {
+            string queryString = "";
+            queryString += "object=shipyard";
+            queryString += "&action=missiles";
+            queryString += "&mission=10";
+            queryString += "&g=" + galaxy;
+            queryString += "&s=" + solarsystem;
+            queryString += "&p=" + planet;
+            queryString += "&t=1";
+            queryString += "&target_object=8";
+            queryString += "&missiles=" + qty; 
+
+            try
+            {
+                MakeAPICall(queryString, (content) =>
+                {
+                    try
+                    {
+                        GEStatusObject response = content.FromJson<GEStatusObject>();
+                        response.Normalize();
+                        _serverState = response.state;
+                        if (callback != null)
+                            callback("ok");
+                    }
+                    catch (Exception)
+                    {
+                        if (callback != null)
+                            callback("failed");
+                    }
+                });
+            }
+            catch (Exception exp)
+            {
+                // to do:  do something
+                if (callback != null)
+                    callback("failed");
+            }
+
+        }
+
+
       
         // mailtypes = 0 = spy
         public void CheckMail(string mailtype, MailList_callback callback)
@@ -696,6 +739,38 @@ namespace GEHelper.Core
                             else
                                 callback(null);
                         }
+                    }
+                    catch (Exception)
+                    {
+                        if (callback != null)
+                            callback(null);
+                    }
+                });
+            }
+            catch (Exception exp)
+            {
+                // to do:  do something
+                if (callback != null)
+                    callback(null);
+            }
+        }
+
+        public void CheckAllMail(MailCat_callback callback)
+        {
+            string queryString = "";
+            queryString += "object=mail";
+            queryString += "&action=cat";
+
+
+            try
+            {
+                MakeAPICall(queryString, (content) =>
+                {
+                    try
+                    {
+                        MailResult response = content.FromJson<MailResult>();
+
+                        callback(response.mailcat);
                     }
                     catch (Exception)
                     {

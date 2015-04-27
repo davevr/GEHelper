@@ -53,7 +53,11 @@ namespace GEHelper
         {
             bool    isChecked =  !TargetList.IsItemChecked(e.Position);
             TargetList.SetItemChecked(e.Position, isChecked);
-            
+            GEGalaxyPlanet selectedPlanet = GEServer.Instance.FilteredScanResults[e.Position];
+            if (selectedPlanet == BaseView.TargetPlanet)
+                BaseView.TargetPlanet = null;
+            else
+                BaseView.TargetPlanet = selectedPlanet;  
         }
 
 
